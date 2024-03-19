@@ -1,0 +1,129 @@
+.sidenav {
+    margin-top: 20%;
+    height: 220px;
+    width: 50px;
+    position: fixed;
+    z-index: 3000;
+    top: 0;
+    left: 0;
+    background-color: var(--color_blue_5);
+    overflow-x: hidden;
+    padding-top: 10px; 
+  }
+  
+  .sidenav a {
+    text-align: left;
+    padding: 6px 8px 6px 9px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    cursor: pointer;
+  }
+  .sidenav a i{  
+    font-weight: 200; 
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* left mode */
+  
+    #access_fonts_{
+      display: none; 
+    }
+  
+    .no-mobile-side{
+      display: none;
+    }
+  
+    .btn_mobile_a{
+      display: none !important;
+    }
+  
+  
+   @media only screen and (max-width: 600px) {
+      /* Para el footer */
+     /*  .sidenav{
+        position: relative;
+        display: inline;
+        margin-top: -60px; 
+        background-color: transparent;
+  
+        border: 1px solid red;
+      }
+      .sidenav a {
+        display: flex;
+        display: inline;
+      } */
+  
+     /*  Top */
+       /* .sidenav{
+        position: relative;
+        display: inline; 
+  
+        margin-top: 0px;
+        width: inherit;
+        height: inherit;
+        padding-top: 0px;
+        margin-right: 0%;
+        margin-top: -5px;
+  
+        background-color: transparent;
+   
+      }
+      .sidenav a { 
+        display: inline; 
+        padding-left: 0px;
+        padding-right: 1px;
+      } */
+  
+      /* Left  */
+  
+       .btn_mobile_a{
+        display: inline !important;
+      }
+  
+      #access_fonts_{
+        display: none; 
+        margin-top: 46%;
+        height: 105px;
+        width: 45px;
+        position: fixed;
+        z-index: 3000;
+        padding-left: 7px;  
+         
+        background-color: var(--color_blue_5);
+        overflow-x: hidden;  
+      }
+  
+       #access_fonts_ a
+       {
+        display: inline; 
+        padding-left: 0px;
+        padding-top: 10px; 
+      
+      }
+  
+      .sidenav {
+        margin-top: 50%;
+        height: 86px;
+        width: 45px;
+        position: fixed;
+        z-index: 3000;
+        padding-top: 5px;
+         
+        background-color: var(--color_blue_5);
+        overflow-x: hidden; 
+   
+      }
+      .sidenav a { 
+        display: inline; 
+        padding-left: 7px;
+        padding-top: 10px;
+        padding-right: 1px;
+      }
+  
+    
+  }

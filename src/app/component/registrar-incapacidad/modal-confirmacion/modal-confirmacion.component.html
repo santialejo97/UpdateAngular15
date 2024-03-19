@@ -1,0 +1,30 @@
+<div class="modal-header">
+
+  <div class="alert-govco-maintenance hidden" id="modal-maintenance"></div>
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-original-title="" title="" (click)="closeModal()">
+  <i class="material-icons">clear</i>
+  </button>
+</div>
+<div class="modal-body text-center">
+  <div id="modal-content-type-alert" class="modal-content-info">
+  <div class="alert-icon">
+      <span class="govco-icon govco-icon-circle-check-n" id="govco-icon-alert"></span>
+  </div>
+  <div id="modal-content-title" class="modal-content-title content-govco modal-content-info"><h5>Confirmación</h5></div>
+  </div>
+  <p id="modal-content-txt2" class="modal-content-txt content-govco"><strong>Confirma que la información diligenciada es correcta?</strong> </p>
+  
+  <!-- <app-informacion-incapacidad id="modal-content-txt" class="modal-content-txt content-govco"></app-informacion-incapacidad> -->
+  <app-informacion-incapacidad [incapacidadIn]="dataIn.incapacidad_data" [pacienteIn]="dataIn.paciente_data"></app-informacion-incapacidad>
+
+</div>
+
+    
+    <div class="text-center">
+      <div class="modal-footer text-center">
+        
+      <button (click)="closeModal()" class="btn btn-round btn-high">No</button>&nbsp; <button (click)="confirmModal()" class="btn btn-round btn-high">SI</button>
+    </div>
+   
+  
+</div>

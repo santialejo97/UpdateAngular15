@@ -1,0 +1,119 @@
+
+<div class="modal-header">
+
+  <div class="alert-govco-maintenance hidden" id="modal-maintenance"></div>
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-original-title="" title="" (click)="closeModal()">
+    <i class="material-icons">clear</i>
+  </button>
+</div>
+<div class="modal-body text-center">
+  <div id="modal-content-type-alert" class="modal-content-info">
+    <div class="alert-icon">
+      <span class="govco-icon govco-icon-circle-check-n" id="govco-icon-alert"></span>
+    </div>
+    <div id="modal-content-title" class="modal-content-title content-govco modal-content-info"><h5>Detalle de la Incapacidad</h5></div>
+  </div>
+  <!--<p id="modal-content-txt2" class="modal-content-txt content-govco"><strong>Confirma que la información diligenciada es correcta?</strong> </p>-->
+
+  <!-- <app-informacion-incapacidad id="modal-content-txt" class="modal-content-txt content-govco"></app-informacion-incapacidad> -->
+  <!--<app-informacion-incapacidad [incapacidadIn]="dataIn.incapacidad_data" [pacienteIn]="dataIn.paciente_data"></app-informacion-incapacidad>-->
+  <div class="container">
+
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="table-responsive col-8">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td><strong>Número de incapacidad</strong></td>
+              <td>{{incapacidadDetalle.id_incapacidad}}</td>
+            </tr>
+            <tr>
+              <td><strong>Fecha de expedición incapacidad</strong></td>
+              <td>{{incapacidadDetalle.fecha_expedicion | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+            </tr>
+            <tr>
+              <td><strong>Lugar de expedición incapacidad</strong></td>
+              <td>{{incapacidadIn.lugar_expedicion_descripcion}}</td>
+            </tr>
+            <!--<tr>
+    <td><strong>Tipo y número de documento</strong></td>
+    <td>{{pacienteIn.tipo_documento}} &nbsp;{{pacienteIn.numero_documento}}</td>
+  </tr>
+  <tr>
+    <td><strong>Nombre del paciente</strong></td>
+    <td>{{pacienteIn.primer_nombre}}&nbsp;{{pacienteIn.segundo_nombre}}&nbsp; {{pacienteIn.primer_apellido}} &nbsp;{{pacienteIn.segundo_apellido}}</td>
+  </tr>
+  <tr>
+    <td><strong>Sexo</strong></td>
+    <td>{{pacienteIn.sexo_descripcion}}</td>
+  </tr>
+  <tr>
+    <td><strong>Fecha nacimiento</strong></td>
+    <td>{{pacienteIn.fecha_nacimiento | date: 'dd/MM/yyyy'}}</td>
+  </tr>-->
+
+
+            <tr>
+              <td><strong>Diagnóstico principal</strong></td>
+              <td>{{incapacidadDetalle.diagnostico.cod_diagnostico}}&nbsp; - {{incapacidadDetalle.diagnostico.descripcion}}</td>
+            </tr>
+            <tr>
+              <td><strong>Diagnósticos relacionados</strong></td>
+              <td>
+                {{incapacidadDetalle.diagnosticoRelacionUno?.cod_diag_relacion_uno}} &nbsp; {{incapacidadDetalle.diagnosticoRelacionUno?.descripcion}}
+                <br>{{incapacidadDetalle.diagnosticoRelacionDos?.cod_diag_relacion_dos}} &nbsp; {{incapacidadDetalle.diagnosticoRelacionDos?.descripcion}}
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Origen</strong></td>
+              <td>{{incapacidadDetalle.origen.descripcion}}</td>
+            </tr>
+            <tr>
+              <td><strong>Causa Atención</strong></td>
+              <td>{{incapacidadDetalle.causaAtencion.descripcion}}</td>
+            </tr>
+            <tr>
+              <td><strong>Retroactiva</strong></td>
+              <td>{{incapacidadDetalle.prorroga ? 'Si' : 'No'}}</td>
+            </tr>
+            <tr>
+              <td><strong>Prórroga</strong></td>
+              <td>{{incapacidadDetalle.prorroga ? 'Si' : 'No'}}</td>
+            </tr>
+            <tr *ngIf="incapacidadIn.prorroga">
+              <td><strong>Días prórroga</strong></td>
+              <td>{{incapacidadIn.prorroga ? incapacidadIn.dias_acumulados_prorroga : 0 }}</td>
+            </tr>
+            <tr>
+              <td><strong>Fechas incapacidad</strong></td>
+              <td>{{incapacidadDetalle.fecha_inicio | date: 'dd/MM/yyyy'}} &nbsp;-&nbsp; {{incapacidadDetalle.fecha_fin | date: 'dd/MM/yyyy'}}</td>
+            </tr>
+            <tr>
+              <td><strong>Días de incapacidad</strong></td>
+              <td>{{incapacidadDetalle.dias_incapacidad}}</td>
+            </tr>
+            <tr>
+              <td><strong>Días acumulados de prórroga</strong></td>
+              <td>{{incapacidadDetalle.dias_acumulados_prorroga}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-2"></div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="text-center">
+  <div class="modal-footer text-center">
+
+    <button (click)="closeModal()" class="btn btn-round btn-high">Cerrar</button>&nbsp;
+  </div>
+
+
+</div>
+
+

@@ -1,0 +1,66 @@
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from "@angular/material/icon";
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+
+import { SkeletonComponent } from './layout/skeleton/skeleton.component';
+import { FooterComponent } from './layout/footer/footer.component';
+
+
+import { RegistrarIncapacidadComponent } from './component/registrar-incapacidad/registrar-incapacidad.component';
+import { HelloComponent } from './component/registrar-incapacidad/hello.component';
+import { AnularIncapacidadComponent } from './component/anular-incapacidad/anular-incapacidad.component';
+import { BreadcrumbComponent } from './layout/breadcrumb/breadcrumb.component';
+import { DatosusuarioComponent } from './layout/datosusuario/datosusuario.component';
+import { OptionsComponent } from './layout/options/options.component';
+import { InicioComponent } from './component/inicio/inicio.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { ParametrosIncapacidadesService } from './services/parametros-incapacidades.service';
+import { DiagnosticoListSearchComponent } from './component/diagnostico-list-search/diagnostico-list-search.component';
+
+
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    SkeletonComponent,
+    FooterComponent,
+    RegistrarIncapacidadComponent,
+    HelloComponent,
+    AnularIncapacidadComponent,
+    BreadcrumbComponent,
+    DatosusuarioComponent,
+    OptionsComponent,
+    InicioComponent,
+    HeaderComponent,
+    DiagnosticoListSearchComponent
+  ],
+  imports: [
+    BrowserModule, FormsModule, HttpClientModule, ReactiveFormsModule,
+    RouterModule, AppRoutingModule, BrowserAnimationsModule, MatDialogModule, MatFormFieldModule, MatPaginatorModule, MatIconModule, MatTableModule, MatInputModule  
+  ],
+  providers: [
+    ParametrosIncapacidadesService,
+    {
+      provide: LocationStrategy,
+      useClass: PathLocationStrategy
+    },
+    
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

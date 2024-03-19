@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <div class="alert-govco-maintenance hidden" id="modal-maintenance"></div>
+ 
+</div>
+
+<div class="modal-body text-center">
+  <div id="modal-content-type-alert" class="modal-content-warning">
+    <div class="alert-icon">
+      <span class="govco-icon govco-icon-exclamation-cn" id="govco-icon-alert"></span>
+    </div>
+    <div id="modal-content-title" class="modal-content-title content-govco modal-content-warning">{{dataIn.titulo}}</div>
+  </div>
+  <p id="modal-content-txt" class="modal-content-txt content-govco">{{dataIn.mensaje}}</p>
+</div>
+
+<div class="text-center">
+  <div class="modal-footer text-center">
+    <button (click)="closeModal()" class="btn btn-round btn-high">{{dataIn.textoBoton}}</button>
+  </div>
+</div>

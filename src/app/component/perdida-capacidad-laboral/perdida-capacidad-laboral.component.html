@@ -1,0 +1,410 @@
+<div class="container">
+   <div id="stepper1" class="bs-stepper">
+      <div class="bs-stepper-header">
+         <div class="step" data-target="#test-l-1">
+            <button class="step-trigger">
+            <span class="bs-stepper-circle">1</span>
+            <span class="bs-stepper-label">Consultar</span>
+            </button>
+         </div>
+         <div class="line"></div>
+         <div class="step" data-target="#test-l-2">
+            <button class="step-trigger">
+            <span class="bs-stepper-circle">2</span>
+            <span class="bs-stepper-label">Lista</span>
+            </button>
+         </div>
+         <div class="line"></div>
+         <div class="step" data-target="#test-l-3">
+            <button class="step-trigger">
+            <span class="bs-stepper-circle">3</span>
+            <span class="bs-stepper-label">Registro</span> 
+            </button>
+         </div>
+         <div class="line"></div>
+         <div class="step" data-target="#test-l-4">
+            <button class="step-trigger">
+            <span class="bs-stepper-circle">4</span>
+            <span class="bs-stepper-label">Resumen</span>
+            </button>
+         </div>
+      </div>
+      <div class="bs-stepper-content">
+         <div id="test-l-1" class="content">
+            <ngx-spinner name="spinnerCargaInicial" bdColor="rgba(0,0,0,0.05)" size="medium" color="#004884" type="ball-triangle-path" [fullScreen]="false">
+               <br><br><br><br>
+               <p style="color: #004884"> Cargando información inicial </p>
+            </ngx-spinner>
+            <ngx-spinner name="spinnerConsultaConceptoRehabilitacion" bdColor="rgba(0,0,0,0.05)" size="medium" color="#004884" type="ball-triangle-path" [fullScreen]="false">
+               <br><br><br><br>
+               <p style="color: #004884"> Cargando información... </p>
+            </ngx-spinner>
+            <form [formGroup]="personaForm" (ngSubmit)="buscarConceptosRehabilitacion()" (keydown.enter)="$event.preventDefault()">
+               <br>
+               <h2 class="modal-title">Consulta por Información de la Persona</h2>
+               <br>
+               <div class="row">
+                   <div class="col-md-6">
+                     <div class="form-group">
+                         <label>Tipo Documento</label>
+                         <select formControlName="tipoDocumento" class="form-control"  [ngClass]="{ 'is-invalid': submittedPaciente && f_persona.tipoDocumento.errors }">
+                            <option value=""></option>
+                            <option *ngFor="let item of listaTipoDocumento" [ngValue]="item.cod_tipo_documento" >{{ item.descripcion }}</option>
+                         </select>
+                         <div *ngIf="submittedPaciente && f_persona.tipoDocumento.errors" class="invalid-feedback">
+                           <div *ngIf="f_persona.tipoDocumento.errors.required">Tipo de documento es requerido</div>
+                         </div>
+                     </div>
+                   </div>
+                   <div class="col-md-6">
+                     <div class="form-group">
+                         <label>Número Documento</label>
+                         <input type="text" class="form-control" formControlName="numeroDocumento"
+                         [ngClass]="{ 'is-invalid': submittedPaciente && f_persona.numeroDocumento.errors }">
+                         <div *ngIf="submittedPaciente && f_persona.numeroDocumento.errors" class="invalid-feedback">
+                            <div *ngIf="f_persona.numeroDocumento.errors.required">Número de documento es requerido</div>
+                        </div>
+                     </div>
+                   </div>
+               </div>
+               <div class="row">
+                 <div class="col text-center">
+                   <button type="submit" class="btn btn-round btn-high">Siguiente</button>
+                 </div>
+               </div>
+            </form>
+            <br>
+ 
+            <div class="row" *ngIf="mostrarResultados">
+ 
+               <table class="table">
+                  <tbody>
+                   <tr>
+                      <th>Número Concepto</th>
+                      <th>Resultado Concepto</th>
+                      <th>Origen</th>
+                      <th>Diagnóstico</th>
+                      <th>Diagnóstico Relación Uno</th>
+                      <th>Diagnóstico Relación Dos</th>
+                      <th></th>
+                    </tr>
+                    <tr *ngFor="let conceptoRehabilitacion of listaConceptoRehabilitacion" >
+                      <td>{{conceptoRehabilitacion.numero_concepto}}</td>
+                      <td>{{conceptoRehabilitacion.concepto_rehabilitacion.descripcion}}</td>
+                      <td>{{conceptoRehabilitacion.origen?.descripcion}}</td>
+                      <td>{{conceptoRehabilitacion.diagnostico?.cod_diagnostico}}
+                      <td>{{conceptoRehabilitacion.diagnosticoRelacionUno?.cod_diag_relacion_uno}}</td>
+                      <td>{{conceptoRehabilitacion.diagnosticoRelacionDos?.cod_diag_relacion_dos}}</td>
+                      <td><button (click)="abrirListaDePerdidaCapacidad(conceptoRehabilitacion.id_registro_concepto)" class="btn btn-round btn-high">Consultar</button></td>
+                   </tr>
+ 
+                  </tbody>
+               </table>
+            </div>
+ 
+         </div>
+         <div id="test-l-2" class="content">
+         <div class="container">
+            <br>
+            <h2 class="modal-title">Listas de Perdida de Capacidad Laboral</h2>
+            &nbsp;
+            &nbsp;
+            <br>
+         
+            <form >    
+               <div class="row">  
+                  <button (click)="abrirNuevoRegistroPerdida()"  class="btn btn-round btn-high">Nuevo</button>
+               </div>               
+               <div class="row">
+                  <br>
+                  &nbsp;
+                  &nbsp;
+                  <br>
+                  <table class="table"  >
+                     <tbody>
+                     <tr>
+                        <th>Número de Registro</th>
+                        <th>Fecha registro</th>
+                        <th>Confirmación de origen</th>
+                        <th>% Perdida Capacidad Laboral</th>
+                        <th>Fecha Calificación </th>
+                        <th>Diagnósticos</th>
+                        <th></th>
+                     </tr>
+                     <tr *ngFor="let pclConcepto of listaPedidadCapacidadLaboralPorConcepto">
+                        <td>{{pclConcepto.numero_registro}}</td>
+                        <td>{{pclConcepto.fecha_registro_calificacion | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{pclConcepto.id_origen == 1 ? 'Común' : 'Laboral'}}</td>
+                        <td>{{pclConcepto.porcentaje_perdida_capacidad_laboral}}
+                        <td>{{pclConcepto.fecha_calid_incapacidadificacion_PCL | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{pclConcepto.diagnostico_principal}}&nbsp;{{pclConcepto.diagnostico_relacion_1}}&nbsp;{{pclConcepto.diagnostico_relacion_2}}</td>
+                        <td><button (click)="abrirVerInformacionPerdida(pclConcepto.numero_registro)"  class="btn btn-round btn-high">Consultar</button></td>
+                     </tr>
+
+                     </tbody>
+                  </table>  
+               
+               </div>       
+               <div class="row">
+                  <div class="col text-center">
+                     <button type="button" (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
+                  </div>
+               </div>     
+            </form>         
+         </div>
+ 
+         </div>
+         <div id="test-l-3" class="content">
+               <!-- <p>Form value: {{ perdidaCapacidadLaboralForm.value | json }}</p>
+                <p>Form status: {{ perdidaCapacidadLaboralForm.status | json }}</p>  -->
+            <br>
+            <h2 class="modal-title">Registrar Pérdida Capacidad Laboral</h2>
+            <br>
+            <form [formGroup]="perdidaCapacidadLaboralForm" (ngSubmit)="abrirModalConfirmacion(perdidaCapacidadLaboralForm.value)" (keydown.enter)="$event.preventDefault()" >
+               <div class="row">
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <label >Número de registro</label>
+                        <input type="text" formControlName="numeroRegistro" class="form-control"
+                           [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.numeroRegistro.errors }"/>
+                        <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.numeroRegistro.errors" class="invalid-feedback">
+                           <div *ngIf="f_PCL.numeroRegistro.errors.required">Número autorización es requerido</div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <label >Fecha del registro</label>
+                        <input type="date" formControlName="fechaRegistroCalificacion"  class="form-control" readonly/>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <label class="form-text mb-3 is-required">Origen</label>
+                        <select formControlName="id_origen" class="form-control" (change)="changeValueOrigen()"  [value]="0"
+                        [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.id_origen.errors }">
+                        <option value=""></option>
+                        <option *ngFor="let item of listaOrigen" [ngValue]="item.id_origen">{{ item.descripcion }}</option>
+                        </select>
+                         <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.id_origen.errors" class="invalid-feedback">
+                           <div *ngIf="f_PCL.id_origen.errors.required">Origen es requerido</div>
+                        </div> 
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                   <div class="col-md-4">
+                     <div class="form-group">
+                        <label >% de la Pérdida Capacidad Laboral</label>
+                        <input type="number" formControlName="porcentajePCL" class="form-control"
+                           [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.porcentajePCL.errors }"/>
+                         <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.porcentajePCL.errors" class="invalid-feedback">
+                           <div *ngIf="f_PCL.porcentajePCL.errors.required">Porcentaje es requerido</div>
+                         </div> 
+                     </div>
+                  </div>
+ 
+                     <div class="col-md-4">
+                        <div class="form-group">
+                            <label >Fecha Calificación PCL</label>
+                            <input type="date" formControlName="fechaCalificacionPCL" class="form-control" 
+                                  [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.fechaCalificacionPCL.errors }"
+                                  />
+                            <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.fechaCalificacionPCL.errors" class="invalid-feedback">
+                               <div *ngIf="f_PCL.fechaCalificacionPCL.errors.required">Fecha de calificación es requerida</div>
+                            </div> 
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label >Fecha de estructuración</label>
+                           <input type="date" formControlName="fechaEstructuracion" class="form-control" 
+                               [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.fechaEstructuracion.errors }"
+                                />
+                           <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.fechaEstructuracion.errors" class="invalid-feedback">
+                              <div *ngIf="f_PCL.fechaEstructuracion.errors.required">Fecha de estructuración es requerida</div>
+                           </div> 
+                        </div>
+                     </div>
+               </div>
+               <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group">
+                            <label >Nueva Calificación</label>
+                            <select formControlName="nuevaCalificacion" class="form-control" 
+                                  [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.nuevaCalificacion.errors }">
+                              <option value=""></option>
+                              <option value="1">Si</option>
+                              <option value="0">No</option>
+                            </select>
+                            <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.nuevaCalificacion.errors" class="invalid-feedback">
+                              <div *ngIf="f_PCL.nuevaCalificacion.errors.required">Nueva calificación es requerida</div>
+                            </div>
+                        </div>
+                     </div>
+                     <div class="col-md-8">
+                        <div class="form-group">
+                           <label >Observaciones</label>
+                           <textarea type="text" formControlName="observacionesPCL" class="form-control" rows="1"
+                              [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.observacionesPCL.errors }">
+                            </textarea>
+                           <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.observacionesPCL.errors" class="invalid-feedback">
+                              <div *ngIf="f_PCL.observacionesPCL.errors.required">Número autorización es requerido</div>
+                           </div>
+                        </div>
+                     </div>
+                </div>
+                <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group">
+                           <label class="form-text mb-3 is-required">Tipo de Profesional</label>
+                            <select formControlName="tipoProfesional" class="form-control" (change)="changeValueOrigen()"
+                              [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.tipoProfesional.errors }">
+                              <option value=""></option>
+                              <option value="1">Juez</option>
+                              <option value="2">Médico/Odontólogo</option>
+                            </select>
+                            <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.tipoProfesional.errors" class="invalid-feedback">
+                              <div *ngIf="f_PCL.tipoProfesional.errors.required">Origen es requerido</div>
+                            </div>
+                        </div>
+                      </div>
+                </div>
+                <div class="row" *ngIf="esVisibleTipoProfesional1">
+                   <div class="col-md-12">
+                      <br>
+                      <h2 class="modal-title">Datos Juez</h2>
+                      <br>
+                   </div>
+                </div>
+                <div class="row" *ngIf="esVisibleTipoProfesional1">
+                   <!--Autoridad Judicial -->
+                   <div class="col-md-6">
+                      <div class="form-group">
+                            <label class="form-text mb-3 is-required">Autoridad Judicial</label>
+                            <input formControlName="despachoAutoridadJudicial" class="form-control" [value]="0"
+                                     [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.despachoAutoridadJudicial.errors }" />
+                            <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.despachoAutoridadJudicial.errors" class="invalid-feedback">
+                               <div *ngIf="f_PCL.despachoAutoridadJudicial.errors.required">Autoridad judicial es requerido</div>
+                            </div>
+                      </div>
+                   </div>
+                   <div class="col-md-6">
+                      <div class="form-group">
+                            <label class="form-text mb-3 is-required">Nombre del Juez</label>
+                            <input formControlName="nombreJuez" class="form-control" [value]="0"
+                                     [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.nombreJuez.errors }" />
+                            <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.nombreJuez.errors" class="invalid-feedback">
+                               <div *ngIf="f_PCL.nombreJuez.errors.required">Nombre del juez es requerido</div>
+                            </div>
+                      </div>
+                   </div>
+                   <!--Autoridad Judicial -->
+                </div>
+ 
+                <div class="row" *ngIf="esVisibleTipoProfesional2">
+                   <div class="col-md-12">
+                      <br>
+                      <h2 class="modal-title">Datos Profesional</h2>
+                      <br>
+                   </div>
+                </div>
+                <div class="row" *ngIf="esVisibleTipoProfesional2">
+                   <!--Profesional que emite calificaión-->
+                   <div class="col-md-4">
+                      <div class="form-group">
+                         <label >Tipo documento de la entidad</label>
+                         <select formControlName="tipoDocumentoEntidad" class="form-control"  [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.tipoDocumentoEntidad.errors }">
+                            <option value=""></option>
+                            <option *ngFor="let item of listaTipoDocumento" [ngValue]="item.cod_tipo_documento" >{{ item.descripcion }}</option>
+                         </select>
+                         <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.tipoDocumentoEntidad.errors" class="invalid-feedback">
+                            <div *ngIf="f_PCL.tipoDocumentoEntidad.errors.required">Tipo documento de entidad es requerido</div>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-md-4">
+                      <div class="form-group">
+                         <label >Número de documento de la entidad</label>
+                         <input type="text" formControlName="numeroDocumentoEntidad" class="form-control"
+                            [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.numeroDocumentoEntidad.errors }"/>
+                         <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.numeroDocumentoEntidad.errors" class="invalid-feedback">
+                            <div *ngIf="f_PCL.numeroDocumentoEntidad.errors.required">Número documento de entidad es requerido</div>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-md-4">
+                      <div class="form-group">
+                         <label >Nombre o Razón social</label>
+                         <input type="text" formControlName="nombreRazonSocialEntidad" class="form-control"
+                            [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.nombreRazonSocialEntidad.errors }"/>
+                         <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.nombreRazonSocialEntidad.errors" class="invalid-feedback">
+                            <div *ngIf="f_PCL.nombreRazonSocialEntidad.errors.required">Nombre razón social entidad es requerido</div>
+                         </div>
+                      </div>
+                   </div>
+ 
+                   <div class="col-md-4">
+                      <div class="form-group">
+                         <label >Tipo documento del profesional</label>
+                         <select formControlName="tipoDocumentoProfesionalEmite" class="form-control"  [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.tipoDocumentoProfesionalEmite.errors }">
+                            <option value=""></option>
+                            <option *ngFor="let item of listaTipoDocumento" [ngValue]="item.cod_tipo_documento" >{{ item.descripcion }}</option>
+                         </select>
+                      </div>
+                   </div>
+                   <div class="col-md-4">
+                      <div class="form-group">
+                         <label >Número de documento del profesional</label>
+                         <input type="text" formControlName="numeroDocumentoProfesionalEmite" class="form-control"
+                            [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.numeroDocumentoProfesionalEmite.errors }"/>
+                         <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.numeroDocumentoProfesionalEmite.errors" class="invalid-feedback">
+                            <div *ngIf="f_PCL.numeroDocumentoProfesionalEmite.errors.required">Número autorización es requerido</div>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="col-md-4">
+                      <div class="form-group">
+                         <label >Nombres y apellidos del profesional</label>
+                         <input type="text" formControlName="nombreProfesionalEmite" class="form-control"
+                            [ngClass]="{ 'is-invalid': submittedPerdidaCapacidadLaboral && f_PCL.nombreProfesionalEmite.errors }"/>
+                         <div *ngIf="submittedPerdidaCapacidadLaboral && f_PCL.nombreProfesionalEmite.errors" class="invalid-feedback">
+                            <div *ngIf="f_PCL.nombreProfesionalEmite.errors.required">Número autorización es requerido</div>
+                         </div>
+                      </div>
+                   </div>   
+ 
+                   <!--Profesional que emite calificaión-->
+                </div>
+ 
+               <div class="row">
+                  <div class="col text-center">
+                     <button type="button" (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
+                     &nbsp;
+                     <button type="submit"  class="btn btn-round btn-high" *ngIf="!formVerPerdidaCapacidadLaboral">Enviar</button>
+                  </div>
+               </div>
+             </form>
+         </div>
+         <div id="test-l-4" class="content">
+             <div class="container">
+               <div class="row" *ngIf="registroExitoso">
+                  <div class="col text-center">
+                     <h5 style="color:green;">Registro de perdida capacidad laboral guardado con éxito!</h5>
+                  </div>
+               </div>
+               <br>
+               <app-informacion-incapacidad-pcl [pcl_data]="pcl"></app-informacion-incapacidad-pcl>
+            </div>
+            <div class="row">
+               <div class="col text-center" *ngIf="!registroExitoso">
+                  <button (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
+               </div>
+               <div class="col text-center" *ngIf="registroExitoso">
+                  <button type="button" class="btn btn-round btn-high" (click)="refresh()">Nuevo registro</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+ 

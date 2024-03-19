@@ -1,0 +1,46 @@
+p {
+    font-family: Lato;
+  }
+
+  .modal-content{
+    border: none;
+  }
+
+// .modal-title {
+//     // background: #007bff;
+//     color: #004884;
+//     text-align: left;
+//     font-weight: bold;
+//     font-size: 20px;
+
+
+// }
+// .modal-content{
+
+// border: none;
+// border-radius: 0;
+// }
+// .form-text.mb-3{
+
+// text-align: left ;  
+// }
+.bs-stepper-content{
+
+  padding: 0px;
+}
+
+
+
+.dark-modal .modal-content {
+  background-color: red;
+  color: white;
+}
+
+.dark-modal .close {
+  color: white;
+}
+
+.light-blue-backdrop {
+  background-color: blue !important;
+}
+

@@ -1,0 +1,270 @@
+/* Fixed Menu */
+
+body .footer-fixed {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+
+.footer-fixed .grid2x {
+  min-height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.footer-fixed .grid2x > div {
+  display: flex;
+  flex-basis: calc(50% - 0px);
+  justify-content: center;
+  flex-direction: column;
+ 
+  margin:0px !important; 
+  padding: 5px;
+}
+ 
+.bg-right{
+    background: var(--color_blue_2);
+  }
+
+.bg-left{
+    background: var(--color_blue_3);
+  }
+
+.footer-fixed .box {
+  margin: 10px;
+}
+
+.footer-fixed .box a {
+  color: var(--white);
+}
+
+/* Acordeon */ 
+/* Enlaces  Adicionales*/
+
+  .otros-enlaces{
+    
+    text-align: center;
+  }
+
+  #accordion {
+
+    display: inline-flex;
+    min-height: 330px;
+    width: 900px;
+    /* border: 1px solid pink; */
+    text-align: center;
+    margin: 0 auto; 
+  } 
+
+  #accordion .card-body{
+
+    /* border: 1px solid red;  */
+    z-index: 3000;
+    position: absolute;
+    left: 0;
+    width: 900px; 
+    text-align: left;
+
+  } 
+  #accordion .card-header{
+    background: var(--color_blue_5);
+    margin: 5px;
+    padding-top: 10px;  
+     height: 55px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+  }
+  #accordion .btn{ 
+    padding: 0px; 
+  }
+  #accordion .card-header button{
+    color:white !important;  
+   /*  background: var(--color_blue_5);
+    font-size: 16px;
+    padding: 10px;
+    height: 80px;  */
+     
+  }  
+  #accordion .card{
+    border: none;
+    width: 180px; 
+  } 
+  .card-body-left{
+    margin-left: -180px; 
+  }
+  .card-body-left-2{
+    margin-left: -360px;
+  }
+  .card-body-left-3{
+    margin-left: -540px;
+  }
+  .card-body-left-4{
+    margin-left: -720px;
+  }  
+
+  /* Listas en Grid*/
+
+  #accordion .card-body ul {
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #accordion .card-body li {
+      display: inline-block;
+      vertical-align: top;
+
+     /*  border: 1px solid silver; */
+      min-height: 80px;
+      width: 170px;
+      margin-top: 10px;
+  }
+  #accordion .card-body li a{
+      font-weight: 400;
+  }
+  .no-img{
+    display: list-item;
+    text-align: center;
+    border: 1px solid  var(--color_parrafo);
+    border-radius: 20px;
+    height: 40px;
+    width: 40px;
+    margin-left: 65px;
+    margin-bottom: 10px;
+  }
+  .btn-padding-top{
+    padding-top: 10px !important;
+  }
+  
+
+  
+
+  
+
+/* Main footer */
+
+@media only screen and (max-width: 600px) {
+
+  .grid3x-footer {
+    min-height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  .grid3x-footer > div {
+    display: flex;
+    flex-basis: calc(100%);
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Enlaces  Adicionales*/
+
+  #accordion {
+    display: inline;
+  }
+
+  #accordion .card-enlaces {
+    width: 100% !important;
+    align-items: center;
+    text-align: center;
+  }
+
+  #accordion .card{
+    margin-top: 10px !important;
+    border: none !important;
+  } 
+  #accordion .card-body{
+    padding:0px;
+  } 
+
+   #accordion .card{
+    border: none;
+    width: 0px; 
+  } 
+  .card-body-left{
+    margin-left: 0px;
+  }
+  .card-body-left-2{
+    margin-left: 0px;
+  }
+  .card-body-left-3{
+    margin-left: -0px;
+  }
+  .card-body-left-4{
+    margin-left: 0px;
+  }  
+
+  .card-header{
+
+    background:var(--color_blue_3); 
+    //width: 300px;
+     
+  }
+  .card-header button{
+
+    padding-top: 10px !important;
+     
+  }
+  #accordion .card-body{
+     
+    width: 100%; 
+    position: relative;  
+
+  } 
+   #accordion .card-body ul {  
+     margin: 0;
+    text-align: left;
+    list-style-type: disc !important;
+    float: left;
+  }
+   
+  #accordion .card-body li { 
+    vertical-align: top;
+    min-height: auto;
+    width: auto;
+    text-align: left;
+    
+  }
+  .no-img{
+    display: none;
+  }
+
+  .btn-padding-top{
+    padding-top: 0px !important;
+  }
+  
+
+  .card-header button{
+    color:var(--white); 
+    font-size: 18px;
+    padding:10px; 
+     
+  }
+  .btn-link:hover {
+    color:white;
+    text-decoration: none;
+  }
+  .card-body ul{
+    text-align: left; 
+    
+  }
+
+  .card-body ul li a{
+    color: var(--color_primary_equidad);
+  /*   font-weight: bold; */
+    
+    
+  }
+   #accordion .card-body li a{
+      color: var(--color_parrafo);
+  }
+
+  
+
+
+
+}

@@ -1,0 +1,439 @@
+
+<div class="container">
+  <!-- <hello name="{{ name }}"></hello> -->
+  <div class="">
+    <br />
+    <br />
+    <!--<h2 class="text-primary text-center">ANULACIÓN DE INCAPACIDAD</h2>-->
+  </div>
+
+  <div id="stepper1" class="bs-stepper">
+    <div class="bs-stepper-header">
+      <div class="step" data-target="#test-l-1">
+        <button class="step-trigger" disabled>
+          <span class="bs-stepper-circle">1</span>
+          <span class="bs-stepper-label">Consultar Incapacidad</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-2">
+        <button class="step-trigger" disabled>
+          <span class="bs-stepper-circle">2</span>
+          <span class="bs-stepper-label">Confirmar Incapacidad</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-3">
+        <button class="step-trigger" disabled>
+          <span class="bs-stepper-circle">3</span>
+          <span class="bs-stepper-label">Anular Incapacidad</span>
+        </button>
+      </div>
+
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-4">
+        <button class="step-trigger" disabled>
+          <span class="bs-stepper-circle">3</span>
+          <span class="bs-stepper-label">Resumen</span>
+        </button>
+      </div>
+
+    </div>
+    <div class="bs-stepper-content">
+      <h1 class="color-warning" *ngIf="consultaPlanContingenciaActual != null">Plan de Contingencia Activo</h1>
+      <ngx-spinner name="spinnerCargaInicial" bdColor="rgba(0,0,0,0.05)" size="medium" color="#004884" type="ball-triangle-path" [fullScreen]="true">
+        <br><br><br><br><p style="color: #004884"> Cargando información inicial </p>
+      </ngx-spinner>
+      <ngx-spinner name="spinnerCargaAnulacion" bdColor="rgba(0,0,0,0.05)" size="medium" color="#004884" type="ball-triangle-path" [fullScreen]="true">
+        <br><br><br><br><p style="color: #004884"> Cargando información... </p>
+      </ngx-spinner>
+      <form [formGroup]="formConsultaIncapacidad">
+
+
+        <div id="test-l-1" class="content">
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="is-required">Número de incapacidad</label>
+                <input type="text" class="form-control" formControlName="numeroIncapacidad" placeholder="Ingrese el número de incapacidad" [ngClass]="{ 'is-invalid': submittedIncapacidad && f_persona.numeroIncapacidad.errors }" />
+                <div *ngIf="submittedIncapacidad && f_persona.numeroIncapacidad.errors" class="invalid-feedback">
+                  <div *ngIf="f_persona.numeroIncapacidad.errors.required">Número de incapacidad es requerido</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <br />
+              <!-- <hr /> -->
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label is-required">Tipo de documento</label>
+              <!-- <input type="text" class="form-control" name="tipoDocumentoId" [(ngModel)]="tipoDocumentoId" > -->
+              <select class="form-control" formControlName="tipoDocumentoId" id="tipoDocumentoId" [ngClass]="{ 'is-invalid': submittedIncapacidad && f_persona.tipoDocumentoId.errors }">
+                <option *ngFor="let type of listaTipoDocumento" [value]="type.cod_tipo_documento">{{type.descripcion}}</option>
+              </select>
+              <div *ngIf="submittedIncapacidad && f_persona.tipoDocumentoId.errors" class="invalid-feedback">
+                <div *ngIf="f_persona.tipoDocumentoId.errors.required">Tipo de documento es requerido</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="is-required">Número de documento</label>
+                <input type="text" class="form-control" formControlName="numeroDocumento" placeholder="Ingrese el número de documento" [ngClass]="{ 'is-invalid': submittedIncapacidad && f_persona.numeroDocumento.errors }" />
+                <div *ngIf="submittedIncapacidad && f_persona.numeroDocumento.errors" class="invalid-feedback">
+                  <div *ngIf="f_persona.numeroDocumento.errors.required">Número de documento es requerido</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br><br>
+          <div class="row">
+            <div class="col text-center">
+              <button (click)="buscarIncapacidad(contenidoIncapacidad)" class="btn btn-primary btn-round">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <ng-template #contenidoIncapacidad let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title">Anulación Incapacidad&nbsp;&nbsp;&nbsp;</h4>
+          <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{mensajeModalCuerpo}}
+
+          <br>
+          <br>
+
+          <ul *ngFor="let MensajeModal of listaMensajeModal">
+            <li>{{MensajeModal}}</li>
+          </ul>
+
+        </div>
+        <br>
+
+        <div class="col text-center">
+          <button (click)="modal.dismiss()" class="btn btn-round btn-high">OK</button>
+          
+          <!-- <button (click)="confirmarAnulacion()" class="btn btn-round btn-danger">OK</button> -->
+        </div>
+        <br>
+        <div  class="col text-center">
+          &nbsp;
+          <br>
+        </div>
+
+      </ng-template>
+
+      <div id="test-l-2" class="content">
+        <section id="datosPaciente">
+          <h2 class="modal-title">Paciente</h2>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="form-label ">Número Incapacidad</label>
+                  <input type="text" id="idIncapacidad" class="form-control" value="{{paciente.numeroIncapacidad}}" disabled>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="form-label ">Tipo Documento</label>
+                  <input type="text" id="idIncapacidad" class="form-control" value="{{paciente.tipoDocumento}}" disabled>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Número Documento</label>
+                  <input type="text" id="numeroDocumento" class="form-control" value="{{paciente.numeroDocumento}}" disabled>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Primer Nombre</label>
+                  <input type="text" id="primerNombrePac" class="form-control" value="{{paciente.primerNombre}}" disabled>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Segundo Nombre</label>
+                  <input type="text" id="segundoNombrePac" class="form-control" value="{{paciente.segundoNombre}}" disabled>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Primer Apellido</label>
+                  <input type="text" id="primerApellidoPac" class="form-control" value="{{paciente.primerApellido}}" disabled>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Segundo Apellido</label>
+                  <input type="text" id="segundoApellidoPac" class="form-control" value="{{paciente.segundoApellido}}" disabled>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <br />
+        <section id="camposInconsistentes">
+
+          <h2 class="modal-title">Selecione campos inconsistentes</h2>
+
+          <div class="row">
+
+            <div class="table-simple-headblue-govco col-12">
+              <table class="table display table-responsive-sm table-responsive-md" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>ITEM</th>
+                    <th>VALOR</th>
+                    <th>SELECCIONA</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let option of options">
+                  <tr>
+                    <td>{{option.desc}}</td>
+                    <td>{{option.valorColumna}}</td>
+                    <td>
+                      <div class="checkbox-govco">
+                        <input type="checkbox" disabled="{{option.disabled}}" id="{{option.nombreColumna}}" name="{{option.nombreColumna}}"
+                               value="{{option.idColumna}}"
+                               [(ngModel)]="option.checked" (change)="onInputChange($event)" />
+                        <label class="label-checkbox m-auto" for="{{option.nombreColumna}}">
+                          <div class="chk"></div>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+            </div>
+
+          </div>
+        </section>
+
+
+        <br>
+
+        <div class="row">
+          <div class="col text-center">
+            <button (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
+            &nbsp;
+            <button (click)="SeleccionarInconsistencias()" class="btn btn-round btn-high">Siguiente</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+
+        </div>
+
+      </div>
+
+
+
+      <div id="test-l-3" class="content">
+
+        <section id="datosPaciente">
+
+          <h2 class="modal-title">Paciente</h2>
+
+          <!--<form [formGroup]="formConfirmarIncapacidad" (ngSubmit)="onSubmit()">-->
+          <div class="container">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="form-label ">Número Incapacidad</label>
+                  <input type="text" id="idIncapacidad" class="form-control" value="{{paciente.numeroIncapacidad}}" disabled>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="form-label ">Tipo Documento</label>
+                  <input type="text" id="idIncapacidad" class="form-control" value="{{paciente.tipoDocumento}}" disabled>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Número Documento</label>
+                  <input type="text" id="numeroDocumento" class="form-control" value="{{paciente.numeroDocumento}}" disabled>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Primer Nombre</label>
+                  <input type="text" id="primerNombrePac" class="form-control" value="{{paciente.primerNombre}}" disabled>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Segundo Nombre</label>
+                  <input type="text" id="segundoNombrePac" class="form-control" value="{{paciente.segundoNombre}}" disabled>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Primer Apellido</label>
+                  <input type="text" id="primerApellidoPac" class="form-control" value="{{paciente.primerApellido}}" disabled>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Segundo Apellido</label>
+                  <input type="text" id="segundoApellidoPac" class="form-control" value="{{paciente.segundoApellido}}" disabled>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--</form>-->
+        </section>
+
+        <section id="motivoAnulacion">
+          <h2 class="modal-title">Motivo Anulación</h2>
+          <!--<form [formGroup]="formAnularIncapacidad" class="row g-3 was-validated" method="post" action="/Anulacion/AnularIncapacidad">-->
+          <form [formGroup]="formAnularIncapacidad">
+            <div class="container">
+              <div class="row">
+
+                <div *ngFor="let option of optionsSelected" id="checkbox-active" class="col-md-12">
+                  <label class="chk-govco">
+                    <input type="checkbox" id="{{option.nombreColumna}}" disabled="disabled" checked="checked" />
+                    <label for="checkbox_4 form-label ">
+                      {{option.desc}} : {{option.valorColumna}}
+                    </label>
+                    <div class="chk-govco__indicator"></div>
+                  </label>
+                </div>
+
+                <br>
+                <br>
+                <div class="col-md-6">
+                  <label class="form-label is-required">Causa Anulación</label>
+                  <!--<select class="form-control" formControlName="causaAnulacion">-->
+                  <select class="form-control" formControlName="causaAnulacion" [ngClass]="{ 'is-invalid': submittedAnulacion && f_anulacion.causaAnulacion.errors }">
+                    <option *ngFor="let type of listaCausaAnulacion" [value]="type.id_causa_anulacion">{{type.descripcion}}</option>
+                  </select>
+                  <div *ngIf="submittedAnulacion && f_anulacion.causaAnulacion.errors" class="invalid-feedback">
+                    <div *ngIf="f_anulacion.causaAnulacion.errors.required">Causa Anulación es requerida</div>
+                  </div>
+                </div>
+
+                <!--<div class="col-md-6">
+              <label for="password" class="form-label ">Observaciones Anulación (*)</label>
+              <textarea class="form-control" formControlName="observaciones" id="observaciones" rows="3" placeholder="Escribe aquí las observaciones" maxlength="100"></textarea>
+            </div>-->
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="is-required">Observaciones Anulación</label>
+                    <input type="text" class="form-control" formControlName="observaciones" placeholder="Escriba aquí las observaciones" [ngClass]="{ 'is-invalid': submittedAnulacion && f_anulacion.observaciones.errors }" />
+                    <div *ngIf="submittedAnulacion && f_anulacion.observaciones.errors" class="invalid-feedback">
+                      <div *ngIf="f_anulacion.observaciones.errors.required">Observaciones son requeridas</div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <br>
+              </div>
+            </div>
+          </form>
+        </section>
+        <ng-template #contenido let-modal>
+          <div class="modal-header">
+            <h4 class="modal-title">Anulación Incapacidad&nbsp;&nbsp;&nbsp;</h4>
+            <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ¿Está seguro que desea ANULAR esta incapacidad? Esta será una acción que no podrá revertir.
+          </div>
+          <br>
+
+          <div class="col text-center">
+            <button (click)="modal.dismiss()" class="btn btn-round btn-high">Cancelar</button>
+            &nbsp;
+            <button (click)="confirmarAnulacion()" class="btn btn-round btn-danger">Sí, anular</button>
+            <br>
+          </div>
+          <br>
+          <div  class="col text-center">
+            &nbsp;
+            <br>
+          </div>
+        </ng-template>
+
+        <br>
+        <br>
+
+        <div class="row">
+          <div class="col text-center">
+            <button (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
+            &nbsp;
+            <button (click)="openModalAnulacion(contenido)" class="btn btn-round btn-danger">Confirmar Anulación</button>
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+      <div id="test-l-4" class="content">
+        <br>
+        <br>
+        <div class="row ">
+          <div class="col text-center">
+            <h5 *ngIf="incapacidadAnulada" style="color:green;">Incapacidad anulada con éxito!</h5>
+            <h5 *ngIf="!incapacidadAnulada" style="color:red;">La incapacidad no se ha podido anular!</h5>
+          </div>
+          <br>
+          <br>
+          <br>
+        </div>
+
+        <div class="row">
+          <div class="col text-center">
+            <button (click)="finalizar()" class="btn btn-round btn-high">Finalizar</button>
+            &nbsp;
+            <button *ngIf="incapacidadAnulada" (click)="reExpedir()" class="btn btn-round btn-danger">Expedir nuevamente</button>
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+</div>

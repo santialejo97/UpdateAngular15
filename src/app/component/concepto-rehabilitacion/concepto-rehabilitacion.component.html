@@ -1,0 +1,476 @@
+
+<div class="container">
+  <!-- <hello name="{{ name }}"></hello> -->
+  <div class="">
+    <br />
+    <br />
+    <!--<h2 class="text-primary text-center">ANULACIÓN DE INCAPACIDAD</h2>-->
+  </div>
+
+  <div id="stepper1" class="bs-stepper">
+    <div class="bs-stepper-header">
+      <div class="step" data-target="#test-l-1">
+        <button class="step-trigger" disabled>
+          <span class="bs-stepper-circle">1</span>
+          <span class="bs-stepper-label">Consultar Incapacidad</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-2">
+        <button class="step-trigger" disabled>
+          <span class="bs-stepper-circle">2</span>
+          <span class="bs-stepper-label">Confirmar Datos</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-3">
+        <button class="step-trigger" disabled>
+          <span class="bs-stepper-circle">3</span>
+          <span class="bs-stepper-label">Registrar Concepto Rehabilitación</span>
+        </button>
+      </div>
+
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-4">
+        <button class="step-trigger" disabled>
+          <span class="bs-stepper-circle">3</span>
+          <span class="bs-stepper-label">Confirmar Registro</span>
+        </button>
+      </div>
+
+    </div>
+    <div class="bs-stepper-content">
+      <ngx-spinner name="spinnerCargaInicial" bdColor="rgba(0,0,0,0.05)" size="medium" color="#004884" type="ball-triangle-path" [fullScreen]="true">
+        <br><br><br><br><p style="color: #004884"> Cargando información inicial </p>
+      </ngx-spinner>
+      <ngx-spinner name="spinnerCargaAnulacion" bdColor="rgba(0,0,0,0.05)" size="medium" color="#004884" type="ball-triangle-path" [fullScreen]="true">
+        <br><br><br><br><p style="color: #004884"> Cargando información... </p>
+      </ngx-spinner>
+      <form [formGroup]="formConsultaIncapacidad">
+
+
+        <div id="test-l-1" class="content">
+          <br>
+          <div class="row">
+
+            <div class="col-md-6">
+              <label class="form-label is-required">Tipo de documento</label>
+              <!-- <input type="text" class="form-control" name="tipoDocumentoId" [(ngModel)]="tipoDocumentoId" > -->
+              <select class="form-control" formControlName="tipoDocumentoId" id="tipoDocumentoId" [ngClass]="{ 'is-invalid': submittedPersona && f_persona.tipoDocumentoId.errors }">
+                <option *ngFor="let type of listaTipoDocumento" [value]="type.cod_tipo_documento">{{type.descripcion}}</option>
+              </select>
+              <div *ngIf="submittedPersona && f_persona.tipoDocumentoId.errors" class="invalid-feedback">
+                <div *ngIf="f_persona.tipoDocumentoId.errors.required">Tipo de documento es requerido</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="is-required">Número de documento</label>
+                <input type="text" class="form-control" formControlName="numeroDocumento"
+                       placeholder="Ingrese el número de documento"
+                       [ngClass]="{ 'is-invalid': submittedPersona && f_persona.numeroDocumento.errors }" />
+                <div *ngIf="submittedPersona && f_persona.numeroDocumento.errors" class="invalid-feedback">
+                  <div *ngIf="f_persona.numeroDocumento.errors.required">Número de documento es requerido</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br><br>
+          <div class="row">
+            <div class="col text-center">
+              <button (click)="buscarIncapacidad(contenidoIncapacidadCR)" class="btn btn-primary btn-round">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <ng-template #contenidoIncapacidadCR let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title">Concepto de Rehabilitación</h4>
+          <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{mensajeModalCuerpo}}
+          <br>
+          <br>
+          <div class="container">
+            <!--<div *ngIf="incapacidadVerificada" class="container">-->
+
+              <div class="row">
+                <!--<div class="col-2"></div>-->
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <tbody>
+                      <tr>
+                        <td><strong>Fecha Emisión</strong></td>
+                        <td>{{conceptoExistente?.fecha_emision}}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Número Concepto</strong></td>
+                        <td>{{conceptoExistente?.numero_concepto}}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Concepto Rehabilitación</strong></td>
+                        <td>{{conceptoExistente?.concepto_rehabilitacion.descripcion}}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Fecha de Registro</strong></td>
+                        <td>{{conceptoExistente?.fecha_registro}}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        <br>
+
+        <div class="col text-center">
+          <button (click)="modal.dismiss()" class="btn btn-round btn-high">OK</button>
+
+          <button (click)="modificarCR()" class="btn btn-round btn-danger">Registrar nuevo concepto</button>
+          
+        </div>
+        <br>
+
+      </ng-template>
+
+      <div id="test-l-2" class="content">
+        <section id="datosPaciente">
+          <h2 class="modal-title">Paciente</h2>
+          <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="usuario" class="form-label ">Tipo Documento</label>
+                    <input type="text" id="idIncapacidad" class="form-control" value="{{paciente.tipoDocumento}}" disabled>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="usuario" class="">Número Documento</label>
+                    <input type="text" id="numeroDocumento" class="form-control" value="{{paciente.numeroDocumento}}" disabled>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="usuario" class="">Primer Nombre</label>
+                    <input type="text" id="primerNombrePac" class="form-control" value="{{paciente.primerNombre}}" disabled>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="usuario" class="">Segundo Nombre</label>
+                    <input type="text" id="segundoNombrePac" class="form-control" value="{{paciente.segundoNombre}}" disabled>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Primer Apellido</label>
+                  <input type="text" id="primerApellidoPac" class="form-control" value="{{paciente.primerApellido}}" disabled>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="usuario" class="">Segundo Apellido</label>
+                  <input type="text" id="segundoApellidoPac" class="form-control" value="{{paciente.segundoApellido}}" disabled>
+                </div>
+              </div>
+              <div class="col-md-3"></div>
+              <div class="col-md-3"></div>
+
+            </div>
+          </div>
+        </section>
+
+        <section id="datosIncapacidades">
+          <h2 class="modal-title">Incapacidades</h2>
+          <div class="container">
+            <div class="row">
+
+              <div class="row">
+                <div class="table-simple-headblue-govco col-12">
+                  <table class="table display table-responsive-sm table-responsive-md" style="width:100%" *ngFor="let incapacidad of incapacidadesResult">
+                    <thead>
+                      <tr>
+                        <th>Número Incapacidad</th>
+                        <th>Origen</th>
+                        <th>Días Acumulados Prórroga</th>
+                        <th>Diagnóstico</th>
+                        <th>Diagnóstico Relación Uno</th>
+                        <th>Diagnóstico Relación Dos</th>
+                        <th>Detalle</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let option of incapacidad">
+                        <td>{{option.id_incapacidad}}</td>
+                        <td>{{option.origen?.descripcion}}</td>
+                        <td>{{option.dias_acumulados_prorroga}}</td>
+                        <td>{{option.diagnostico.cod_diagnostico}} - {{option.diagnostico.descripcion}}</td>
+                        <td>{{option.diagnosticoRelacionUno?.cod_diag_relacion_uno}} - {{option.diagnosticoRelacionUno?.descripcion}}</td>
+                        <td>{{option.diagnosticoRelacionDos?.cod_diag_relacion_dos}} - {{option.diagnosticoRelacionDos?.descripcion}}</td>
+                        <td> <button (click)="abrirModalDetalleIncapacidad(option)" class="btn btn-round btn-high">Detalle</button> </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+                </div>
+                <form *ngIf ="variasIncapacidades" [formGroup]="formIncapacidadConcepto">
+                  <div class="col-md-12">
+                    <label class="form-label is-required">Incapacidad Concepto Rehabilitación</label>
+                    <!--<select class="form-control" formControlName="causaAnulacion">-->
+                    <select class="form-control" formControlName="incapacidadConcepto" [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.incapacidadConcepto.errors }">
+                      <option *ngFor="let type of listIncapacidades" [value]="type.id_incapacidad">{{type.diagnostico_principal.codigo}} {{type.diagnostico_relacion_uno.codigo  ? '-' + type.diagnostico_relacion_uno.codigo : '' }} {{type.diagnostico_relacion_dos.codigo  ? '-' + type.diagnostico_relacion_dos.codigo : '' }}</option>
+                    </select>
+                    <div *ngIf="submittedIncapacidad && f_incapacidad.incapacidadConcepto.errors" class="invalid-feedback">
+                      <div *ngIf="f_incapacidad.incapacidadConcepto.errors.required">Se debe seleccionar la Incapacidad del Concepto de Rehabilitación</div>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <div class="col-md-3">
+          <div class="form-group">
+
+          </div>
+        </div>
+
+        <br />
+        <br>
+
+        <div class="row">
+          <div class="col text-center">
+            <button (click)="refresh()" class="btn btn-round btn-high">Regresar</button>
+            &nbsp;
+            <button (click)="AsignarIncapacidad()" class="btn btn-round btn-high">Siguiente</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+
+        </div>
+
+      </div>
+
+
+
+            <div id="test-l-3" class="content">
+
+              <section id="motivoAnulacion">
+                <h2 class="modal-title">Concepto Rehabilitación</h2>
+
+                <br>
+                <form [formGroup]="formConceptoRehabilitacion">
+                  <div class="container">
+                    <div class="row">
+
+                      <div class="col-md-6">
+                        <label class="form-text mb-3 is-required">Fecha Emisión Concepto</label>
+                        <!--<input type="date" formControlName="fecha_inicio_string" min="{{fechaMinimaIncapacidad | date: 'yyyy-MM-dd'}}"-->
+                        <input type="date" formControlName="fecha_emision_concepto" min="{{fechaMin | date: 'yyyy-MM-dd'}}" max="{{fechaHoy | date: 'yyyy-MM-dd'}}"
+                               class="form-control" [ngClass]="{ 'is-invalid': submittedConcepto && f_conceptoRehabilitacion.observaciones.errors}" (focusout)="validarFechaEmision()"/>
+
+                      </div>
+
+                      <div class="col-md-6">
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label >Número Concepto</label>
+                          <input type="text" class="form-control" formControlName="numeroConcepto" placeholder="Escriba aquí el número de concepto de rehabilitación" [ngClass]="{ 'is-invalid': submittedConcepto && f_conceptoRehabilitacion.numeroConcepto.errors }" />
+                          <!--<div *ngIf="submittedConcepto && f_conceptoRehabilitacion.observaciones.errors" class="invalid-feedback">
+                            <div *ngIf="f_conceptoRehabilitacion.observaciones.errors.required">Número de documento es requerido</div>
+                          </div>-->
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="form-label is-required">Concepto Rehabilitación</label>
+                        <!--<select class="form-control" formControlName="causaAnulacion">-->
+                        <select class="form-control" formControlName="conceptoRehabilitacion" [ngClass]="{ 'is-invalid': submittedConcepto && f_conceptoRehabilitacion.conceptoRehabilitacion.errors }">
+                          <option *ngFor="let type of listaConceptoRehabilitacion" [value]="type.id_concepto_rehabilitacion">{{type.descripcion}}</option>
+                        </select>
+                        <div *ngIf="submittedConcepto && f_conceptoRehabilitacion.conceptoRehabilitacion.errors" class="invalid-feedback">
+                          <div *ngIf="f_conceptoRehabilitacion.conceptoRehabilitacion.errors.required">Concepto rehabilitación es requerido</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="form-label is-required">Tipo Documento Profesional Salud</label>
+                        <!--<select class="form-control" formControlName="causaAnulacion">-->
+                        <select class="form-control" formControlName="tipoDocumentoId" id="tipoDocumentoId" [ngClass]="{ 'is-invalid': submittedConcepto && f_conceptoRehabilitacion.tipoDocumentoId.errors }">
+                          <option *ngFor="let type of listaTipoDocumento" [value]="type.cod_tipo_documento">{{type.descripcion}}</option>
+                        </select>
+                        <div *ngIf="submittedConcepto && f_conceptoRehabilitacion.tipoDocumentoId.errors" class="invalid-feedback">
+                          <div *ngIf="f_conceptoRehabilitacion.tipoDocumentoId.errors.required">Tipo de documento es requerido</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="form-label is-required">Número Documento Profesional Salud</label>
+                        <input type="text" class="form-control" formControlName="numeroDocumento" placeholder="Escriba aquí el número de documento" [ngClass]="{ 'is-invalid': submittedConcepto && f_conceptoRehabilitacion.numeroDocumento.errors }" />
+                        <div *ngIf="submittedConcepto && f_conceptoRehabilitacion.observaciones.errors" class="invalid-feedback">
+                          <div *ngIf="f_conceptoRehabilitacion.observaciones.errors.required">Número de documento es requerido</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12">
+                        <label class="form-label">Observaciones</label>
+                        <input type="text" class="form-control" formControlName="observaciones" placeholder="Escriba aquí las observaciones" [ngClass]="{ 'is-invalid': submittedConcepto && f_conceptoRehabilitacion.observaciones.errors }" />
+                        <!--<div *ngIf="submittedConcepto && f_conceptoRehabilitacion.observaciones.errors" class="invalid-feedback">
+                          <div *ngIf="f_conceptoRehabilitacion.observaciones.errors.required">Observaciones son requeridas</div>
+                        </div>-->
+                      </div>
+
+
+                      <br>
+                      <br>
+                    </div>
+                  </div>
+                </form>
+              </section>
+
+
+              <br>
+              <br>
+
+              <div class="row">
+                <div class="col text-center">
+                  <button (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
+                  &nbsp;
+                  <!--<button (click)="confirmarConcepto()" class="btn btn-round btn-danger">Confirmar Datos</button>-->
+                  <button (click)="openModalCR(contenido)" class="btn btn-round btn-danger">Confirmar Datos</button>
+
+                </div>
+              </div>
+
+            </div>
+            <div id="test-l-4" class="content">
+              <br>
+              <br>
+              <!--<div class="row ">
+          <div class="col text-center">
+            <h5 *ngIf="incapacidadAnulada" style="color:green;">Incapacidad anulada con éxito!</h5>
+            <h5 *ngIf="!incapacidadAnulada" style="color:red;">La incapacidad no se ha podido anular!</h5>
+          </div>
+          <br>
+          <br>
+        </div>-->
+
+              <section id="conceptoRegistrado">
+                <h2 class="modal-title">Concepto Rehabilitación</h2>
+                <div class="container">
+                  <div class="row ">
+                    <div class="col text-center">
+                      <br>
+                      <br>
+                      <h5 *ngIf="conceptoRegistrado" style="color:green;">Se realizó el registro del Concepto de Rehabilitación con éxito!</h5>
+                      <h5 *ngIf="!conceptoRegistrado" style="color:red;">El concepto de rehabilitación de la incapacidad no se ha podido registrar!</h5>
+                    </div>
+                    <br>
+                    <br>
+                  </div>
+                </div>
+              </section>
+
+              <ng-template #contenido let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title">Concepto Rehabilitación</h4>
+                  <button class="close" aria-label="close" type="button" (click)="modal.dismiss()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-center">
+                  ¿Está seguro que desea Registrar el Concepto de Rehabilitación?
+
+                  <br>
+                  <br>
+                  <div class="container">
+
+                    <div class="row">
+                      <div class="col-2"></div>
+                      <div class="table-responsive col-8">
+                        <table class="table table-bordered">
+                          <tbody>
+                            <tr>
+                              <td><strong>Fecha Emisión</strong></td>
+                              <td>{{resumenConceptoRehabilitacion.fecha_emision}}</td>
+                            </tr>
+                            <tr>
+                              <td><strong>Número Concepto</strong></td>
+                              <td>{{resumenConceptoRehabilitacion.numero_concepto}}</td>
+                            </tr>
+                            <tr>
+                              <td><strong>Concepto Rehabilitación</strong></td>
+                              <td>{{resumenConceptoRehabilitacion.concepto_rehabilitacion.descripcion}}</td>
+                            </tr>
+                            <tr>
+                              <td><strong>Tipo Documento Medico Emitio Concepto</strong></td>
+                              <td>{{resumenConceptoRehabilitacion.id_doc_medico_emite}}</td>
+                            </tr>
+                            <tr>
+                              <td><strong>Número Documento Medico Emitio Concepto</strong></td>
+                              <td>{{resumenConceptoRehabilitacion.numero_doc_medico_emite}}</td>
+                            </tr>
+                            <tr>
+                              <td><strong>Observaciones</strong></td>
+                              <td>{{resumenConceptoRehabilitacion.observaciones}}</td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="col-2"></div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="col text-center">
+                  <button (click)="modal.dismiss()" class="btn btn-round btn-high">Cancelar</button>
+                  &nbsp;
+                  <button (click)="confirmarConcepto()" class="btn btn-round btn-danger">Sí, registrar concepto</button>
+                </div>
+                <br>
+                <div  class="col text-center">
+                  &nbsp;
+                  <br>
+                </div>
+
+              </ng-template>
+
+              <div class="row">
+                <div class="col text-center">
+                  <!--<button (click)="finalizar()" class="btn btn-round btn-high">Regresar</button>
+            &nbsp;
+            <button(click)="openModalCR(contenido)" class="btn btn-round btn-danger">Confirmar Anulación</button>-->
+                </div>
+              </div>
+
+
+            </div>
+
+
+
+
+          </div>
+
+      </div>
+</div>

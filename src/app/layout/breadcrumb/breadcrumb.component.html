@@ -1,0 +1,32 @@
+  <div id="div-breadcrumb"><div id="div-breadcrumb-item" class="pl-3 pt-3">
+    <nav aria-label="breadcrumb" >
+      <ol class="breadcrumb" style="color:red;background-color: none !important">
+        <li class="breadcrumb-item ">
+          <div class="image-icon">
+            <div class="breadcrumb breadcrumb-separator"></div>
+            <a href="{{baseUrlSIIN}}/menu-principal" class="breadcrumb-text">Inicio</a>
+            <!-- <a href="/" class="breadcrumb-text">{{ breadcrumbs[0].label}}</a> -->
+          </div>
+        </li>
+        <li class="breadcrumb-item " *ngIf="breadcrumbs != null && breadcrumbs[0] != null && breadcrumbs[0]?.label != 'Inicio'" >
+          <div class="image-icon">
+            <div class="breadcrumb breadcrumb-separator"></div>
+            <a href="{{baseUrlSIIN}}{{breadcrumbs[0]?.url}}" class="breadcrumb-text">{{ breadcrumbs[0] != null && breadcrumbs[0]?.label != 'Inicio'? breadcrumbs[0]?.label : '' }}</a>
+          </div>
+        </li>
+        <li class="breadcrumb-item " *ngIf="breadcrumbs != null && breadcrumbs[1] != null && breadcrumbs[1].label != 'Inicio'" >
+          <div class="image-icon">
+            <div class="breadcrumb breadcrumb-separator"></div>
+            <a href="{{baseUrlSIIN}}{{breadcrumbs[1]?.url}}" class="breadcrumb-text">{{ breadcrumbs[1] != null && breadcrumbs[1]?.label != 'Inicio'? breadcrumbs[1]?.label : '' }}</a>
+          </div>
+        </li>
+        <!-- <li class="breadcrumb-item active">
+          <div class="image-icon">
+            <div class="breadcrumb breadcrumb-separator"></div>
+            <a class="breadcrumb-text">{{ breadcrumbs[1] != null ? breadcrumbs[1].label : ''}}</a>
+          </div>
+        </li> -->
+      </ol>
+    </nav>
+    
+  </div></div>

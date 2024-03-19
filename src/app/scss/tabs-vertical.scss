@@ -1,0 +1,190 @@
+ 
+  .tabs-section {
+      overflow: hidden; 
+      padding: 0px 0px;  
+  } 
+  .tabs-section .nav-tabs {
+      border: 0;
+       
+  }
+  .tabs-section .nav-link {
+    border: 0;
+    padding: 11px 15px;
+    transition: 0.3s;
+    color: #333333 !important;
+    border-radius: 0;
+    border-bottom: 0.5px solid #b3b3b3 !important;
+    font-size: 15px; 
+      
+  } 
+ 
+
+  .tabs-section .nav-link:hover { 
+
+    color: white !important;
+    border-bottom: 2px solid var(--color_secondary);
+    background: var(--color_blue_5);  
+       
+  }
+  .tabs-section .nav-link:hover::after { 
+
+    
+    content: "";
+    position: absolute;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background: url("https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronRight-512.png");
+    background-size: 120%;
+    background-position: center;
+    background-repeat: no-repeat;
+    right: 23px;
+    padding-top: 20px; 
+
+       
+  }
+
+  
+  .tabs-section .nav-link.active {
+    color: white !important;
+    background: var(--color_blue_5);  
+  } 
+
+   .tabs-section .nav-link.active:after{ 
+    content: "";
+    position: absolute;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background: url("https://css.mintic.gov.co/mt/mintic/img/arrow_purple_news.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    right: 23px;
+    padding-top: 5px; 
+   } 
+
+  .tabs-section .tab-pane.active {
+    -webkit-animation: fadeIn 0.5s ease-out;
+    animation: fadeIn 0.5s ease-out;
+  } 
+
+  .tabs-section .details p {
+    color: var(--color_parrafo);
+    font-size: 15px;
+  } 
+
+  /* Estilos Lista Submenu Mega menu*/
+  .tab-content ul{
+
+    list-style:disc; 
+    height: auto; 
+    
+
+  }
+  .tab-content ul li{  
+    
+    height: 37px; 
+    font-size: 15px;
+    font-weight: 400;
+
+    vertical-align: middle;
+    margin-top: 5px;
+    color: #595959 !important;
+
+  }
+      
+
+  .tab-content ul li a{
+    color:var(--color_blue_5);
+  }
+
+  .titulo-menu-mobile{
+    display: none;
+  }
+
+
+
+ 
+
+  @media only screen and (max-width: 600px) { 
+
+    .tabs-section .nav-link {
+      border: 0; 
+      padding: 5px 0px;
+      transition: 0.3s;
+      color: #333333 !important;
+      border-radius: 0;
+      border-right: none; 
+      font-size: 15px;
+      border-bottom: 0px solid #b3b3b3 !important;
+    }
+    .tabs-section .nav-link:hover {
+        color:var(--color_secondary); 
+        border-right: none;
+    }
+    .tabs-section .nav-link.active:after{  
+        display: none; 
+    } 
+
+    .tabs-section .nav-link.active {
+      color: white !important;
+      background: none;
+    }
+    .tabs-section .nav-link.active {
+      color: black !important; 
+      font-weight: bold;  
+    }
+    
+    .tabs-section ul {
+      margin-left: -15px;
+      height: auto;
+      margin-top: 0px;
+     
+   }
+   .tabs-section ul li {
+       
+      height: 40px;  
+   } 
+   .dropdown-menu ul li{
+     height: 40px;  
+   }
+   .dropdown-menu ul{ 
+    border-bottom: none !important; 
+   }
+
+   .tabs-section ul li a{
+       
+     font-size: 16px !important;  
+
+   } 
+    #submenu-mobile{
+      display: inline;
+    } 
+
+    .span-arrow:before{ 
+      content: "";
+      position: relative;
+      display: inline-block;
+      height: 15px;
+      width: 15px;
+      background: url("https://css.mintic.gov.co/mt/mintic/img/arrow_purple_news.png");
+      background-size: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      
+      padding-top: 5px; 
+   } 
+
+   .titulo-menu-desktop{
+     display: none;
+   }
+
+   .titulo-menu-mobile{
+    display: inline;
+  }
+   .titulo-menu-mobile a{
+     color: #333333 !important;
+  }
+
+}

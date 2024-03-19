@@ -1,0 +1,80 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="table-responsive col-8">          
+      <table class="table table-bordered">
+        <tbody>
+          <tr *ngIf="incapacidadIn.id_incapacidad">
+            <td><strong>Número de incapacidad</strong></td>
+            <td>{{incapacidadIn.id_incapacidad}}</td>
+          </tr>
+          <tr>
+            <td><strong>Fecha de expedición incapacidad</strong></td>
+            <td>{{incapacidadIn.fecha_expedicion_string}}</td>
+          </tr>
+          <tr>
+            <td><strong>Lugar de expedición incapacidad</strong></td>
+            <td>{{incapacidadIn.lugar_expedicion_descripcion}}</td>
+          </tr>
+          <tr>
+            <td><strong>Tipo y número de documento</strong></td>
+            <td>{{pacienteIn.tipo_documento}} &nbsp;{{pacienteIn.numero_documento}}</td>
+          </tr>
+          <tr>
+            <td><strong>Nombre del paciente</strong></td>
+            <td>{{pacienteIn.primer_nombre}}&nbsp;{{pacienteIn.segundo_nombre}}&nbsp; {{pacienteIn.primer_apellido}} &nbsp;{{pacienteIn.segundo_apellido}}</td>
+          </tr>
+          <tr>
+            <td><strong>Sexo</strong></td>
+            <td>{{pacienteIn.sexo_descripcion}}</td>
+          </tr>
+          <tr>
+            <td><strong>Fecha nacimiento</strong></td>
+            <td>{{pacienteIn.fecha_nacimiento | date: 'dd/MM/yyyy'}}</td>
+          </tr>
+          
+
+          <tr>
+            <td><strong>Diagnóstico principal</strong></td>
+            <td>{{incapacidadIn.codigo_diagnostico_principal}}&nbsp;{{incapacidadIn.descripcion_diagnostico_principal}}</td>
+          </tr>
+          <tr>
+            <td><strong>Diagnósticos relacionados</strong></td>
+            <td>{{incapacidadIn.codigo_diagnostico_relacion_1}} &nbsp; {{incapacidadIn.descripcion_diagnostico_relacion_1}}
+                <br>{{incapacidadIn.codigo_diagnostico_relacion_2}} &nbsp; {{incapacidadIn.descripcion_diagnostico_relacion_2}}</td>
+          </tr>
+          <tr>
+            <td><strong>Origen</strong></td>
+            <td>{{pacienteIn.origen_pac_descripcion}}</td>
+          </tr>
+          <tr>
+            <td><strong>Retroactiva</strong></td>
+            <td>{{pacienteIn.retroactiva_pac_descripcion}}</td>
+          </tr>
+          <tr>
+            <td><strong>Causa</strong></td>
+            <td>{{pacienteIn.causaatencion_pac_descripcion}}</td>
+          </tr>
+          <tr>
+            <td><strong>Prorroga</strong></td>
+            <td>{{incapacidadIn.prorroga ? 'Si' : 'No'}}</td>
+          </tr>
+          <tr *ngIf="incapacidadIn.prorroga">
+            <td><strong>Días prórroga</strong></td>
+            <td>{{incapacidadIn.prorroga ? incapacidadIn.dias_acumulados_prorroga : 0 }}</td>
+          </tr>
+          <tr>
+            <td><strong>Fechas incapacidad</strong></td>
+            <td>{{incapacidadIn.fecha_inicio_string | date: 'dd/MM/yyyy'}} &nbsp;-&nbsp; {{incapacidadIn.fecha_fin_string | date: 'dd/MM/yyyy'}}</td>
+          </tr>
+          <tr>
+            <td><strong>Días de incapacidad</strong></td>
+            <td>{{incapacidadIn.dias_incapacidad}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

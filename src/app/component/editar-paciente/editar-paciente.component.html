@@ -1,0 +1,217 @@
+<!-- <p>Form value: {{ pacienteForm.value | json }}</p>
+<p>Form status: {{ pacienteForm.status | json }}</p>  -->
+<!-- <p>deshabilitr:{{deshabilitar}}</p> -->
+<form [formGroup]="pacienteForm" (ngSubmit)="abrirModalConfirmacionPaciente(pacienteForm.value)" (keydown.enter)="$event.preventDefault()">
+
+    <!-- pacienteForm.value -->
+    <h2 class="modal-title">Paciente</h2>
+    <br>
+    <div class="row">
+
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="form-text mb-3 is-required">Tipo Documento</label>
+                <select  class="form-control" (change)="changeValueTipoDocumento()" 
+                         formControlName="tipo_documento" [disabled]="true" [ngClass]="{ 'is-invalid': submittedPaciente && f_paciente.tipo_documento.errors }">
+                <option *ngFor="let item of listaTipoDocumento" [ngValue]="item.cod_tipo_documento" >{{ item.descripcion }}</option>
+                </select>
+                <div *ngIf="submittedPaciente && f_paciente.tipo_documento.errors" class="invalid-feedback">
+                    <div class="validacion" *ngIf="f_paciente.tipo_documento.errors">Tipo documento es requerido</div>
+                </div>
+            </div>
+        
+
+        </div>
+        <div class="col-sm-3">                   
+           
+            <div class="form-group">
+                <label class="form-text mb-3 is-required">Número Documento</label>
+                <input type="text" class="form-control" formControlName="numero_documento" [ngClass]="{ 'is-invalid': submittedPaciente && f_paciente.numero_documento.errors }" />
+                <div *ngIf=" submittedPaciente && f_paciente.numero_documento.errors" class="invalid-feedback">
+                    <div class="validacion" *ngIf="f_paciente.numero_documento.errors.required">Número de documento es requerido</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-3">
+     
+            <div class="form-group">
+                <label class="form-text mb-3 is-required">Primer Nombre</label>
+                <input type="text" formControlName="primer_nombre" class="form-control" 
+                [ngClass]="{ 'is-invalid': submittedPaciente && f_paciente.primer_nombre.errors}">
+                <div *ngIf="submittedPaciente && f_paciente.primer_nombre.errors" class="invalid-feedback">
+                    <div class="validacion" *ngIf="f_paciente.primer_nombre.errors.required">El primer nombre es requerido</div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="form-text mb-3">Segundo Nombre</label>
+                <input type="text" formControlName="segundo_nombre" class="form-control" >
+              
+                    
+                
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="form-text mb-3 is-required">Primer Apellido</label>
+                <input type="text" formControlName="primer_apellido" class="form-control" 
+                [ngClass]="{ 'is-invalid': submittedPaciente && f_paciente.primer_apellido.errors}">
+                <div *ngIf="submittedPaciente && f_paciente.primer_apellido.errors" class="invalid-feedback">
+                    <div class="validacion" *ngIf="f_paciente.primer_apellido.errors.required">El primer apellido es requerido</div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label class="form-text mb-3">Segundo Apellido</label>
+                <input type="text" formControlName="segundo_apellido" class="form-control" >
+            </div>
+        </div>
+        <div class="col-sm-3">
+             <div class="form-group">
+                <label class="form-text mb-3 is-required">Sexo</label>
+                <select  class="form-control" (change)="changeSexoConsulta()" 
+                         formControlName="sexo" [ngClass]="{ 'is-invalid':submittedPaciente && f_paciente.sexo.errors }">
+                    <option value=""></option>
+                         <option *ngFor="let item of listaSexo" [ngValue]="item.cod_sexo" >{{ item.descripcion }}</option>
+                </select>
+                <div *ngIf="submittedPaciente && f_paciente.sexo.errors" class="invalid-feedback">
+                    <div class="validacion" *ngIf="f_paciente.sexo.errors">El sexo es requerido</div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label  class="form-text mb-3 is-required">Fecha de Nacimiento</label>
+                <div class="form-group-inline" (click)="startPicker.open()">
+                    <mat-form-field >
+                        <input matInput  [max]="maxDate"  type="text" formControlName="fecha_nacimiento"
+                         [ngClass]="{ 'is-invalid': submittedPaciente && f_paciente.fecha_nacimiento.errors }" 
+                        [matDatepicker]="startPicker" readonly (click)="startPicker.open()" style="background-color:none"
+                        (dateChange)="dateChangeHandler($event.value)" min="{{fechaMinimaNacimiento | date: 'yyyy-MM-dd'}}"/>
+                    
+                        <!-- <i class="bi bi-calendar" (click)="startPicker.open()"  style="color: blue"></i> -->
+                        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startPicker></mat-datepicker>
+                        
+                    </mat-form-field>
+                    <div *ngIf="submittedPaciente && f_paciente.fecha_nacimiento.errors" class="invalid-feedback">
+                        <div *ngIf="f_paciente.fecha_nacimiento.errors.required">Fecha de nacimiento es requerida</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <div class="row">
+        <div class="col-sm-3">
+            <input 
+            type="text" 
+            id="picker" 
+            
+            [value]="startDate" 
+            [matDatepicker]="startPicker" 
+            (dateChange)="dateChangeHandler($event.value)"
+          >&nbsp;&nbsp;
+          <i class="bi bi-calendar" (click)="startPicker.open()"  style="color: blue"></i>
+       
+          <mat-datepicker #startPicker></mat-datepicker>
+        
+         
+          <pre>{{ f_paciente.date.value | json }}</pre>
+        </div>
+    </div>  -->
+
+    <div class="row">
+        <div class="col-sm-3">
+
+            <div class="form-group">
+                <label class="form-text mb-3 is-required">Departamento Residencia</label>
+                <select  formControlName="cod_depto_residencia"  class="form-control" (change)="changeDepartamentosConsulta($event)"
+                        [ngClass]="{ 'is-invalid': submittedPaciente && f_paciente.cod_depto_residencia.errors }">
+                        <option value=""></option>    
+                <option *ngFor="let item of listaDepartamentos" [ngValue]="item.cod_depto" >{{ item.nom_depto }}</option>
+                </select>
+               
+                <div *ngIf=" submittedPaciente && f_paciente.cod_depto_residencia.errors" class="invalid-feedback">
+                    <div class="validacion" *ngIf="f_paciente.cod_depto_residencia.errors">El departamento es requerido</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+           <div class="form-group">
+                <label class="form-text mb-3 is-required">Municipio Residencia</label>
+                <select  class="form-control" (change)="changeMunicipiosConsulta($event)"
+                         formControlName="cod_mun_residencia" [ngClass]="{ 'is-invalid': submittedPaciente && f_paciente.cod_mun_residencia.errors }">
+                         <option value=""></option>
+                <option *ngFor="let item of listaMunicipiosByDepto" [ngValue]="item.cod_municipio" >{{ item.nom_ciudad }}</option>
+                </select>
+                <div *ngIf=" submittedPaciente && f_paciente.cod_mun_residencia.errors" class="invalid-feedback">
+                    <div class="validacion" *ngIf="f_paciente.cod_mun_residencia.errors">El municipio es requerido</div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-3">
+
+            <div class="form-group">
+                <label class="form-text mb-3 is-required">Regimen</label>
+                <select  formControlName="id_regimen"  class="form-control" (change)="changeRegimen($event)"
+                        [ngClass]="{ 'is-invalid': submittedPaciente && f_paciente.id_regimen.errors }">
+                        <option value=""></option>    
+                <option *ngFor="let item of listaRegimen" [ngValue]="item.cod_regimen" >{{ item.descripcion }}</option>
+                </select>
+               
+                <div *ngIf=" submittedPaciente && f_paciente.id_regimen.errors" class="invalid-feedback">
+                    <div class="validacion" *ngIf="f_paciente.id_regimen.errors">el regimen es requerido</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+           <div class="form-group">
+                <label class="form-text mb-3 is-required">Eps</label>
+                <select  class="form-control" formControlName="eps" [ngClass]="{ 'is-invalid': submittedPaciente && f_paciente.eps.errors }">
+                         <option value=""></option>
+                <option *ngFor="let item of listaAdministradorasByCodRegimen" [ngValue]="item.cod_administradora" >{{ item.razon_social }}</option>
+                </select>
+                <div *ngIf=" submittedPaciente && f_paciente.eps.errors" class="invalid-feedback">
+                    <div class="validacion" *ngIf="f_paciente.eps.errors">la Eps es requerida</div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col text-lg-center" *ngIf="this.deshabilitar==false">
+            <button class="btn btn-round btn-high" (click)="refresh()">Regresar</button>
+            &nbsp; 
+            <button type="submit" class="btn btn-round btn-high">Guardar</button>
+        </div>
+    </div>
+</form>

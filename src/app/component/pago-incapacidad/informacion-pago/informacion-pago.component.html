@@ -1,0 +1,121 @@
+<div class="container">
+
+  <!-- <p>Form value: {{ pagoIn| json }}</p> -->
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="table-responsive col-8">          
+      <table class="table table-bordered">
+        <tbody>
+
+          <tr>
+            <td class="col text-center" colspan="2"><strong>INFORMACIÓN DE PAGO</strong></td>
+          </tr> 
+
+          <tr>
+            <td><strong>Fecha de registro</strong></td>
+            <td>{{fechaRegistro | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+          </tr>
+          
+          <tr>
+            <td><strong>Número de incapacidad</strong></td>
+            <td>{{pagoIn.id_incapacidad}}</td>
+          </tr>
+
+          <tr>
+            <td><strong>Tipo y número de documento</strong></td>
+            <td>{{pagoIn.tipo_documento_pac}} &nbsp;{{pagoIn.numero_documento_pac}}</td>
+          </tr>
+          <tr>
+            <td><strong>Nombre del paciente</strong></td>
+            <td>{{pagoIn.primer_nombre_pac}}&nbsp;{{pagoIn.segundo_nombre_pac}}&nbsp; {{pagoIn.primer_apellido_pac}} &nbsp;{{pagoIn.segundo_apellido_pac}}</td>
+          </tr>
+
+          <tr>
+            <td><strong>Fecha de radicación incapacidad</strong></td>
+            <td>{{pagoIn.fecha_radicacion | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+          </tr>
+
+          <tr>
+            <td><strong>Estado incapacidad</strong></td>
+            <td>{{pagoIn.descripcion_estado_pago }}</td>
+          </tr>
+
+          <tr *ngIf="pagoIn.descripcion_causal_glosa">
+            <td><strong>Causal glosa</strong></td>
+            <td>{{pagoIn.descripcion_causal_glosa}}</td>
+          </tr> 
+
+          <tr *ngIf="!pagoIn.descripcion_causal_glosa">
+            <td><strong>Número de autorización</strong></td>
+            <td>{{pagoIn.nro_autorizacion}}</td>
+          </tr> 
+
+          <tr *ngIf="!pagoIn.descripcion_causal_glosa">
+            <td><strong>Tipo Pago</strong></td>
+            <td>{{pagoIn.descripcion_tipo_pago}}</td>
+          </tr> 
+
+          <tr *ngIf="!pagoIn.descripcion_causal_glosa">
+            <td><strong>Valor pagado incapacidad</strong></td>
+            <td>$ {{pagoIn.valor_pagado  | number:'1.0' }}</td>
+          </tr> 
+
+          <tr *ngIf="!pagoIn.descripcion_causal_glosa">
+            <td><strong>Fecha de pago</strong></td>
+            <!-- <td>{{pagoIn.fecha_pago | date: 'dd/MM/yyyy HH:mm:ss'}}</td> -->
+            <td>{{pagoIn.fecha_pago | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+          </tr>
+
+          <tr *ngIf="!pagoIn.descripcion_causal_glosa">
+            <td><strong>Días pagados</strong></td>
+            <td>{{pagoIn.dias_pagados}}</td>
+          </tr> 
+
+          <tr *ngIf="pagoIn.descripcion_causal_dias">
+            <td><strong>Causal Días</strong></td>
+            <td>{{pagoIn.descripcion_causal_dias}}</td>
+          </tr> 
+
+          <tr *ngIf="!pagoIn.descripcion_causal_glosa">
+            <td><strong>Ingreso base cotización</strong></td>
+            <td>$ {{pagoIn.ibc_pago | number:'1.0' }}</td>
+          </tr> 
+
+          <tr>
+            <td><strong>Identificación aportante</strong></td>
+            <td>{{pagoIn.tipo_documento_aportante}}&nbsp;{{pagoIn.numero_documento_aportante}}&nbsp;{{pagoIn.razon_social_aportante}}</td>
+          </tr> 
+
+
+          <tr>
+            <td class="col text-center" colspan="2"><strong>INFORMACIÓN ENTIDAD RESPONSABLE DE PAGO</strong></td>
+          </tr> 
+          <tr>
+            <td><strong>Tipo y número de documento</strong></td>
+            <td>{{numEntidad}}</td>
+          </tr> 
+          <tr>
+            <td><strong>Nombre o razón Social</strong></td>
+            <td>{{entidad}}</td>
+          </tr> 
+
+          <tr>
+            <td class="col text-center" colspan="2"><strong>INFORMACIÓN USUARIO QUE REGISTRA EL PAGO</strong></td>
+          </tr> 
+          <tr>
+            <td><strong>Tipo y número de documento</strong></td>
+            <td>{{numUsuario}}</td>
+          </tr> 
+          <tr>
+            <td><strong>Nombres y apellidos</strong></td>
+            <td>{{usuario}}</td>
+          </tr> 
+
+
+
+        </tbody>
+      </table>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="container">
+  <form [formGroup]="actualizacionForm" (ngSubmit)="onSubmit()">
+    <div class="form">
+      <h2 class="modal-title">Datos de Entidad Responsable de Pago - Contacto para notificaciones de procesos SIPE</h2>
+         <br>
+      <!-- <div>
+        <h3>Datos de Entidad Responsable de Pago - </h3>
+        <h3>Contacto para notificaciones de procesos SIPE</h3>
+        <br>
+      </div>
+     -->
+      <!-- <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="firstName">Primer Nombre</label>
+            <input type="text" id="firstName" class="form-control" formControlName="firstName" [disabled]="true">
+            <div class="error" *ngIf="actualizacionForm.controls['firstName'].invalid && actualizacionForm.controls['firstName'].touched">
+              Primer Nombre es requerido.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="secondName">Segundo Nombre</label>
+            <input type="text" id="secondName" class="form-control" formControlName="secondName" [disabled]="true">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="firstlastName">Primer Apellido</label>
+            <input type="text" id="firstlastName" class="form-control" formControlName="firstlastName" [disabled]="true">
+            <div class="error" *ngIf="actualizacionForm.controls['firstlastName'].invalid && actualizacionForm.controls['firstlastName'].touched">
+              Primer Apellido es requerido.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="secondlastName">Segundo Apellido</label>
+            <input type="text" id="secondlastName" class="form-control" formControlName="secondlastName" [disabled]="true">
+            <div class="error" *ngIf="actualizacionForm.controls['secondlastName'].invalid && actualizacionForm.controls['secondlastName'].touched">
+              Segundo Apellido es requerido.
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="tipodoc">NIT Entidad</label>
+            <input type="text" id="email" class="form-control" formControlName="tipodoc" disabled>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="razon">Razón Social ERP</label>
+            <input type="text" id="confirmEmail" class="form-control" formControlName="razon" disabled>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="email">Correo Electrónico</label>
+            <input type="email" id="email" class="form-control" formControlName="email" required>
+            <div class="error" *ngIf="actualizacionForm.controls['email'].invalid && actualizacionForm.controls['email'].touched">
+              Email invalido.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="confirmEmail">Confirmar correo electrónico</label>
+            <input type="email" id="confirmEmail" class="form-control" formControlName="confirmEmail" required>
+            <!-- <div class="error" *ngIf="actualizacionForm.errors?.['emailMismatch']">
+              Corrige el correo electrónico.
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+          <div class="col text-lg-center" >
+              <button (click)="back()" class="btn btn-round btn-high" >Cancelar</button>
+              &nbsp; 
+              <button *ngIf="edit" type="submit" class="btn btn-round btn-high">Guardar</button>
+          </div>
+      </div>     
+    </div>
+   
+  </form>
+</div>

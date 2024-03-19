@@ -1,0 +1,170 @@
+/* Variables */
+
+body {
+    --color-bg: white;
+    --color-texto: black;
+} 
+ 
+body.dark-theme {
+    --color-bg: rgb(47, 47, 47);
+    --color-texto: white; 
+
+    --bg-row: gray;
+    --bg-row: silver;
+
+    --color-footer: #ffb847;
+
+    --color-tab-color: black;  
+}
+
+
+/* @media (prefers-color-scheme: dark) {
+
+    body {
+        --color-bg: rgb(47, 47, 47);
+        --color-texto: #ffb847;
+    }  
+
+    body.light-theme {
+    --color-bg: white;
+    --color-texto: black;
+
+    --color-footer:  red;
+    }
+
+
+    img {
+        filter: brightness(.8) contrast(1.2);
+    }
+
+    footer {
+
+    background-color: var(--color-footer);
+    }   
+    
+}
+  */
+
+body {
+    background-color: var(--color-bg);
+    
+}
+p{
+    color: var(--color-texto);
+}
+
+h3 {
+    color: var(--color-texto);
+}
+h4 {
+    color: var(--color-texto);
+} 
+
+
+
+/* 
+#accordion .card-header{
+  background: var(--color-tab);
+}
+#accordion .card-header button{
+  color: var(--color-tab-color) !important;
+}
+.card{
+  background-color: var(--color-bg);
+}
+#accordion .card-body li a {
+    color: var(--color-texto);
+} */
+
+
+
+/* footer  */
+
+/* footer {
+    background-color: var(--color-footer);
+} */
+
+
+/* 
+footer b { 
+    color: var(--color-bg) !important;
+} 
+footer p { 
+    color: var(--color-bg) !important;
+    font-weight: 400;
+} 
+
+footer p a{ 
+    color: var(--color-bg) !important; 
+} 
+footer .span-redes { 
+    background-color: var(--color-bg);
+} */
+
+
+/* .multimedia {
+    background: var(--bg-row); 
+}  */
+/* .multimedia-facebooklive{
+    background: var(--bg-row); 
+}
+.multimedia-eventos{
+     background: var(--bg-row2);    
+} */
+
+
+/* Banner   */
+
+/* .nav-gov {
+    background: var(--color-bg);
+} */
+/* 
+.nav-bar-menu { 
+    background: var(--color-bg) !important;
+}
+
+.span-menu-title {
+    color: var(--color-texto) !important; 
+}   */
+
+
+/* 
+links
+
+a:visited {
+     color: var(--color-tab);
+}
+
+a:link {
+    
+    color: var(--color-texto);
+}
+ */
+
+
+ 
+
+/* Multimedia 
+
+
+.ministerio-zone .enlacesGel ul li a{
+  color: var( --color-texto) !important;
+}
+
+#accordion .card-header{
+  background: var(--color-tab);
+}
+#accordion .card-header button{
+  color: var(--color-tab-color) !important;
+}
+.card{
+  background-color: var(--color-bg);
+}
+#accordion .card-body li a {
+    color: var(--color-texto);
+}*/
+
+
+
+
+

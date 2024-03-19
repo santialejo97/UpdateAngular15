@@ -1,0 +1,7 @@
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<form [formGroup]="aFormGroup">
+
+  <re-captcha (resolved)="resolved($event)" (error) ="onError($event)" errorMode ="handled"
+              siteKey='6LfLnqgfAAAAAO0oVD8hkRPZQotMVDu8XIIj9fAi' ></re-captcha>
+</form>

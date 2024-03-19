@@ -1,0 +1,796 @@
+/* Estilos Master Page */
+:root {
+    /* Main Colors */
+    --color_primary: #e2ecfd;
+    --color_secondary: #3772FF;
+    --color_tertiary: #6699ff;
+    --color_parrafo: rgb(41, 41, 41);
+    --color_blue_2: #5B8BFF;
+    --color_blue_3: #4A7EFF;
+    --color_blue_5: #3563d3;
+    --color_4_blue: #194887;
+    /* Equidad Colors */
+    --color_primary_equidad: #f42f63;
+    --color_secondary_equidad: #194887;
+    --white: white;
+}
+
+::-moz-selection {
+    background: var(--color_secondary);
+    color: white;
+}
+
+::selection {
+    background: var(--color_secondary);
+    color: white;
+}
+
+
+* {
+    font-family: "Work Sans", sans-serif;
+    // color: var(--color_parrafo);
+}
+
+a {
+    color: var(--color_parrafo);
+}
+
+    a:link {
+        color: var(--color_secondary);
+    }
+
+    a:visited {
+        color: var(--color_secondary_equidad);
+    }
+
+/* Funcionarios */
+.funcionarios {
+    color: white !important;
+    font-size: 15px;
+    margin-right: 20px;
+    font-weight: 500;
+}
+/* login usuario */
+.usuario {
+    font-size: 15px;
+    margin-right: 20px;
+    color: white !important;
+    font-size: 15px;
+}
+/* Buscar */
+.buscar {
+    font-size: 15px;
+    color: white;
+}
+
+.ver-mas {
+    font-weight: bold;
+    margin-top: -8px;
+}
+
+figure {
+    margin: 0px 0px 5px;
+}
+
+a, .ms-link:visited {
+    /*color: var(--color_primary_equidad);*/
+    text-decoration: none;
+}
+
+    
+
+
+.content {
+    font-family: "Work Sans", sans-serif;
+    font-size: 16px;
+}
+
+.card-text {
+    font-size: 14px;
+}
+
+.content-date p {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.num-boletin {
+    position: absolute;
+    right: 15px;
+}
+
+.route-page {
+    color: #757575;
+    font-size: 12px;
+}
+
+/* Top menu */
+.nav-gov {
+    background: var(--color_blue_5);
+}
+
+
+/* logo MIN top Mobile */
+.logo-min {
+    display: none;
+    background: url("https://www.minsalud.gov.co/LogosInstitucionales/logo-gobierno-Ministerio-de-Salud-y-Proteccion-Social-minsalud.png");
+}
+
+/* Menu */
+.navbar-light .navbar-nav .nav-link {
+    color: var(--white);
+    /*    border: 1px solid red; */
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 0.9rem;
+}
+
+.navbar-nav {
+    /*  border: 2px solid pink; */
+}
+
+.container-menu {
+    /*   border: 1px solid gray; */
+}
+
+
+.navbar-light .navbar-nav .nav-link .active {
+    color: var(--white);
+    font-weight: bolder;
+}
+
+
+.navbar-nav .covid {
+    background: white;
+    position: relative;
+    margin-left: 60px;
+    /* border: 2px solid var(--color_blue_5) !important; */
+    background: var(--color_4_blue) !important;
+    color: white !important;
+}
+
+.covid-menu {
+    color: white;
+}
+
+
+.menu-hambur {
+    display: none;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 100%;
+    left: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.nav-link-servicio {
+    color: var(--color_4_blue) !important;
+    font-weight: bolder;
+}
+
+/* Carousel  */
+
+.carousel-indicators {
+    bottom: -10px;
+}
+
+    .carousel-indicators li {
+        background-color: var(--color_primary_equidad);
+        width: 25px;
+        height: 5px;
+    }
+
+/* 
+  .carousel-control-next-icon {
+    background-image: url(data:image/svg + xml,%3csvgxmlns="http://www.w3.org/2000/svg"fill="%23fff"viewBox="0 0 8 8"%3e%3cpathd="M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z"/%3e%3c/svg%3e)!important;
+  }  */
+
+
+/* Banner Rotativo */
+.carousel-inner {
+    height: 380px;
+}
+
+/* Noticias */
+
+.mini-underline {
+    position: absolute;
+    width: 40px;
+    height: 3px;
+    background: var(--color_primary_equidad);
+    display: block;
+    margin-top: -10px;
+}
+
+.mini-underline-multimedia {
+    position: absolute;
+    width: 40px;
+    height: 3px;
+    background: var(--color_tertiary);
+    display: block;
+    margin-top: -10px;
+}
+
+.span-date {
+    font-size: 9px;
+}
+
+.noticia {
+    font-size: 16px;
+    margin-bottom: 0.2rem !important;
+}
+
+    .noticia p {
+        margin-bottom: 0.2rem !important;
+    }
+
+.nt-segundaria p {
+    font-family: "Work Sans", sans-serif !important;
+    font-weight: 300 !important;
+}
+
+.noticias_secundarias p:before {
+    content: "";
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background: url("https://css.mintic.gov.co/mt/mintic/img/arrow_purple_news.png");
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 4px;
+}
+
+
+.border-bottom-noticia {
+    border-bottom: 1px dashed gray;
+}
+
+/* Redes */
+.title-redes {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    text-align: left;
+    margin-left: 20px;
+}
+
+    .title-redes span {
+        font-size: 16px;
+        margin-left: 5px;
+    }
+
+    .title-redes a {
+        text-decoration: none;
+    }
+
+
+/*  Links styles */
+
+.links {
+    margin: 0 auto;
+}
+
+    .links p {
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+    }
+
+.link-title {
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 15px;
+}
+
+/* Main Footer */
+
+footer {
+    background-color: var(--color_blue_5);
+}
+
+    footer p {
+        font-size: 0.9rem !important;
+        font-family: "Work Sans", sans-serif;
+        font-weight: 300;
+        color: white !important;
+    }
+
+    footer b {
+        font-weight: 500;
+        color: white !important;
+    }
+
+    footer p {
+        padding-top: 5px;
+        text-align: left;
+    }
+
+    footer .span-redes {
+        height: 45px;
+        width: 45px;
+        background-color: var(--color_4_blue);
+        display: inline-block;
+    }
+
+    footer .solicitud a {
+        text-decoration: underline;
+        font-family: "Work Sans", sans-serif;
+        font-weight: 500;
+    }
+
+/* Footer GOV */
+
+.footer-gov {
+    text-align: left;
+}
+
+.nav-gov-footer {
+    background: var(--color_blue_5);
+}
+
+
+.gov-footer-img {
+    width: 120px;
+}
+
+.co-footer-img {
+    width: 70px;
+    padding-right: 15px;
+    border-right: 1px solid white;
+}
+
+/* logo .gov top */
+.icon-gov {
+    width: 10%;
+    padding: 5px;
+    
+}
+
+.govco-icon {
+    color: #004884;
+}
+
+.no-desktop {
+    display: none;
+}
+
+
+
+/* Share Styles */
+
+.share {
+    display: flex;
+}
+
+    .share p {
+        text-align: center;
+    }
+
+.share-title {
+    font-size: 18px;
+    font-weight: bolder;
+    display: inline;
+}
+
+.span-redes {
+    height: 35px;
+    width: 35px;
+    background-color: var(--color_primary_equidad);
+    margin-left: 10px;
+}
+
+    .span-redes i {
+        padding-top: 13px;
+        font-size: 1.3rem;
+        color: white;
+    }
+
+/* Footer Grid */
+.grid3x-footer {
+    min-height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+    .grid3x-footer > div {
+        display: flex;
+        flex-basis: calc(30%);
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+.box-footer {
+    margin: 18px;
+}
+
+    .box-footer a {
+        color: var(--white);
+    }
+
+.redes-right {
+    margin-top: -90px;
+}
+
+/* Multimedia */
+.multimedia {
+    background: rgb(231, 231, 231);
+    height: auto;
+    padding: 1px !important;
+}
+
+    .multimedia .col-sm {
+        text-align: center;
+    }
+
+    .multimedia .row {
+        padding-left: 0px;
+    }
+/* Eventos */
+.multimedia-eventos {
+    background: rgb(241, 241, 241);
+}
+
+.multimedia-facebooklive {
+    background: rgb(231, 231, 231);
+}
+
+#eventos .titulo p {
+    font-size: 14px;
+}
+
+.instagram {
+    width: 100%;
+    height: 210px;
+}
+
+.envivo_streaming {
+    border-radius: 20px;
+    padding: 5px;
+    color: white;
+    font-size: 14px;
+    animation: pulse_vivo 5s infinite;
+}
+
+@keyframes pulse_vivo {
+    0% {
+        background-color: #FA3E3E;
+    }
+
+    100% {
+        background-color: #f92525;
+    }
+}
+
+
+
+
+
+/* Fixed Footer Responsive */
+
+.footer-fixed {
+    display: none;
+}
+
+.ministerio-zone .enlacesGel ul li a {
+    font-size: 14px !important;
+    font-family: "Work Sans", sans-serif;
+    font-weight: 400;
+    color: var(--color_blue_5) !important;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+
+
+    .footer-fixed {
+        display: inline;
+        z-index: 3000;
+    }
+
+    .footer-fixed-scroll {
+        margin-bottom: 80px;
+    }
+
+    .no-mobile {
+        display: none;
+    }
+
+    /* logo .gov top */
+    .icon-gov {
+        width: 30%;
+        padding: 5px;
+    }
+
+
+    /* Footer GOV */
+
+    .footer-gov {
+        text-align: center;
+    }
+    /* logo MIN top Mobile */
+    .logo-min {
+        position: absolute;
+        top: 11px;
+        display: inline;
+        margin-left: -60px;
+        width: 150px;
+    }
+
+    .covid {
+        text-align: left;
+        background: none;
+        margin-left: 0px;
+        font-weight: bolder;
+    }
+
+    .covid-li {
+        margin-left: 0px;
+    }
+
+        .covid-li a {
+            color: var(--color_4_blue) !important;
+        }
+
+
+    .navbar-nav .covid {
+        margin-left: 0px;
+        border: 0;
+        background: var(--color_blue_5) !important;
+        color: white !important;
+    }
+
+    .menu-hambur {
+        display: inline;
+        color: white;
+    }
+
+    .no-desktop {
+        display: inline;
+    }
+
+    /* .nav-item .titulo-menu-mobile{
+    color: red !important;
+  }
+ */
+
+
+
+
+
+
+
+    /* Banner Rotativo */
+    .carousel-inner {
+        height: 160px;
+    }
+
+    /* Noticias */
+    .card-text {
+        font-size: 16px;
+        padding-top: 10px;
+    }
+    /* Link funcionarios */
+
+    .funcionarios {
+        color: white !important;
+        font-size: 15px;
+        margin-right: 20px;
+        font-weight: 500;
+    }
+
+    .noticia-mobile {
+        padding-left: 0px;
+        padding-right: 10px;
+    }
+
+    .oculto2 .card {
+        width: 10rem;
+        margin-left: 0px;
+        margin-right: 10px;
+    }
+
+    .instagram {
+        width: 95%;
+        height: 210px;
+    }
+
+
+    /* Redes */
+    .title-redes {
+        display: inline-block;
+        width: inherit;
+        margin-bottom: 5px;
+        margin-top: inherit;
+        text-align: left;
+        margin-left: 0px;
+    }
+}
+
+
+/* Min Lista */
+
+
+.enlaces-ul {
+    margin-left: -35px;
+}
+
+.enlacesGel ul {
+    list-style-type: none;
+}
+
+    .enlacesGel ul li {
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+
+.ministerio-zone .enlacesGel ul li a {
+    color: #2c5889;
+    display: block;
+    font-size: 1em;
+    line-height: 0.8;
+    padding-left: 15px;
+    text-decoration: none;
+    position: relative;
+}
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaPresidencia:before {
+        background-color: #36c !important;
+    }
+
+    .ministerio-zone .enlacesGel ul li a:before {
+        content: "";
+        background-color: #025dc3;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        position: absolute;
+        left: 0;
+        top: 17%;
+        display: block;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaVicepresidencia:before {
+        background-color: #ffab00;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMinjusticia:before {
+        background-color: #ffab00;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMindefensa:before {
+        background-color: #ffab00;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMinrelaciones:before {
+        background-color: #ffab00;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMininterior:before {
+        background-color: #ffab00;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMinhacienda:before {
+        background-color: #008e65;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMinminas:before {
+        background-color: #008e65;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMincomercio:before {
+        background-color: #008e65;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMinagricultura:before {
+        background-color: #008e65;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMintransporte:before {
+        background-color: #008e65;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMintrabajo:before {
+        background-color: #008e65;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMincomercio:before {
+        background-color: #008e65;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMinambiente:before {
+        background-color: #f42f63;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMintic:before {
+        background-color: #f42f63;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMincultura:before {
+        background-color: #f42f63;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMineducacion:before {
+        background-color: #f42f63;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMinvivienda:before {
+        background-color: #f42f63;
+    }
+
+    .ministerio-zone .enlacesGel ul li a.vinnetaMinsalud:before {
+        background-color: #f42f63;
+    }
+/* Enlaces Ministerior */
+.grid1 {
+    display: grid;
+    grid-gap: 1px;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.img-enlaces {
+    width: 245px;
+}
+
+.enlaces-div {
+    margin-left: -25px;
+}
+
+.img-enlaces-mobile {
+    display: none;
+}
+
+
+
+
+@media only screen and (max-width: 600px) {
+
+    .enlaces-ul {
+        padding-top: 10px;
+        margin-left: -48px;
+    }
+
+    .grid1 {
+        display: grid;
+        grid-gap: 1px;
+        margin-left: -15px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .img-enlaces-div {
+        display: none;
+    }
+
+    .img-enlaces {
+        width: 245px;
+    }
+
+    .enlaces-div {
+        margin-left: 0px;
+    }
+
+    .img-enlaces-mobile {
+        width: 100%;
+        display: inline;
+    }
+
+    .redes-right {
+        margin-top: 0px;
+    }
+}

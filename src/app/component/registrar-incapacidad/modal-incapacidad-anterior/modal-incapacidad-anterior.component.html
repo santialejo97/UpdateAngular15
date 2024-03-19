@@ -1,0 +1,154 @@
+<div class="modal-header">
+
+  <div class="alert-govco-maintenance hidden" id="modal-maintenance"></div>
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-original-title="" title="" (click)="closeModal()">
+  <i class="material-icons">clear</i>
+  </button>
+</div>
+<div class="modal-body text-center">
+  <div id="modal-content-type-alert" class="modal-content-info">
+  <div class="alert-icon">
+      <span class="govco-icon govco-icon-circle-check-n" id="govco-icon-alert"></span>
+  </div>
+  <div id="modal-content-title" class="modal-content-title content-govco modal-content-info"><h5>Confirmación</h5></div>
+  </div>
+  <p id="modal-content-txt2" class="modal-content-txt content-govco"><strong>Ya existe una incapacidad expedida para el rango de fechas solicitado para este paciente, verifique la siguiente información</strong> </p>
+  
+  <h2 class="modal-title">Incapacidad Encontrada</h2>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+      <th>Número</th>
+      <th>Fecha Expedición</th>
+      <th>Origen</th>
+      <th>Fecha Inicio</th>
+      <th>Fecha Fin</th>
+      <th>Días</th>
+      <th>Diagnóstico Principal</th>
+      <th colspan="2">Diagnósticos Relacionados</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let inc of dataIn.lista_incapacidades">
+    
+      <td>{{inc.id_incapacidad}}</td>
+      <td>{{inc.fecha_expedicion | date: 'dd/MM/yyyy'}}</td>
+      <td>{{inc.id_origen == 1 ? 'Común' : inc.id_origen == 2 ? 'Laboral' : 'Indefinido'}}</td>
+      <td style="color: red;">{{inc.fecha_inicio_string | date: 'dd/MM/yyyy'}}</td>
+      <td style="color: red;">{{inc.fecha_fin_string | date: 'dd/MM/yyyy'}}</td>
+      <td style="color: red;">{{inc.dias_incapacidad}}</td>
+      <td class="tooltip1">
+        {{inc.diagnostico.cod_diagnostico}}
+          <span class="tooltiptext1">{{inc.diagnostico.descripcion}}</span>
+      </td>
+      <td class="tooltip1" *ngIf="inc.diagnosticoRelacionUno != null">
+        {{inc.diagnosticoRelacionUno.cod_diag_relacion_uno}}
+          <span class="tooltiptext1">{{inc.diagnosticoRelacionUno.descripcion}}</span>
+      </td>
+      <td class="tooltip1" *ngIf="inc.diagnosticoRelacionDos != null">
+        {{inc.diagnosticoRelacionDos != null ? inc.diagnosticoRelacionDos.cod_diag_relacion_dos : ''}}
+          <span class="tooltiptext1">{{inc.diagnosticoRelacionDos != null ? inc.diagnosticoRelacionDos.descripcion : ''}}</span>
+      </td>
+     </tr>
+    </tbody>
+  </table>
+  </div>
+  <br>
+
+  <h2 class="modal-title">Incapacidad Actual</h2>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+    <tr>
+      <th>Número</th>
+      <th>Fecha Expedición</th>
+      <th>Origen</th>
+      <th>Fecha Inicio</th>
+      <th>Fecha Fin</th>
+      <th>Días</th>
+      <th>Diagnóstico Principal</th>
+      <th colspan="2">Diagnósticos Relacionados</th>
+    </tr>
+      </thead>
+      <tbody>
+    <tr >
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td>{{dataIn.incapacidad_data.fecha_expedicion | date: 'dd/MM/yyyy'}}</td>
+      <td>{{dataIn.incapacidad_data.id_origen == 1 ? 'Común' : dataIn.incapacidad_data.id_origen == 2 ? 'Laboral' : 'Indefinido'}}</td>
+      <td style="color: blue;">{{dataIn.incapacidad_data.fecha_inicio_string | date: 'dd/MM/yyyy'}}</td>
+      <td style="color: blue;">{{dataIn.incapacidad_data.fecha_fin_string | date: 'dd/MM/yyyy'}}</td>
+      <td style="color: blue;">{{dataIn.incapacidad_data.dias_incapacidad}}</td>
+      <td class="tooltip1">
+        {{dataIn.incapacidad_data.codigo_diagnostico_principal}}
+          <span class="tooltiptext1">{{dataIn.incapacidad_data.descripcion_diagnostico_principal}}</span>
+      </td>
+      <td class="tooltip1" *ngIf="dataIn.incapacidad_data.codigo_diagnostico_relacion_1 != 0">
+        {{dataIn.incapacidad_data.codigo_diagnostico_relacion_1}}
+          <span class="tooltiptext1">{{dataIn.incapacidad_data.descripcion_diagnostico_relacion_1}}</span>
+      </td>
+      <td class="tooltip1" *ngIf="dataIn.incapacidad_data.codigo_diagnostico_relacion_2 != 0">
+        {{dataIn.incapacidad_data.codigo_diagnostico_relacion_2}}
+          <span class="tooltiptext1">{{dataIn.incapacidad_data.descripcion_diagnostico_relacion_2}}</span>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+  </div>
+  <br>
+  <h2 class="modal-title">Ajuste Incapacidad Actual</h2>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+    <tr>
+      <th>Número</th>
+      <th>Fecha Expedición</th>
+      <th>Origen</th>
+      <th>Fecha Inicio</th>
+      <th>Fecha Fin</th>
+      <th>Días </th>
+      <th>Diagnóstico Principal</th>
+      <th colspan="2">Diagnósticos Relacionados</th>
+    </tr>
+      </thead>
+      <tbody>
+    <tr >
+      <td></td>
+      <td>{{dataIn.incapacidad_data.fecha_expedicion | date: 'dd/MM/yyyy'}}</td>
+      <td>{{dataIn.incapacidad_data.id_origen == 1 ? 'Común' : dataIn.incapacidad_data.id_origen == 2 ? 'Laboral' : 'Indefinido'}}</td>
+      <td style="color: blue;"><strong>{{fechaInicioNueva | date: 'dd/MM/yyyy'}}</strong></td>
+      <td style="color: blue;"><strong>{{fechaFinNueva | date: 'dd/MM/yyyy'}}</strong></td>
+      <td style="color: blue;"><strong>{{nuevosDiasIncapacidad}}</strong></td>
+      <td class="tooltip1">
+        {{dataIn.incapacidad_data.codigo_diagnostico_principal}}
+          <span class="tooltiptext1">{{dataIn.incapacidad_data.descripcion_diagnostico_principal}}</span>
+      </td>
+      <td class="tooltip1" *ngIf="dataIn.incapacidad_data.codigo_diagnostico_relacion_1 != 0">
+        {{dataIn.incapacidad_data.codigo_diagnostico_relacion_1}}
+          <span class="tooltiptext1">{{dataIn.incapacidad_data.descripcion_diagnostico_relacion_1}}</span>
+      </td>
+      <td class="tooltip1" *ngIf="dataIn.incapacidad_data.codigo_diagnostico_relacion_2 != 0">
+        {{dataIn.incapacidad_data.codigo_diagnostico_relacion_2}}
+          <span class="tooltiptext1">{{dataIn.incapacidad_data.descripcion_diagnostico_relacion_2}}</span>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+  </div>
+  <br>
+  <label>La nueva incapacidad inicia en la fecha: <strong style="color: red;"> {{fechaInicioNueva | date: 'dd/MM/yyyy'}}</strong> </label>
+  <label>Cálculo de días de incapacidad: <strong style="color: red;">{{nuevosDiasIncapacidad}}</strong></label>
+  <label *ngIf="!acumulaDias" ><strong style="color: red;">Esta incapacidad no acumula días de incapacidad</strong></label>
+
+  <br>
+  <p id="modal-content-txt2" class="modal-content-txt content-govco"><strong>Confirma la modificación de la fecha y el cálculo de los días?</strong> </p>
+  
+</div>
+    
+<div class="text-center">
+  <div class="modal-footer text-center">
+    
+  <button (click)="closeModal()" class="btn btn-round btn-high">No</button>&nbsp; <button (click)="confirmModal()" class="btn btn-round btn-high">SI</button>
+</div>   
+  
+</div>

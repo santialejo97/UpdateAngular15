@@ -1,0 +1,59 @@
+<!-- Prueba -->
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="table-responsive col-8">          
+      <table class="table table-bordered">
+        <tbody>
+           <tr>
+            <td><strong>Tipo y número de documento</strong></td>
+            <td>{{pacienteIn.tipo_documento}} &nbsp;{{pacienteIn.numero_documento}}</td>
+          </tr>
+          <tr>
+            <td><strong>Nombre del paciente</strong></td>
+            <td>{{pacienteIn.primer_nombre}}&nbsp;{{pacienteIn.segundo_nombre}}&nbsp;{{pacienteIn.primer_apellido}}&nbsp;{{pacienteIn.segundo_apellido}}</td>
+          </tr>
+          <tr>
+            <td><strong>Sexo</strong></td>
+            <td>{{pacienteIn.sexo_descripcion}}</td>
+          </tr>
+          <tr>
+            <td><strong>Fecha nacimiento</strong></td>
+            <td>{{pacienteIn.fecha_nacimiento | date: 'dd/MM/yyyy'}}</td>        
+
+          </tr>      
+     
+          <tr>
+            <td><strong>Lugar de Residencia</strong></td>
+            <td>{{pacienteIn.ciudad_residencia_descripcion}}&nbsp;({{pacienteIn.depto_residencia_descripcion}})</td>
+          </tr>
+          <tr>
+            <td><strong>Regimen</strong></td>
+            <td>{{pacienteIn.regimen_descripcion}}</td>
+          </tr>    
+          <tr>
+            <td><strong>Eps</strong></td>
+            <td>{{pacienteIn.eps_nombre}}</td>
+          </tr> 
+          <!-- <tr>
+            <td><strong>Razón Social</strong></td>
+            <td>{{pacienteIn.razon_social}}</td>
+          </tr>  -->
+          <!-- <tr>
+            <td><strong>Identificación Razon Social</strong></td>
+            <td>{{pacienteIn.tipo_documento_empleador}} - {{pacienteIn.numero_documento_empleador}}</td>
+          </tr>    
+          <tr>
+            <td><strong>Ubicación Empleador</strong></td>
+            <td>{{pacienteIn.ubicacion_empleador}}</td>
+          </tr>  -->
+        </tbody>
+      </table>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>
+
+<!-- Fin prueba -->

@@ -1,0 +1,36 @@
+
+
+<div class="modal-header">
+    <h2 class="texto-modal-1">Lista de Diagnósticos</h2>
+    <button class="close" aria-label="close" type="button" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+</div>
+<div class="modal-body">
+
+  <div class="table-pagination-govco">
+    <input type="search" (keyup)="onKeyUp($event)" class="form-control input-small" placeholder="Busqueda por código o por descripción ejemplo: 'Fiebre'" class="form-control" >
+    <table id="DataTables_Table_0" class="table display table-responsive-sm table-responsive-md">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Código</th>
+            <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listaCie10 | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let i = index" (click)="clickedRow(i)" >
+            <th scope="row">{{item.id}}</th>
+            <td>{{item.codigo}}</td>
+            <td>{{item.descripcion}}</td>
+        </tr> 
+      </tbody>
+    </table>
+    <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize" [collectionSize]="listaCie10.length">
+      <ng-template ngbPaginationPrevious></ng-template>
+      <ng-template ngbPaginationNext></ng-template>
+      <ng-template ngbPaginationNumber let-p>{{ p }}</ng-template>
+    </ngb-pagination>
+  </div> 
+</div>

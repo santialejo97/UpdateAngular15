@@ -1,0 +1,23 @@
+.modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    input {
+      margin-bottom: 10px;
+    }
+  }
+  
+  
+.modal-footer {
+  display: block;
+} 
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+
+.table td, .table th {
+  padding: 0.25rem !important;
+}

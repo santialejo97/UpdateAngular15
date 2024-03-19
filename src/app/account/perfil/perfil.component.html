@@ -1,0 +1,39 @@
+<div class="container">
+  
+  <div class="form-group" style="text-align:center">
+    <a (click)="logout()" style="text-align: right; float: right; color: #004884;position: relative; right: -100px;">Cerrar sesión &nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <h3> Seleccione datos de perfil </h3>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" style="text-align:center">
+      <div class="form-group">
+        <label for="Entidad" style="width: 550px">Entidad</label>
+        <select formControlName="Entidad" class="form-control" (change)="seleccionarEntidad($event)">
+          <option enabled>Seleccione la entidad con la que va a gestionar incapacidades...</option>
+          <option *ngFor="let Entidad of listaEntidadesFil">{{Entidad}}</option>
+        </select>
+        <div *ngIf="f.Entidad.touched && f.Entidad.invalid" class="invalid-feedback">
+          <div *ngIf="f.Entidad.errors.required">La entidad es requerida</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="Rol" style="width: 400px">Rol</label>
+        <select formControlName="Rol" class="form-control" (change)="seleccionarRol($event)" >
+          <option enabled>Seleccione el rol...</option>
+          <option *ngFor="let Rol of listaRoles">{{Rol}}</option>
+        </select>
+        <div *ngIf="f.Rol.touched && f.Rol.invalid" class="invalid-feedback">
+          <div *ngIf="f.Rol.errors.required">El rol es requerido</div>
+        </div>
+      </div>
+
+        <div class="form-group" style="text-align:center">
+          <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Seleccionar
+          </button>
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+

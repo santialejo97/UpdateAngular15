@@ -1,0 +1,137 @@
+<div class="container">
+  
+  <div id="stepper1" class="bs-stepper">
+     <div class="bs-stepper-header">
+        <div class="step" data-target="#test-l-1">
+           <button class="step-trigger" disabled>
+           <span class="bs-stepper-circle">1</span>
+           <span class="bs-stepper-label">Plan de Contingencia</span>
+           </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#test-l-2">
+           <button class="step-trigger" disabled>
+           <span class="bs-stepper-circle">2</span>
+           <span class="bs-stepper-label">Confirmar</span>
+           </button>
+        </div>
+        <div class="line"></div>
+        <div class="step" data-target="#test-l-3">
+           <button class="step-trigger" disabled>
+           <span class="bs-stepper-circle">3</span>
+           <span class="bs-stepper-label">Resumen</span>
+           </button>
+        </div>
+     </div>
+     
+      <div class="bs-stepper-content">
+        <h1 class="color-warning" *ngIf="consultaPlanContingenciaActual != null">Plan de Contingencia Activo</h1>
+        <div id="test-l-1" class="content">
+            <br>
+            <h2 class="modal-title"></h2>     
+            <form [formGroup]="formPlanContingencia" (ngSubmit)="RegistrarPlanContingencia()" (keydown.enter)="$event.preventDefault()">                
+              <h2 class="modal-title">Registrar Plan Contingencia</h2>
+              <br>   
+                  <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label is-required">Causal </label>                
+                        <select formControlName="causal" class="form-control"  [ngClass]="{ 'is-invalid': submittedContingencia && f_planContingencia.causal.errors }">
+                          <option value=""></option> 
+                          <option *ngFor="let item of listaCausalContingencia" [ngValue]="item.id" >{{ item.causal }}</option>                  
+                        </select>
+                        <div *ngIf="submittedContingencia && f_planContingencia.causal.errors" class="invalid-feedback">
+                          <div *ngIf="f_planContingencia.causal.errors.required">Causal de la contingencia es requerida </div>
+                        </div> 
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-text mb-3 is-required">Fecha Inicio</label>
+                        <input type="datetime-local" formControlName="fechaInicio" max="{{fechaMinimaIncapacidad | date: 'yyyy-MM-ddTHH:mm:ss'}}"
+                              class="form-control" [ngClass]="{ 'is-invalid': submittedContingencia && f_planContingencia.fechaInicio.errors}" />
+                        
+                        <div *ngIf="submittedContingencia && f_planContingencia.fechaInicio.errors" class="invalid-feedback">
+                          <div *ngIf="f_planContingencia.fechaInicio.errors.required">Fecha y hora de inicio es requerida </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-text mb-3 is-required">Fecha Fin</label>                 
+                        <input type="datetime-local" formControlName="fechaFin" max="{{fechaMinimaIncapacidad | date: 'yyyy-MM-ddTHH:mm:ss'}}"
+                              class="form-control" [ngClass]="{ 'is-invalid': submittedContingencia && f_planContingencia.fechaFin.errors}" />
+                        <div *ngIf="submittedContingencia && f_planContingencia.fechaFin.errors" class="invalid-feedback">
+                          <div *ngIf="f_planContingencia.fechaFin.errors.required">Fecha y hora de fin es requerida </div>
+                        </div> 
+                      </div>   
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col text-lg-center" >
+                        <button (click)="goBackMenu()" class="btn btn-round btn-high backBttn" >Cancelar</button>
+                        &nbsp; 
+                        <button type="submit" class="btn btn-round btn-high">Registrar</button>
+                    </div>
+                </div>              
+            </form>
+        </div>
+        <div id="test-l-2" class="content">              
+            <form (ngSubmit)="ConfirmarDatos()" (keydown.enter)="$event.preventDefault()">
+              <div class="row">
+                <div class="col-2"></div>
+                <div class="table-responsive col-8">
+                  <h2 class="modal-title" title="text-center">Registrar Plan Contingencia</h2>   
+                  <table class="table table-bordered" >                  
+                  <tbody>                     
+                      <!-- <tr>
+                        <td class="col text-center" colspan="2"><strong>INFORMACIÓN INCAPACIDAD POR CONTINGENCIA</strong></td>
+                        
+                      </tr>  -->
+                      <tr>
+                        <td><strong>Causal Plan Contingencia</strong></td>
+                        <td>{{nombreCausal}}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Fecha de inicio </strong></td>
+                        <td>{{f_planContingencia.fechaInicio.value | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Fecha de fin</strong></td>
+                        <td>{{f_planContingencia.fechaFin.value | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Fecha y Hora Registro Contingencia</strong></td>
+                        <td>{{f_planContingencia.fechaRegistro.value | date: 'dd/MM/yyyy HH:mm:ss'  }}</td>
+                      </tr>
+                  </tbody>
+                  </table>
+                </div>
+                <div class="col-2"></div>
+              </div>
+              <div class="row">
+                <div class="col text-lg-center" >
+                    <button type="button" (click)="goBack(); $event.preventDefault()" class="btn btn-round btn-high" >Regresar</button>
+                    &nbsp; 
+                    <button type="submit" class="btn btn-round btn-high">Confirmar</button>
+                </div>
+              </div>
+          </form>
+        </div>
+        <div id="test-l-3" class="content">
+          <br>
+          <div class="row ">
+              <div class="col text-center">
+                  <h5 style="color:green;">Registro guardado con exito!</h5>
+              </div>
+          </div>
+          <br>
+          <br>
+          <div class="row">
+              <div class="col text-center">
+                <button (click)="goBackMenu()" class="btn btn-round btn-high">Regresar</button>
+                  <!-- &nbsp;
+                <button (click)="refresh()" class="btn btn-round btn-high">Nuevo Plan Contingencia</button> -->
+            </div>  
+          </div> 
+        </div>
+     </div>
+  </div>
+</div>  

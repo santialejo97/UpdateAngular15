@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h2 class="texto-modal-1">Lista de Incapacidades Anteriores</h2>
+    <button class="close" aria-label="close" type="button" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <label class="form-label" style="color: red;">Debe seleccionar la incapacidad que va a prorrogar</label>
+  <br>
+  <div class="table-pagination-govco">
+    <table id="DataTables_Table_0" class="table display table-responsive-sm table-responsive-md text-size">
+        <thead>
+          <tr>
+            <th>Número Incapacidad</th>
+            <th>Origen</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Días</th>
+            <th colspan="3">Diagnósticos</th>
+            
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listaIncapacidadesAnteriores | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let i = index" (click)="clickedRow(i)" >
+            <td scope="row">{{item.id_incapacidad}}</td>
+            <td>{{item.id_origen == 1 ? 'Común' : item.id_origen == 2 ? 'Laboral' : 'Indefinido'}}</td>
+            <td>{{item.fecha_inicio | date:'dd/MM/yyyy'}}</td>
+            <td>{{item.fecha_fin | date:'dd/MM/yyyy'}}</td>
+            <td>{{item.consulta == 'historico' ? item.dias_acumulados_prorroga : item.dias_incapacidad}}</td>
+            <td class="tooltip1">
+              {{item.diagnostico?.cod_diagnostico}}
+                <span class="tooltiptext1">{{item.diagnostico?.cod_diagnostico}}:&nbsp;{{item.diagnostico?.descripcion}}</span>
+            </td>
+            <td class="tooltip1">
+              {{item.diagnosticoRelacionUno?.cod_diag_relacion_uno}}
+                <span class="tooltiptext1">{{item.diagnosticoRelacionUno?.descripcion}}</span>
+            </td>
+            <td class="tooltip1">
+              {{item.diagnosticoRelacionDos?.cod_diag_relacion_dos}}
+                <span class="tooltiptext1">{{item.diagnosticoRelacionDos?.descripcion}}</span>
+            </td>
+        </tr> 
+      </tbody>
+    </table>
+    <!-- <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize" [collectionSize]="listaIncapacidadesAnteriores.length">
+      <ng-template ngbPaginationPrevious></ng-template>
+      <ng-template ngbPaginationNext></ng-template>
+      <ng-template ngbPaginationNumber let-p>{{ p }}</ng-template>
+    </ngb-pagination> -->
+  </div> 
+</div>

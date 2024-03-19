@@ -1,0 +1,306 @@
+
+    <h2 class="modal-title">RESUMEN INCAPACIDAD</h2>
+    <br>     
+    <div class="row">        
+        <div class="col-sm-6 no-border">
+            <div class="form-group">
+                <label ><strong>Número incapacidad:&nbsp;</strong>{{imprimirModelo.id_incapacidad}}</label>             
+            </div>
+        </div>
+       
+        <div class="col-sm-6 no-border-right">
+            <div class="form-group">
+                <label ><strong>Fecha Expedición:&nbsp;</strong> {{imprimirModelo.fecha_expedicion | date: 'dd/MM/yyyy'}}</label>                    
+            </div>
+        </div>
+    </div>
+
+       
+   <!-- Datos del paciente -->
+    <h2 class="modal-title">INFORMACIÓN PACIENTE</h2>
+    <br>    
+    
+    <div class="row">
+        <div class="col-sm-4 title-div">
+            <div class="form-group">
+                <label class="form-text mb-3"><strong>Nombre Paciente</strong></label>                    
+            </div>
+   
+    </div>
+
+    <div class="col-sm-4 title-div">
+        <div class="form-group">
+            <label class="form-text mb-3"><strong>Tipo de Documento</strong></label>                    
+            
+        </div>
+  
+</div>
+<div class="col-sm-4 title-div">
+    <div class="form-group">
+        <label class="form-text mb-3"><strong>Ciudad y Departamento de Expedición</strong></label>                    
+        
+    </div>
+
+</div>
+
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label class="form-text mb-3">{{imprimirModelo.primer_nombre_pac}}&nbsp;{{imprimirModelo.segundo_nombre_pac}}&nbsp;{{imprimirModelo.primer_apellido_pac}}&nbsp;{{imprimirModelo.segundo_apellido_pac}}</label>                    
+            
+        </div>
+
+</div>
+
+<div class="col-sm-4">
+    <div class="form-group">
+        <label class="form-text mb-3">{{imprimirModelo.tipoDocumento.cod_tipo_documento}}&nbsp;{{imprimirModelo.numero_documento_pac}}</label>
+    </div>
+
+</div>
+<div class="col-sm-4">
+<div class="form-group">
+    <label class="form-text mb-3">{{imprimirModelo.lugar_expedicion_descripcion}}</label>                  
+    
+</div>
+
+</div>
+
+</div>
+<!-- Datos de la incapacidad -->
+<br>    
+<h2 class="modal-title">DATOS INCAPACIDAD</h2>
+<br>    
+
+<div class="row">
+    <div class="col-sm-4 title-div">
+        <div class="form-group">
+            <label class="form-text mb-3"><strong>Fecha Inicio</strong></label>                    
+            
+        </div>
+
+</div>
+
+<div class="col-sm-4 title-div">
+    <div class="form-group">
+        <label class="form-text mb-3"><strong>Fecha Fin</strong></label>                    
+        
+    </div>
+
+</div>
+<div class="col-sm-4 title-div">
+<div class="form-group">
+    <label class="form-text mb-3"><strong>Días de Incapacidad</strong></label>                    
+    
+</div>
+
+</div>
+
+</div>
+<div class="row">
+<div class="col-sm-4">
+    <div class="form-group">
+        <label class="form-text mb-3">{{imprimirModelo.fecha_inicio | date: 'dd/MM/yyyy'}}</label>                    
+        
+    </div>
+
+</div>
+
+<div class="col-sm-4">
+<div class="form-group">
+    <label class="form-text mb-3">{{imprimirModelo.fecha_fin | date: 'dd/MM/yyyy'}}</label>                    
+    
+</div>
+
+</div>
+<div class="col-sm-4">
+<div class="form-group">
+<label class="form-text mb-3">{{imprimirModelo.dias_incapacidad}}</label>                  
+
+</div>
+
+</div>
+
+</div>   
+<!-- Diagnóstico Incapacidad -->
+
+<br>    
+<h2 class="modal-title">DIAGNÓSTICO INCAPACIDAD</h2>
+<br>    
+
+<div class="row">
+    <div class="col-sm-4 title-div">
+        <div class="form-group">
+            <label class="form-text mb-3"><strong>Diagnóstico Principal</strong></label>                    
+            
+        </div>
+
+</div>
+
+<div class="col-sm-4 title-div">
+    <div class="form-group">
+        <label class="form-text mb-3"><strong>Diagnóstico Relacionado 1</strong></label>                    
+        
+    </div>
+
+</div>
+<div class="col-sm-4 title-div">
+<div class="form-group">
+    <label class="form-text mb-3"><strong>Diagnóstico Relacionado 2</strong></label>                    
+    
+</div>
+
+</div>
+
+</div>
+<div class="row">
+<div class="col-sm-4">
+    <div class="form-group">
+        <label class="form-text mb-3">{{imprimirModelo.diagnostico.cod_diagnostico}}</label>
+    </div>
+
+</div>
+
+<div class="col-sm-4">
+<div class="form-group">
+    <label class="form-text mb-3">{{imprimirModelo.diagnosticoRelacionUno?.cod_diag_relacion_uno}}</label>
+</div>
+
+</div>
+<div class="col-sm-4">
+<div class="form-group">
+    <label class="form-text mb-3">{{imprimirModelo.diagnosticoRelacionDos?.cod_diag_relacion_dos}}</label> 
+</div>
+
+</div>
+
+</div>   
+<div class="row">
+    <div class="col-sm-4 title-div">
+        <div class="form-group">
+            <label class="form-text mb-3"><strong>Origen</strong></label>                    
+            
+        </div>
+
+</div>
+
+<div class="col-sm-4 title-div">
+    <div class="form-group">
+        <label class="form-text mb-3"><strong>Prórroga</strong></label>                    
+        
+    </div>
+
+</div>
+<div class="col-sm-4 title-div">
+<div class="form-group">
+    <label class="form-text mb-3"><strong>Número Días</strong></label>                    
+    
+</div>
+
+</div>
+
+</div>
+<div class="row">
+<div class="col-sm-4">
+    <div class="form-group">
+        <label class="form-text mb-3">{{imprimirModelo.origen.descripcion}}</label>
+    </div>
+
+</div>
+
+<div class="col-sm-4">
+<div class="form-group">
+    <label class="form-text mb-3">{{imprimirModelo.prorroga == true ? 'Si' : 'No'}}</label>                    
+    
+</div>
+
+</div>
+<div class="col-sm-4">
+<div class="form-group">
+<label class="form-text mb-3">{{imprimirModelo.dias_acumulados_prorroga}}</label>                  
+
+</div>
+
+</div>
+
+</div>     
+<div class="row">
+    <div class="col-sm-6 title-div">
+        <div class="form-group">
+            <label class="form-text mb-3"><strong>Causa Motivo Atención</strong></label>                    
+            
+        </div>
+
+</div>
+
+<div class="col-sm-6 title-div">
+    <div class="form-group">
+        <label class="form-text mb-3"><strong>Retroactiva</strong></label>                    
+        
+    </div>
+
+</div>
+
+</div>
+<div class="row">
+<div class="col-sm-6">
+    <div class="form-group">
+        <label class="form-text mb-3">{{imprimirModelo.causaAtencion.descripcion}}</label>
+    </div>
+
+</div>
+
+<div class="col-sm-6">
+<div class="form-group">
+    <label class="form-text mb-3">{{imprimirModelo.retroactiva == true ? 'Si' : 'No'}}</label>                    
+</div>
+
+</div>
+
+
+</div>   
+<!-- Datos del profesional -->
+<br>    
+<h2 class="modal-title">DATOS DEL PROFESIONAL</h2>
+<br> 
+<div class="row">
+    <div class="col-sm-6 title-div">
+        <div class="form-group">
+            <label class="form-text mb-3"><strong>Nombre Entidad</strong></label>                    
+            
+        </div>
+    
+    </div>
+    
+    <div class="col-sm-6 title-div">
+    <div class="form-group">
+        <label class="form-text mb-3"><strong>Nombre del Médico</strong></label>                    
+        
+    </div>
+    
+    </div>
+    
+    
+    </div> 
+    
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label class="form-text mb-3">{{entidad}}</label>                    
+                
+            </div>
+        
+        </div>
+        
+        <div class="col-sm-6">
+        <div class="form-group">
+            <label class="form-text mb-3">{{usuario}}</label>                    
+            
+        </div>
+        
+        </div>
+        
+        
+        </div>   
+<br>

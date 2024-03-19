@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h2 class="texto-modal-1">Lista de Aportantes</h2>
+    <button class="close" aria-label="close" type="button" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <label class="form-label">Debe seleccionar el aportante</label>
+  <br>
+  <div class="table-pagination-govco">
+    <table id="DataTables_Table_0" class="table display table-responsive-sm table-responsive-md">
+        <thead>
+          <tr>
+            <th>Tipo identificación</th>
+            <th>Número documento</th>
+            <th>Razón social</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listaRelacionesPacienteAportante | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ; let i = index" (click)="clickedRow(i)" >
+            <td>{{item.tipo_documento_ap}}</td>
+            <td>{{item.numero_documento_ap}}</td>
+            <td>{{item.razon_social_descripcion}}</td>
+        </tr> 
+      </tbody>
+    </table>
+  </div> 
+</div>

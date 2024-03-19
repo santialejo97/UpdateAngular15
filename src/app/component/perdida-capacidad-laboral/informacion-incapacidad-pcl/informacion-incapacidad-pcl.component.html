@@ -1,0 +1,110 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="table-responsive col-8">    
+      <h2 class="modal-title">Datos pérdida capacidad laboral</h2>      
+      <table class="table table-bordered">
+        <tbody>
+          <tr >
+            <td><strong>N° de registro</strong></td>
+            <td>{{pcl_data.numero_registro}}</td>
+          </tr> 
+          <tr>
+            <td><strong>Fecha de registro</strong></td>
+            <td>{{pcl_data.fecha_registro_calificacion | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+          </tr>
+          <tr>
+            <td><strong>Confirmación origen</strong></td>
+            <td>{{pcl_data.id_origen == 1 ? 'Común' : 'Laboral'}}</td>
+          </tr>
+          <tr>
+            <td><strong>% de la pérdida capacidad Laboral</strong></td>
+            <td>{{pcl_data.porcentaje_perdida_capacidad_laboral}}%</td>
+          </tr>
+          <tr>
+            <td><strong>Fecha Calificación</strong></td>
+            <td>{{pcl_data.fecha_calid_incapacidadificacion_PCL | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+          </tr>
+          <tr>
+            <td><strong>Diagnósticos principales y relacionados</strong></td>
+            <td>{{pcl_data.diagnostico_principal}}&nbsp;{{pcl_data.diagnostico_relacion_1}}&nbsp; {{pcl_data.diagnostico_relacion_2}} </td>
+          </tr>
+          <tr>
+            <td><strong>Fecha de estructuración </strong></td>
+            <td>{{pcl_data.fecha_estructuracion | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+          </tr>
+          <tr>
+            <td><strong>Nueva Calificación </strong></td>
+            <td>{{pcl_data.nueva_calificacion == 1 ? 'Si' : 'No'}}</td>
+          </tr>
+          <tr>
+            <td><strong>Observaciones </strong></td>
+            <td>{{pcl_data.observaciones}}</td>
+          </tr>
+        </tbody>
+      </table>  
+      </div>
+      <div class="col-2"></div>
+    </div>
+
+      <div class="row" *ngIf="pcl_data.tipo_profesional==1">
+        <div class="col-2"></div>
+        <div class="table-responsive col-8">    
+          <h2 class="modal-title">Juez</h2>
+          <table class="table table-bordered">  
+            <tbody>
+              <tr>
+                <td><strong>Despacho de la autoridad judicial </strong></td>
+                <td>{{pcl_data.despacho_autoridad_judicial}}</td>
+              </tr>
+              <tr>
+                <td><strong>Nombre del Juez </strong></td>
+                <td>{{pcl_data.nombres_apellidos_juez}}</td>
+              </tr>
+            </tbody>
+          </table>          
+        </div>
+        <div class="col-2"></div>
+      </div>
+
+        <div class="row" *ngIf="pcl_data.tipo_profesional==2">
+          <div class="col-2"></div>
+          <div class="table-responsive col-8">    
+            <h2 class="modal-title">Médico/Odontólogo</h2>
+            <table class="table table-bordered">
+              <tbody>
+              <tr>
+                <td><strong>Tipo y número de documento </strong></td>
+                <td>{{pcl_data.tipo_documento_entidad}}&nbsp;{{pcl_data.numero_documento_entidad}}</td>
+              </tr>
+              <tr>
+                <td><strong>Nombre o Razón Social </strong></td>
+                <td>{{pcl_data.nombre_razon_social}}</td>
+              </tr>
+              
+
+              <tr>
+                <td><strong>Tipo y número de documento </strong></td>
+                <td>{{pcl_data.tipo_documento_emite}}&nbsp;{{pcl_data.numero_documento_emite}}</td>
+              </tr>
+              <tr>
+                <td><strong>Nombres y apellidos  </strong></td>
+                <td>{{pcl_data.nombre_profesional_emite}}</td>
+              </tr>
+
+          <!-- <tr>
+            <td><strong>Tipo y número de documento </strong></td>
+            <td>{{pcl_data.tipo_documento_emite}}&nbsp;{{pcl_data.numero_documento_emite}}</td>
+          </tr>
+          <tr>
+            <td><strong>Nombres y apellidos  </strong></td>
+            <td>{{pcl_data.nombre_profesional_emite}}</td>
+          </tr> -->
+      
+        </tbody>
+      </table>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

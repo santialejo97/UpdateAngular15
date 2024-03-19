@@ -1,0 +1,133 @@
+<div class="container">
+  <br>
+  <br>
+  <div class="row  text-center" style="text-align:center">
+    <a class="col-md-3" href="incapacidades/registrar-incapacidad" *ngIf="submitted &&  mostrarFuncion('incapacidades/registrar-incapacidad') ">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-2">
+          <h4 class="text-primar">Registrar Incapacidad</h4>
+        </div>
+        <div class="card-body">
+          <p>Registrar una nueva Incapacidad </p>
+        </div>
+      </div>
+    </a>
+
+    <a class="col-md-3" href="incapacidades/anular-incapacidad" *ngIf="submitted &&  mostrarFuncion('incapacidades/anular-incapacidad') ">
+      <!--<div class="col-md-3">-->
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-2">
+          <h4 class="text-primar">Anular Incapacidad</h4>
+        </div>
+        <div class="card-body">
+          <p>Anular una incapacidad existente</p>
+        </div>
+      </div>
+      <!--</div>-->
+    </a>
+    <a class="col-md-3" href="incapacidades/imprimir-incapacidad" *ngIf="submitted &&  mostrarFuncion('incapacidades/imprimir-incapacidad') ">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-2">
+          <h4 class="text-primar">Consultar/Imprimir Incapacidad</h4>
+        </div>
+        <div class="card-body">
+          <p>Consultar e imprimir una incapacidad registrada </p>
+        </div>
+      </div>
+    </a>
+    <a class="col-md-3" href="incapacidades/consultar-incapacidad" *ngIf="submitted &&  mostrarFuncion('incapacidades/consultar-incapacidad') ">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-2">
+          <h4 class="text-primar">Consultar Incapacidades</h4>
+        </div>
+        <div class="card-body">
+          <p>Consultar una incapacidad(es) registrada(s)</p>
+        </div>
+      </div>
+    </a>
+    <a class="col-md-3" href="incapacidades/pago-incapacidad" *ngIf="submitted &&  mostrarFuncion('incapacidades/pago-incapacidad') ">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-2">
+          <h4 class="text-primar">Registrar Pago de Incapacidad</h4>
+        </div>
+        <div class="card-body">
+          <p>Registrar datos cuando la incapacidad ha sido pagada</p>
+        </div>
+      </div>
+    </a>
+    <a class="col-md-3" href="incapacidades/concepto-rehabilitacion" *ngIf="submitted &&  mostrarFuncion('incapacidades/concepto-rehabilitacion') ">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-2">
+          <h4 class="text-primar">Registrar Concepto de Rehabilitación</h4>
+        </div>
+        <div class="card-body">
+          <p>Registrar datos del concepto de rehabilitación</p>
+        </div>
+      </div>
+    </a>
+    <a class="col-md-3" href="incapacidades/actualizacion-datos" *ngIf="submitted &&  mostrarFuncion('incapacidades/actualizacion-datos') ">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-2">
+          <h4 class="text-primar">Actualización de datos</h4>
+        </div>
+        <div class="card-body">
+          <p>Actualización de datos</p>
+        </div>
+      </div>
+    </a>
+    <a class="col-md-3" href="incapacidades/registrar-inc-contingencia" *ngIf="submitted &&  mostrarFuncion('incapacidades/registrar-inc-contingencia') ">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-2">
+          <h4 class="text-primar">Registrar Incapacidad Contingencia</h4>
+        </div>
+        <div class="card-body">
+          <p>Registrar Incapacidad Contingencia</p>
+        </div>
+      </div>
+    </a>
+    <a class="col-md-3" href="incapacidades/registrar-plan-contingencia" *ngIf="submitted &&  mostrarFuncion('incapacidades/registrar-plan-contingencia') ">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-2">
+          <h4 class="text-primar">Registrar Plan Contingencia</h4>
+        </div>
+        <div class="card-body">
+          <p>Registrar Plan Contingencia</p>
+        </div>
+      </div>
+    </a>
+    <a class="col-md-3" href="incapacidades/registrar-PCL" *ngIf="submitted &&  mostrarFuncion('incapacidades/registrar-PCL') ">
+      <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-2">
+          <h4 class="text-primar">Determinar Origen y Registro de Perdida de Capacidad Laboral</h4>
+        </div>
+        <div class="card-body">
+          <p>Determinacion de Origen y Perdida de Capacidad Laboral</p>
+        </div>
+      </div>
+    </a>
+
+
+    <!--
+  <div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+      <div class="card-header py-2">
+        <h4 class="text-primar">Registar Pago</h4>
+      </div>
+      <div class="card-body">
+        <p>Registar pago de una incapacidad</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+      <div class="card-header py-2">
+        <h4 class="text-primar">Cambiar Contraseña</h4>
+      </div>
+      <div class="card-body">
+        <p>Cambiar la contraseña de su usuario</p>
+      </div>
+    </div>
+  </div> -->
+  </div>
+</div>
