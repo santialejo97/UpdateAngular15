@@ -1,566 +1,1091 @@
 <div class="container">
-    <!-- <hello name="{{ name }}"></hello> -->
-    <div id="stepper1" class="bs-stepper">
-      <div class="bs-stepper-header">
-        <div class="step" data-target="#test-l-1">
-          <button class="step-trigger">
-            <span class="bs-stepper-circle">1</span>
-            <span class="bs-stepper-label">Consultar Paciente</span>
-          </button>
-        </div>
-        <div class="line"></div>
-        <div class="step" data-target="#test-l-2">
-          <button class="step-trigger">
-            <span class="bs-stepper-circle">2</span>
-            <span class="bs-stepper-label">Datos del Paciente</span>
-          </button>
-        </div>
-        <div class="line"></div>
-        <div class="step" data-target="#test-l-3">
-          <button class="step-trigger">
-            <span class="bs-stepper-circle">3</span>
-            <span class="bs-stepper-label">Registrar Incapacidad</span>
-          </button>
-        </div>
-
-        <div class="line"></div>
-        <div class="step" data-target="#test-l-4">
-          <button class="step-trigger">
-            <span class="bs-stepper-circle">4</span>
-            <span class="bs-stepper-label">Resumen</span>
-          </button>
-        </div>
-        
+  <!-- <hello name="{{ name }}"></hello> -->
+  <div id="stepper1" class="bs-stepper">
+    <div class="bs-stepper-header">
+      <div class="step" data-target="#test-l-1">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">1</span>
+          <span class="bs-stepper-label">Consultar Paciente</span>
+        </button>
       </div>
-      
-      <!-- <button (click)="showSuccess()">notificacion</button> -->
-      <!-- <button (click)="abrirModalAlerta('aaa','mensaje', 'Cerrar')">alerta</button> -->
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-2">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">2</span>
+          <span class="bs-stepper-label">Datos del Paciente</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-3">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">3</span>
+          <span class="bs-stepper-label">Registrar Incapacidad</span>
+        </button>
+      </div>
 
-      <div class="bs-stepper-content">   
-        <h1 class="color-warning" *ngIf="consultaPlanContingenciaActual != null">Plan de Contingencia Activo</h1>
-        <div id="test-l-1" class="content" style="position: relative;">
-          <ngx-spinner name="spinnerCargaInicial" bdColor="rgba(0,0,0,0.05)" size="medium" color="#004884" type="ball-triangle-path" [fullScreen]="false">
-            <br><br><br><br><p style="color: #004884"> Cargando información inicial </p>
-          </ngx-spinner>
-          <ngx-spinner name="spinnerConsultaPaciente" bdColor="rgba(0,0,0,0.05)" size="medium" color="#004884" type="ball-triangle-path" [fullScreen]="false">
-            <br><br><br><br><p style="color: #004884"> Cargando información... </p>
-          </ngx-spinner>
-          <ngx-spinner name="spinnerCargaAnulacion" bdColor="rgba(0,0,0,0.05)" size="medium" color="#004884" type="ball-triangle-path" [fullScreen]="true">
-            <br><br><br><br><p style="color: #004884"> Cargando información... </p>
-          </ngx-spinner>
-          <br>
-          <form [formGroup]="personaForm" (ngSubmit)="buscarPersona()" (keydown.enter)="$event.preventDefault()">
-            <div class="row">
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-4">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">4</span>
+          <span class="bs-stepper-label">Resumen</span>
+        </button>
+      </div>
+    </div>
 
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Tipo Documento</label> 
-                  <select formControlName="tipoDocumentoPacienteaBuscar" class="form-control" [ngClass]="{ 'is-invalid': submittedPersona && f_persona.tipoDocumentoPacienteaBuscar.errors }"
-                          placeholfer="Seleccione el tipo de documento">
-                    <option value=""></option>
-                    <option *ngFor="let item of listaTipoDocumento" [ngValue]="item.cod_tipo_documento">{{ item.descripcion }}</option>
-                  </select>
-                  <div *ngIf="submittedPersona && f_persona.tipoDocumentoPacienteaBuscar.errors" class="invalid-feedback">
-                    <div *ngIf="f_persona.tipoDocumentoPacienteaBuscar.errors.required">Tipo de documento es requerido</div>
+    <!-- <button (click)="showSuccess()">notificacion</button> -->
+    <!-- <button (click)="abrirModalAlerta('aaa','mensaje', 'Cerrar')">alerta</button> -->
+
+    <div class="bs-stepper-content">
+      <h1 class="color-warning" *ngIf="consultaPlanContingenciaActual != null">
+        Plan de Contingencia Activo
+      </h1>
+      <div id="test-l-1" class="content" style="position: relative">
+        <ngx-spinner
+          name="spinnerCargaInicial"
+          bdColor="rgba(0,0,0,0.05)"
+          size="medium"
+          color="#004884"
+          type="ball-triangle-path"
+          [fullScreen]="false"
+        >
+          <br /><br /><br /><br />
+          <p style="color: #004884">Cargando información inicial</p>
+        </ngx-spinner>
+        <ngx-spinner
+          name="spinnerConsultaPaciente"
+          bdColor="rgba(0,0,0,0.05)"
+          size="medium"
+          color="#004884"
+          type="ball-triangle-path"
+          [fullScreen]="false"
+        >
+          <br /><br /><br /><br />
+          <p style="color: #004884">Cargando información...</p>
+        </ngx-spinner>
+        <ngx-spinner
+          name="spinnerCargaAnulacion"
+          bdColor="rgba(0,0,0,0.05)"
+          size="medium"
+          color="#004884"
+          type="ball-triangle-path"
+          [fullScreen]="true"
+        >
+          <br /><br /><br /><br />
+          <p style="color: #004884">Cargando información...</p>
+        </ngx-spinner>
+        <br />
+        <form
+          [formGroup]="personaForm"
+          (ngSubmit)="buscarPersona()"
+          (keydown.enter)="$event.preventDefault()"
+        >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Tipo Documento</label>
+                <select
+                  formControlName="tipoDocumentoPacienteaBuscar"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPersona &&
+                      personaForm.get('tipoDocumentoPacienteaBuscar')?.errors
+                  }"
+                  placeholfer="Seleccione el tipo de documento"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let item of listaTipoDocumento"
+                    [ngValue]="item.cod_tipo_documento"
+                  >
+                    {{ item.descripcion }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    submittedPersona &&
+                    personaForm.get('tipoDocumentoPacienteaBuscar')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      personaForm.get('tipoDocumentoPacienteaBuscar')?.errors
+                    "
+                  >
+                    Tipo de documento es requerido
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Número Documento</label>
-                  <input type="text" class="form-control" formControlName="numeroDocumentoPacienteaBuscar" [ngClass]="{ 'is-invalid': submittedPersona && f_persona.numeroDocumentoPacienteaBuscar.errors }" />
-                  <div *ngIf="submittedPersona && f_persona.numeroDocumentoPacienteaBuscar.errors" class="invalid-feedback">
-                    <div *ngIf="f_persona.numeroDocumentoPacienteaBuscar.errors.required">Número de documento es requerido</div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Número Documento</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="numeroDocumentoPacienteaBuscar"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPersona &&
+                      personaForm.get('numeroDocumentoPacienteaBuscar')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedPersona &&
+                    personaForm.get('numeroDocumentoPacienteaBuscar')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      personaForm.get('numeroDocumentoPacienteaBuscar')?.errors
+                    "
+                  >
+                    Número de documento es requerido
                   </div>
                 </div>
               </div>
-            </div>
-
-
-            <br><br>
-            <div class="row">
-              <div class="col text-center">
-                <button type="submit" class="btn btn-round btn-high">Siguiente  </button> 
-              </div>
-            </div>
-            <!-- <p>Form value: {{ incapacidadForm.value | json }}</p>
-            <p>Form status: {{ incapacidadForm.status | json }}</p> -->
-          </form>
-        </div>
-
-
-          <div id="test-l-2" class="content">
-            <div class="container">
-
-                <app-editar-paciente [pacienteIn]="paciente" (valueResponse)="recibiRespuestaEditarPaciente($event)"></app-editar-paciente> 
-              
-            </div>
-            <br>
-            <div class="row" *ngIf="deshabilitarComponentePaciente">
-                <div class="col text-center">
-                 
-                    <button (click)="refresh()" class="btn btn-round btn-high">Regresar</button>
-                    &nbsp;
-                    <button (click)="next()" class="btn btn-round btn-high">Confirmar</button>
-
-                </div>
             </div>
           </div>
 
+          <br /><br />
+          <div class="row">
+            <div class="col text-center">
+              <button type="submit" class="btn btn-round btn-high">
+                Siguiente
+              </button>
+            </div>
+          </div>
+          <!-- <p>Form value: {{ incapacidadForm.value | json }}</p>
+            <p>Form status: {{ incapacidadForm.status | json }}</p> -->
+        </form>
+      </div>
 
-          <div id="test-l-3" class="content">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <!-- <label class="label-title">Número de Incapacidad</label>
+      <div id="test-l-2" class="content">
+        <div class="container">
+          <app-editar-paciente
+            [pacienteIn]="paciente!"
+            (valueResponse)="recibiRespuestaEditarPaciente($event)"
+          ></app-editar-paciente>
+        </div>
+        <br />
+        <div class="row" *ngIf="deshabilitarComponentePaciente">
+          <div class="col text-center">
+            <button (click)="refresh()" class="btn btn-round btn-high">
+              Regresar
+            </button>
+            &nbsp;
+            <button (click)="next()" class="btn btn-round btn-high">
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="test-l-3" class="content">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <!-- <label class="label-title">Número de Incapacidad</label>
                             <label class="form-text mb-3">-</label> -->
-                        </div>        
-                    </div>
-        
-                    <div class="col-md-4">
-                        <div class="form-group">
-                           
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="label-title">Fecha y Hora Expedición</label>
-                            <label class="form-text mb-3">{{fechaExpedicionParametro | date:'dd/MM/yyyy hh:mm'}}</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- <p>Form value: {{ incapacidadForm.value | json }}</p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group"></div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="label-title">Fecha y Hora Expedición</label>
+              <label class="form-text mb-3">{{
+                fechaExpedicionParametro | date : "dd/MM/yyyy hh:mm"
+              }}</label>
+            </div>
+          </div>
+        </div>
+        <!-- <p>Form value: {{ incapacidadForm.value | json }}</p>
                 <p>Form status: {{ incapacidadForm.status | json }}</p> -->
-                <form [formGroup]="incapacidadForm" (ngSubmit)="abrirModalConfirmacion(incapacidadForm.value, paciente)" (keydown.enter)="$event.preventDefault()"> 
-                <section id="datos-paciente">
-                    <br>
-                    <h2 class="modal-title">Paciente</h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                           
-                                <label class="login">Identificación:</label>&nbsp;
-                                <label class="label-title">{{paciente.tipo_documento}}&nbsp;{{paciente.numero_documento}}</label>
-                           
-                        </div>
-                   
-                        <div class="col-md-6">
-                                <label class="login">Nombres y Apelidos:</label>&nbsp;
-                                <label class="label-title">{{paciente.primer_nombre}}&nbsp;{{paciente.segundo_nombre}}&nbsp;{{paciente.primer_apellido}}&nbsp;{{paciente.segundo_apellido}}</label>
-                        </div>
-                    </div>             
-                </section>
+        <form
+          [formGroup]="incapacidadForm"
+          (ngSubmit)="abrirModalConfirmacion(incapacidadForm.value, paciente!)"
+          (keydown.enter)="$event.preventDefault()"
+        >
+          <section id="datos-paciente">
+            <br />
+            <h2 class="modal-title">Paciente</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="login">Identificación:</label>&nbsp;
+                <label class="label-title"
+                  >{{ paciente!.tipo_documento }}&nbsp;{{
+                    paciente!.numero_documento
+                  }}</label
+                >
+              </div>
 
-                    <section id="diagnostico">
-                      
-                        <h2 class="modal-title">Diagnóstico</h2>
-                        <div class="row">
-                    
-                            <div class="form-group col-lg-12">
-                                <label class="form-text mb-3 is-required">Diagnóstico Principal</label>
-                                <div  class="form-group-inline">
-                                <div class="ng-autocomplete input-small">
-                                        <ng-autocomplete 
-                                        [(ngModel)] = "diagnosticoCodigoSeleccionado"
-                                        [ngModelOptions]="{standalone: true}"
-                                        [data]="listaDiagnosticosCie10_principal"
-                                        [searchKeyword]="keyword"
-                                        placeholder=""
-                                        (selected)='eventoSeleccionDiagnostico($event)'
-                                        (inputChanged)='cambiarBusquedaDiagnostico($event)'
-                                        (closed)="verificarSeleccion(diagnosticoCodigoSeleccionado)"
-                                        historyIdentifier="listaDiagnosticosCie10_principal"
-                                        [itemTemplate]="itemTemplate"
-                                        [notFoundTemplate]="notFoundTemplate"
-                                       
-                                        >
-                                        </ng-autocomplete>
-                                    
-                                        <ng-template #itemTemplate let-item>
-                                        <a [innerHTML]="item.codigo"></a>
-                                        </ng-template>
-                                    
-                                        <ng-template #notFoundTemplate let-notFound>
-                                        <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                    <div class="icon-display icon-form" id="icon-display-search-n" (click)="openModalDiagnostico()">
-                                        <span class="govco-icon govco-icon-search-n"></span>
-                                    </div>
-                                    <input type="text" class="form-control" readonly [value]="f_incapacidad.descripcion_diagnostico_principal.value">
-                                </div>
-                                <div class="control-invalid" *ngIf="showCountryErrorMessage">
-                                    <div >Diagnóstico principal es requerido</div>
-                                </div>                                
-                            </div>        
-                        </div>
-                       
-                        <div class="row-padding-left-15">
-                            <div class="form-group-inline">
-                                <label class="form-text">Diagnóstico Relacionado 1</label>
-                                <div *ngIf="!esVisibleDiagnosticorelacionado1" class="icon-display" id="icon-display-plus" (click)="mostrarOcultarDiagnosticorelacionado1()"><span class="govco-icon govco-icon-plus"></span></div>                                
-                                <div *ngIf="esVisibleDiagnosticorelacionado1" class="icon-display" id="icon-display-minus" (click)="mostrarOcultarDiagnosticorelacionado1()"><span class="govco-icon govco-icon-minus"></span></div>                                
-                            </div>
-                        </div>        
-                        <div class="row-padding-left-15" *ngIf="esVisibleDiagnosticorelacionado1">
-                            
-                                <div class="form-group col-lg-12 row-padding-right-0" >
-                                    <div  class="form-group-inline">
-                                    <div class="ng-autocomplete input-small">
-                                            <ng-autocomplete 
-                                            [(ngModel)] = "diagnosticoRelacionado1CodigoSeleccionado"
-                                            [ngModelOptions]="{standalone: true}"
-                                            [data]="listaDiagnosticosCie10_relacion_1"
-                                            [searchKeyword]="keyword"
-                                            placeholder=""
-                                            (selected)='eventoSeleccionDiagnosticoRelacionado1($event)'
-                                            (inputChanged)='cambiarBusquedaDiagnosticoRelacionado1($event)'
-                                            (closed)="verificarSeleccionDiagnosticoRelacionado1(diagnosticoRelacionado1CodigoSeleccionado)"
-                                            historyIdentifier="listaDiagnosticosCie10_relacion_1"
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"                                       
-                                            >
-                                            </ng-autocomplete>
-                                        
-                                            <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.codigo"></a>
-                                            </ng-template>
-                                        
-                                            <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                            </ng-template>
-                                        </div>
-                                        <div class="icon-display icon-form" id="icon-display-search-n" (click)="openModalDiagnosticoRelacionado1()">
-                                            <span class="govco-icon govco-icon-search-n"></span>
-                                        </div>
-                                        <input type="text" class="form-control" readonly [value]="f_incapacidad.descripcion_diagnostico_relacion_1.value">
-                                    </div>           
-                                </div>
-                            
-                        </div>
+              <div class="col-md-6">
+                <label class="login">Nombres y Apelidos:</label>&nbsp;
+                <label class="label-title"
+                  >{{ paciente!.primer_nombre }}&nbsp;{{
+                    paciente!.segundo_nombre
+                  }}&nbsp;{{ paciente!.primer_apellido }}&nbsp;{{
+                    paciente!.segundo_apellido
+                  }}</label
+                >
+              </div>
+            </div>
+          </section>
 
-                        <div class="row-padding-left-15">
-                            <div class="form-group-inline">
-                                <label class="form-text">Diagnóstico Relacionado 2</label>
-                                <div *ngIf="!esVisibleDiagnosticorelacionado2" class="icon-display" id="icon-display-plus" (click)="mostrarOcultarDiagnosticorelacionado2()"><span class="govco-icon govco-icon-plus"></span></div>                                
-                                <div *ngIf="esVisibleDiagnosticorelacionado2" class="icon-display" id="icon-display-minus" (click)="mostrarOcultarDiagnosticorelacionado2()"><span class="govco-icon govco-icon-minus"></span></div>                                
-                            </div>
-                        </div>        
-                        <div class="row-padding-left-15" *ngIf="esVisibleDiagnosticorelacionado2">
-                               
-                            <div class="form-group col-lg-12 row-padding-right-0" >
-                                <div  class="form-group-inline">
-                                <div class="ng-autocomplete input-small">
-                                    <ng-autocomplete 
-                                    [(ngModel)] = "diagnosticoRelacionado2CodigoSeleccionado"
-                                    [ngModelOptions]="{standalone: true}"
-                                    [data]="listaDiagnosticosCie10_relacion_2"
-                                    [searchKeyword]="keyword"
-                                    placeholder=""
-                                    (selected)='eventoSeleccionDiagnosticoRelacionado2($event)'
-                                    (inputChanged)='cambiarBusquedaDiagnosticoRelacionado2($event)'
-                                    (closed)="verificarSeleccionDiagnosticoRelacionado2(diagnosticoRelacionado2CodigoSeleccionado)"
-                                    historyIdentifier="listaDiagnosticosCie10_relacion_2"
-                                    [itemTemplate]="itemTemplate"
-                                    [notFoundTemplate]="notFoundTemplate"                                       
-                                    >
-                                    </ng-autocomplete>
-                                    
-                                        <ng-template #itemTemplate let-item>
-                                        <a [innerHTML]="item.codigo"></a>
-                                        </ng-template>
-                                    
-                                        <ng-template #notFoundTemplate let-notFound>
-                                        <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                    <div class="icon-display icon-form" id="icon-display-search-n" (click)="openModalDiagnosticoRelacionado2()">
-                                        <span class="govco-icon govco-icon-search-n"></span>
-                                    </div>
-                                    <input type="text" class="form-control" readonly [value]="f_incapacidad.descripcion_diagnostico_relacion_2.value">
-                                </div>           
-                            </div>
-                        </div>                     
-                    
-                    </section>
-                
-                    <section id="datos-incapacidad">
-                        <h2 class="modal-title">Registro Datos Incapacidad</h2>                     
+          <section id="diagnostico">
+            <h2 class="modal-title">Diagnóstico</h2>
+            <div class="row">
+              <div class="form-group col-lg-12">
+                <label class="form-text mb-3 is-required"
+                  >Diagnóstico Principal</label
+                >
+                <div class="form-group-inline">
+                  <div class="ng-autocomplete input-small">
+                    <ng-autocomplete
+                      [(ngModel)]="diagnosticoCodigoSeleccionado"
+                      [ngModelOptions]="{ standalone: true }"
+                      [data]="listaDiagnosticosCie10_principal"
+                      [searchKeyword]="keyword"
+                      placeholder=""
+                      (selected)="eventoSeleccionDiagnostico($event)"
+                      (inputChanged)="cambiarBusquedaDiagnostico($event)"
+                      (closed)="
+                        verificarSeleccion(diagnosticoCodigoSeleccionado)
+                      "
+                      historyIdentifier="listaDiagnosticosCie10_principal"
+                      [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate"
+                    >
+                    </ng-autocomplete>
 
-                        <div class="row"> 
-                            <div class="col-md-4 text-center">
-                                <label class="form-text mb-3 text-lg-left">Retroactiva</label>
-                            <div *ngIf="retroactivaInconsistente != 1" class="form-check-inline">
-                                <label class="form-check-label">
-                                <input type="radio" [disabled]="deshabilitarSeleccionRetroactiva" (change)="seleccionRetroactiva(true)" id="yes" class="form-check-input" name="optradioRetroactiva" [checked]="(retroactividoSelected == true) ? true : false">&nbsp;Si
-                                </label>
-                            </div>
-                            <div *ngIf="retroactivaInconsistente != 2" class="form-check-inline">
-                                <label class="form-check-label">
-                                <input type="radio" [disabled]="deshabilitarSeleccionRetroactiva" (change)="seleccionRetroactiva(false)" id="radiobutton1" class="form-check-input" name="optradioRetroactiva" value="No" [checked]="(retroactividoSelected == false) ? true : false"/>&nbsp;No
-                                    </label>
-                                </div>
-                            </div>             
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.codigo"></a>
+                    </ng-template>
 
-                            <div class="col-md-4">
-                                <div class="form-group" *ngIf="tieneListaMotivoRetroactivo">
-                                    <label class="form-text mb-3 is-required">Motivo Retroactividad</label>
-                                    <select class="form-control" (change)="changeValueRetroactivaMotivoR()"     
-                                    formControlName="id_retroactiva"   
-                                    placeholfer="Seleccione retroactiva motivo" [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.id_retroactiva.errors }">
-                                        <option value=""></option>
-                                        <option *ngFor="let item of listaMotivaRetroactivaPorFiltro" [ngValue]="item.id_retroactiva">{{ item.descripcion }}</option>
-                                    </select>
-                                    <div *ngIf="submittedIncapacidad && f_incapacidad.id_retroactiva.errors" class="invalid-feedback">
-                                        <div *ngIf="f_incapacidad.id_retroactiva.errors.required">Motivo retroactiva es requerido</div>
-                                    </div>
-                                </div>            
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group" *ngIf="tieneListaMotivoRetroactivo && tieneTrastornoMemoria">
-                                    <label class="form-text mb-3 is-required">Trastorno de Memoria</label>
-                                    <select formControlName="id_trastorno_memoria" class="form-control"  [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.id_trastorno_memoria.errors }"
-                                             placeholfer="Seleccione un trastorno de memoria" 
-                                             >
-                                        <option value=""></option>
-                                        <option *ngFor="let item of listaTrastornoMemoria" [ngValue]="item.id_trastorno_memoria">{{ item.descripcion }}</option>
-                                    </select>
-                                    <div *ngIf="submittedIncapacidad && f_incapacidad.id_trastorno_memoria.errors" class="invalid-feedback">
-                                        <div *ngIf="f_incapacidad.id_trastorno_memoria.errors.required">Trastorno memoria es requerido</div>
-                                    </div>
-                                </div>   
-                            </div>
-                        </div>
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                  </div>
+                  <div
+                    class="icon-display icon-form"
+                    id="icon-display-search-n"
+                    (click)="openModalDiagnostico()"
+                  >
+                    <span class="govco-icon govco-icon-search-n"></span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    readonly
+                    [value]="
+                      incapacidadForm.get('descripcion_diagnostico_principal')
+                        ?.value
+                    "
+                  />
+                </div>
+                <div class="control-invalid" *ngIf="showCountryErrorMessage">
+                  <div>Diagnóstico principal es requerido</div>
+                </div>
+              </div>
+            </div>
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="form-text mb-3 is-required">Grupo Servicios</label>
-                                    <select  class="form-control" (change)="changeValueGrupoServicio()" 
-                                             formControlName="id_servicio"  placeholder="Seleccione el grupo de servicios"
-                                             [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.id_servicio.errors }">
+            <div class="row-padding-left-15">
+              <div class="form-group-inline">
+                <label class="form-text">Diagnóstico Relacionado 1</label>
+                <div
+                  *ngIf="!esVisibleDiagnosticorelacionado1"
+                  class="icon-display"
+                  id="icon-display-plus"
+                  (click)="mostrarOcultarDiagnosticorelacionado1()"
+                >
+                  <span class="govco-icon govco-icon-plus"></span>
+                </div>
+                <div
+                  *ngIf="esVisibleDiagnosticorelacionado1"
+                  class="icon-display"
+                  id="icon-display-minus"
+                  (click)="mostrarOcultarDiagnosticorelacionado1()"
+                >
+                  <span class="govco-icon govco-icon-minus"></span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="row-padding-left-15"
+              *ngIf="esVisibleDiagnosticorelacionado1"
+            >
+              <div class="form-group col-lg-12 row-padding-right-0">
+                <div class="form-group-inline">
+                  <div class="ng-autocomplete input-small">
+                    <ng-autocomplete
+                      [(ngModel)]="diagnosticoRelacionado1CodigoSeleccionado"
+                      [ngModelOptions]="{ standalone: true }"
+                      [data]="listaDiagnosticosCie10_relacion_1"
+                      [searchKeyword]="keyword"
+                      placeholder=""
+                      (selected)="
+                        eventoSeleccionDiagnosticoRelacionado1($event)
+                      "
+                      (inputChanged)="
+                        cambiarBusquedaDiagnosticoRelacionado1($event)
+                      "
+                      (closed)="
+                        verificarSeleccionDiagnosticoRelacionado1(
+                          diagnosticoRelacionado1CodigoSeleccionado
+                        )
+                      "
+                      historyIdentifier="listaDiagnosticosCie10_relacion_1"
+                      [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate"
+                    >
+                    </ng-autocomplete>
 
-                                        <option value=""></option>
-                                        <option *ngFor="let item of listaGrupoServiciosPorFiltro" [ngValue]="item.id_servicio" >{{ item.descripcion }}</option>
-                                    </select>
-                                    <div *ngIf="submittedIncapacidad && f_incapacidad.id_servicio.errors" class="invalid-feedback">
-                                        <div *ngIf="f_incapacidad.id_servicio.errors.required">Grupo servicio es requerido</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">            
-                                <div class="form-group">
-                                    <label class="form-text mb-3 is-required">Modalidad Realización Consulta</label>
-                                    <select formControlName="id_modalidad" class="form-control" placeholfer="Seleccione el motivo de realizacion consulta"
-                                        [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.id_modalidad.errors }">
-                                        <option value=""></option>
-                                        <option *ngFor="let item of listaModalidadRealizacionConsultaPorFiltro" [ngValue]="item.id_modalidad">{{ item.descripcion }}</option>
-                                    </select> 
-                                    <div *ngIf="submittedIncapacidad && f_incapacidad.id_modalidad.errors" class="invalid-feedback">
-                                        <div *ngIf="f_incapacidad.id_modalidad.errors.required">Modalidad realización consulta es requerido</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <!-- <label for="usuario" class="form-text mb-3 is-required">Finalidad Consulta</label>
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.codigo"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                  </div>
+                  <div
+                    class="icon-display icon-form"
+                    id="icon-display-search-n"
+                    (click)="openModalDiagnosticoRelacionado1()"
+                  >
+                    <span class="govco-icon govco-icon-search-n"></span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    readonly
+                    [value]="
+                      incapacidadForm.get('descripcion_diagnostico_relacion_1')
+                        ?.value
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row-padding-left-15">
+              <div class="form-group-inline">
+                <label class="form-text">Diagnóstico Relacionado 2</label>
+                <div
+                  *ngIf="!esVisibleDiagnosticorelacionado2"
+                  class="icon-display"
+                  id="icon-display-plus"
+                  (click)="mostrarOcultarDiagnosticorelacionado2()"
+                >
+                  <span class="govco-icon govco-icon-plus"></span>
+                </div>
+                <div
+                  *ngIf="esVisibleDiagnosticorelacionado2"
+                  class="icon-display"
+                  id="icon-display-minus"
+                  (click)="mostrarOcultarDiagnosticorelacionado2()"
+                >
+                  <span class="govco-icon govco-icon-minus"></span>
+                </div>
+              </div>
+            </div>
+            <div
+              class="row-padding-left-15"
+              *ngIf="esVisibleDiagnosticorelacionado2"
+            >
+              <div class="form-group col-lg-12 row-padding-right-0">
+                <div class="form-group-inline">
+                  <div class="ng-autocomplete input-small">
+                    <ng-autocomplete
+                      [(ngModel)]="diagnosticoRelacionado2CodigoSeleccionado"
+                      [ngModelOptions]="{ standalone: true }"
+                      [data]="listaDiagnosticosCie10_relacion_2"
+                      [searchKeyword]="keyword"
+                      placeholder=""
+                      (selected)="
+                        eventoSeleccionDiagnosticoRelacionado2($event)
+                      "
+                      (inputChanged)="
+                        cambiarBusquedaDiagnosticoRelacionado2($event)
+                      "
+                      (closed)="
+                        verificarSeleccionDiagnosticoRelacionado2(
+                          diagnosticoRelacionado2CodigoSeleccionado
+                        )
+                      "
+                      historyIdentifier="listaDiagnosticosCie10_relacion_2"
+                      [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate"
+                    >
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate let-item>
+                      <a [innerHTML]="item.codigo"></a>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                      <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                  </div>
+                  <div
+                    class="icon-display icon-form"
+                    id="icon-display-search-n"
+                    (click)="openModalDiagnosticoRelacionado2()"
+                  >
+                    <span class="govco-icon govco-icon-search-n"></span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    readonly
+                    [value]="
+                      incapacidadForm.get('descripcion_diagnostico_relacion_2')
+                        ?.value
+                    "
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="datos-incapacidad">
+            <h2 class="modal-title">Registro Datos Incapacidad</h2>
+
+            <div class="row">
+              <div class="col-md-4 text-center">
+                <label class="form-text mb-3 text-lg-left">Retroactiva</label>
+                <div
+                  *ngIf="retroactivaInconsistente != 1"
+                  class="form-check-inline"
+                >
+                  <label class="form-check-label">
+                    <input
+                      type="radio"
+                      [disabled]="deshabilitarSeleccionRetroactiva"
+                      (change)="seleccionRetroactiva(true)"
+                      id="yes"
+                      class="form-check-input"
+                      name="optradioRetroactiva"
+                      [checked]="retroactividoSelected == true ? true : false"
+                    />&nbsp;Si
+                  </label>
+                </div>
+                <div
+                  *ngIf="retroactivaInconsistente != 2"
+                  class="form-check-inline"
+                >
+                  <label class="form-check-label">
+                    <input
+                      type="radio"
+                      [disabled]="deshabilitarSeleccionRetroactiva"
+                      (change)="seleccionRetroactiva(false)"
+                      id="radiobutton1"
+                      class="form-check-input"
+                      name="optradioRetroactiva"
+                      value="No"
+                      [checked]="retroactividoSelected == false ? true : false"
+                    />&nbsp;No
+                  </label>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group" *ngIf="tieneListaMotivoRetroactivo">
+                  <label class="form-text mb-3 is-required"
+                    >Motivo Retroactividad</label
+                  >
+                  <select
+                    class="form-control"
+                    (change)="changeValueRetroactivaMotivoR()"
+                    formControlName="id_retroactiva"
+                    placeholfer="Seleccione retroactiva motivo"
+                    [ngClass]="{
+                      'is-invalid':
+                        submittedIncapacidad &&
+                        incapacidadForm.get('id_retroactiva')?.errors
+                    }"
+                  >
+                    <option value=""></option>
+                    <option
+                      *ngFor="let item of listaMotivaRetroactivaPorFiltro"
+                      [ngValue]="item.id_retroactiva"
+                    >
+                      {{ item.descripcion }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="
+                      submittedIncapacidad &&
+                      incapacidadForm.get('id_retroactiva')?.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="incapacidadForm.get('id_retroactiva')?.errors">
+                      Motivo retroactiva es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div
+                  class="form-group"
+                  *ngIf="tieneListaMotivoRetroactivo && tieneTrastornoMemoria"
+                >
+                  <label class="form-text mb-3 is-required"
+                    >Trastorno de Memoria</label
+                  >
+                  <select
+                    formControlName="id_trastorno_memoria"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        submittedIncapacidad &&
+                        incapacidadForm.get('id_trastorno_memoria')?.errors
+                    }"
+                    placeholfer="Seleccione un trastorno de memoria"
+                  >
+                    <option value=""></option>
+                    <option
+                      *ngFor="let item of listaTrastornoMemoria"
+                      [ngValue]="item.id_trastorno_memoria"
+                    >
+                      {{ item.descripcion }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="
+                      submittedIncapacidad &&
+                      incapacidadForm.get('id_trastorno_memoria')?.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        incapacidadForm.get('id_trastorno_memoria')?.errors
+                      "
+                    >
+                      Trastorno memoria es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label class="form-text mb-3 is-required"
+                    >Grupo Servicios</label
+                  >
+                  <select
+                    class="form-control"
+                    (change)="changeValueGrupoServicio()"
+                    formControlName="id_servicio"
+                    placeholder="Seleccione el grupo de servicios"
+                    [ngClass]="{
+                      'is-invalid':
+                        submittedIncapacidad &&
+                        incapacidadForm.get('id_servicio')?.errors
+                    }"
+                  >
+                    <option value=""></option>
+                    <option
+                      *ngFor="let item of listaGrupoServiciosPorFiltro"
+                      [ngValue]="item.id_servicio"
+                    >
+                      {{ item.descripcion }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="
+                      submittedIncapacidad &&
+                      incapacidadForm.get('id_servicio')?.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="incapacidadForm.get('id_servicio')?.errors">
+                      Grupo servicio es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label class="form-text mb-3 is-required"
+                    >Modalidad Realización Consulta</label
+                  >
+                  <select
+                    formControlName="id_modalidad"
+                    class="form-control"
+                    placeholfer="Seleccione el motivo de realizacion consulta"
+                    [ngClass]="{
+                      'is-invalid':
+                        submittedIncapacidad &&
+                        incapacidadForm.get('id_modalidad')?.errors
+                    }"
+                  >
+                    <option value=""></option>
+                    <option
+                      *ngFor="
+                        let item of listaModalidadRealizacionConsultaPorFiltro
+                      "
+                      [ngValue]="item.id_modalidad"
+                    >
+                      {{ item.descripcion }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="
+                      submittedIncapacidad &&
+                      incapacidadForm.get('id_modalidad')?.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="incapacidadForm.get('id_modalidad')?.errors">
+                      Modalidad realización consulta es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <!-- <label for="usuario" class="form-text mb-3 is-required">Finalidad Consulta</label>
                                     <select name="fconsulta" class="form-control" (change)="changeValueFinalidadConsulta()" [(ngModel)]="incapacidad.id_finalidad" placeholfer="Seleccione la finalidad de la consulta">
                                         <option *ngFor="let item of listaFinalidadConsulta" [ngValue]="item.id_finalidad">{{ item.descripcion }}</option>
                                     </select> -->
-                                </div>
-                            </div> 
-                        </div>
+                </div>
+              </div>
+            </div>
 
-                        <div class="row">
-                            <div class="col-md-4">            
-                                <div class="form-group">
-                                    <label class="form-text mb-3 is-required">Origen</label> 
-                                    <select formControlName="id_origen" class="form-control" (change)="changeValueOrigen()"  [value]="0"
-                                             [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.id_origen.errors }">
-                                        <option value=""></option>    
-                                        <option *ngFor="let item of listaOrigen" [ngValue]="item.id_origen">{{ item.descripcion }}</option>
-                                    </select>
-                                    <div *ngIf="submittedIncapacidad && f_incapacidad.id_origen.errors" class="invalid-feedback">
-                                        <div *ngIf="f_incapacidad.id_origen.errors.required">Origen es requerido</div>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-text mb-3 is-required">Causa Motivo Atención</label>
-                                    <select formControlName="id_causa" class="form-control"(change)="changeValueCausaAtencion($event)" 
-                                     [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.id_causa.errors }">
-                                        <option value=""></option>
-                                        <option *ngFor="let item of listaCausaAtencionByOrigen" [ngValue]="item.id_causa">{{ item.descripcion }}</option>
-                                    </select>
-                                    <div *ngIf="submittedIncapacidad && f_incapacidad.id_causa.errors" class="invalid-feedback">
-                                        <div *ngIf="f_incapacidad.id_causa.errors.required">Causa motivo atención es requerido</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4"></div>
-                        </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-text mb-3 is-required">Origen</label>
+                  <select
+                    formControlName="id_origen"
+                    class="form-control"
+                    (change)="changeValueOrigen()"
+                    [value]="0"
+                    [ngClass]="{
+                      'is-invalid':
+                        submittedIncapacidad &&
+                        incapacidadForm.get('id_origen')?.errors
+                    }"
+                  >
+                    <option value=""></option>
+                    <option
+                      *ngFor="let item of listaOrigen"
+                      [ngValue]="item.id_origen"
+                    >
+                      {{ item.descripcion }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="
+                      submittedIncapacidad &&
+                      incapacidadForm.get('id_origen')?.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="incapacidadForm.get('id_origen')?.errors">
+                      Origen es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="form-text mb-3 is-required"
+                    >Causa Motivo Atención</label
+                  >
+                  <select
+                    formControlName="id_causa"
+                    class="form-control"
+                    (change)="changeValueCausaAtencion($event)"
+                    [ngClass]="{
+                      'is-invalid':
+                        submittedIncapacidad &&
+                        incapacidadForm.get('id_causa')?.errors
+                    }"
+                  >
+                    <option value=""></option>
+                    <option
+                      *ngFor="let item of listaCausaAtencionByOrigen"
+                      [ngValue]="item.id_causa"
+                    >
+                      {{ item.descripcion }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="
+                      submittedIncapacidad &&
+                      incapacidadForm.get('id_causa')?.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="incapacidadForm.get('id_causa')?.errors">
+                      Causa motivo atención es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
 
+            <div class="row" *ngIf="tieneOrigenLaboral">
+              <div class="form-group col-sm-4">
+                <label class="form-text mb-3 is-required">Aportante</label>
+                <div class="form-group-inline">
+                  <input
+                    type="text"
+                    formControlName="id_aportante"
+                    class="form-control"
+                    [value]="incapacidadForm.get('id_aportante')?.value"
+                    [ngClass]="{
+                      'is-invalid':
+                        submittedIncapacidad &&
+                        incapacidadForm.get('id_aportante')?.errors
+                    }"
+                    readonly
+                  />
+                  <div
+                    class="icon-display icon-form"
+                    id="icon-display-search-n"
+                    (click)="openModalAportantes()"
+                  >
+                    <span class="govco-icon govco-icon-search-n"></span>
+                  </div>
+                  <div
+                    *ngIf="
+                      submittedIncapacidad &&
+                      incapacidadForm.get('id_aportante')?.errors
+                    "
+                    class="invalid-feedback"
+                    style="position: absolute; top: 64px"
+                  >
+                    <div *ngIf="incapacidadForm.get('id_aportante')?.errors">
+                      Aportante es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="form-text mb-3">Nombre Aportante</label>
+                <div class="form-group-inline">
+                  <input
+                    type="text"
+                    class="form-control"
+                    style="margin: 5px 0px"
+                    [value]="incapacidadForm.get('nombre_aportante')?.value"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="form-group col-sm-4">
+                <label class="form-text mb-3">ARL</label>
+                <div class="form-group-inline">
+                  <input
+                    type="text"
+                    class="form-control"
+                    style="margin: 5px 0px"
+                    [value]="incapacidadForm.get('nombre_arl')?.value"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="tieneOrigenLaboral">
+              <div
+                *ngIf="mensajeAdvertenciaIncacidadSinAportantesARL"
+                class="form-group col-sm-12"
+              >
+                <label class="form-text mb-12" style="color: red"
+                  >La incapacidad se guardará sin aportantes y ARL
+                  sasociados</label
+                >
+              </div>
+            </div>
 
-                        <div class="row" *ngIf="tieneOrigenLaboral">                    
-                            <div class="form-group col-sm-4">
-                                <label class="form-text mb-3 is-required">Aportante</label>
-                                <div  class="form-group-inline">
-                                    <input type="text" formControlName="id_aportante" class="form-control" [value]="f_incapacidad.id_aportante.value"
-                                    [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.id_aportante.errors }" readonly>
-                                    <div class="icon-display icon-form" id="icon-display-search-n" (click)="openModalAportantes()">
-                                        <span class="govco-icon govco-icon-search-n"></span>
-                                    </div>
-                                    <div *ngIf="submittedIncapacidad && f_incapacidad.id_aportante.errors" class="invalid-feedback" style="position: absolute; top: 64px;">
-                                        <div *ngIf="f_incapacidad.id_aportante.errors.required" >Aportante es requerido</div>
-                                    </div>  
-                                </div>                    
-                            </div>  
-                            <div class="form-group col-sm-4">
-                                <label class="form-text mb-3">Nombre Aportante</label>
-                                <div  class="form-group-inline">
-                                    <input type="text" class="form-control" style="margin: 5px 0px;" [value]="f_incapacidad.nombre_aportante.value" readonly>
-                                </div>
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label class="form-text mb-3">ARL</label>
-                                <div  class="form-group-inline">
-                                    <input type="text" class="form-control" style="margin: 5px 0px;" [value]="f_incapacidad.nombre_arl.value" readonly>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" *ngIf="tieneOrigenLaboral">
-                            <div *ngIf="mensajeAdvertenciaIncacidadSinAportantesARL" class="form-group col-sm-12">
-                                <label class="form-text mb-12" style="color: red;">La incapacidad se guardará sin aportantes y ARL sasociados</label>
-                            </div>
-                        </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <label class="form-text mb-3 is-required"
+                  >Fecha Inicio Incapacidad</label
+                >
+                <input
+                  type="date"
+                  formControlName="fecha_inicio_string"
+                  min="{{ fechaMinimaIncapacidad | date : 'yyyy-MM-dd' }}"
+                  max="{{ fechaHoy | date : 'yyyy-MM-dd' }}"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedIncapacidad &&
+                      incapacidadForm.get('fecha_inicio_string')?.errors
+                  }"
+                  (focusout)="calcularFechaFinal()"
+                  (keyup)="calcularFechaFinal2()"
+                  [disabled]="deshabilitarSeleccionProrroga"
+                />
 
-                        <div class="row">
-                
-                            <div class="col-sm-4">
-                                <label  class="form-text mb-3 is-required">Fecha Inicio Incapacidad</label>
-                                <input type="date" formControlName="fecha_inicio_string" min="{{fechaMinimaIncapacidad | date: 'yyyy-MM-dd'}}"
-                                        max="{{fechaHoy | date: 'yyyy-MM-dd'}}" 
-                                        class="form-control" [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.fecha_inicio_string.errors }"
-                                        (focusout)="calcularFechaFinal()" (keyup) = "calcularFechaFinal2()" [disabled]="deshabilitarSeleccionProrroga" />
+                <div
+                  *ngIf="
+                    submittedIncapacidad &&
+                    incapacidadForm.get('fecha_inicio_string')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="incapacidadForm.get('fecha_inicio_string')?.errors"
+                  >
+                    Fecha de inicio es requerida
+                  </div>
+                </div>
+              </div>
 
-                                <div *ngIf="submittedIncapacidad && f_incapacidad.fecha_inicio_string.errors" class="invalid-feedback">
-                                    <div *ngIf="f_incapacidad.fecha_inicio_string.errors.required">Fecha de inicio es requerida</div>
-                                </div>
-                            </div>
-                
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="form-text mb-3 is-required">Días de Incapacidad</label>
-                                    <input type="number" formControlName="dias_incapacidad" (keyup)="calcularFechaFinal()" (click)="calcularFechaFinal()" 
-                                         max="30"
-                                        class="form-control"  [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.dias_incapacidad.errors }"
-                                        placeholder="Días Incapacidad" >
-                                    <div *ngIf="submittedIncapacidad && f_incapacidad.dias_incapacidad.errors" class="invalid-feedback">
-                                        <div *ngIf="f_incapacidad.dias_incapacidad.errors.required">Días de incapacidad es requerido</div>
-                                    </div>
-                                </div>
-                            </div>
-                
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="fecha_fin_string" class="form-text mb-3">Fecha Fin Incapacidad</label>
-                                    <input type="text" value="{{this.f_incapacidad.fecha_fin_string.value | date: 'dd/MM/yyyy'}}"  class="form-control"  name="fecha_fin_string"
-                                    [readonly]=true  [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.fecha_fin_string.errors }">
-                                    <div *ngIf="submittedIncapacidad && f_incapacidad.fecha_fin_string.errors" class="invalid-feedback">
-                                        <div *ngIf="f_incapacidad.fecha_fin_string.errors.required">Fecha fin es requerida</div>
-                                    </div>
-                                </div>
-                            </div>
-                
-                        </div>
-                        <h2 class="modal-title">Prórroga</h2>
-                        <div class="row" *ngIf="deshabilitarSeleccionProrroga">
-                            <div class="col-sm-4 ">
-                                <div class="form-group">
-                                    <label class="form-text mb-3 text-lg-left">&nbsp;</label>
-                                        <div class="form-check-inline">
-                                            <label class="form-check-label">
-                                                <input type="radio" [disabled]="deshabilitarSeleccionProrroga" class="form-check-input" name="optradioProrroga" 
-                                                  />&nbsp;Si
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <label class="form-check-label">
-                                            <input type="radio" [disabled]="deshabilitarSeleccionProrroga" [checked]="true" class="form-check-input" name="optradioProrroga" value="No" />&nbsp;No                                            
-                                            </label>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="form-text mb-3 is-required"
+                    >Días de Incapacidad</label
+                  >
+                  <input
+                    type="number"
+                    formControlName="dias_incapacidad"
+                    (keyup)="calcularFechaFinal()"
+                    (click)="calcularFechaFinal()"
+                    max="30"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        submittedIncapacidad &&
+                        incapacidadForm.get('dias_incapacidad')?.errors
+                    }"
+                    placeholder="Días Incapacidad"
+                  />
+                  <div
+                    *ngIf="
+                      submittedIncapacidad &&
+                      incapacidadForm.get('dias_incapacidad')?.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="incapacidadForm.get('dias_incapacidad')?.errors"
+                    >
+                      Días de incapacidad es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                        <div class="row" *ngIf="!deshabilitarSeleccionProrroga">            
-                            <div class="col-sm-4 ">
-                                <div class="form-group">
-                                    <label class="form-text mb-3 text-lg-left">&nbsp;</label>
-                                        <div class="form-check-inline">
-                                            <label class="form-check-label">
-                                                <input type="radio" [disabled]="deshabilitarSeleccionProrroga" [checked]="(prorrogaSelected == true) ? true : false" (change)="seleccionProrroga(true, true)" class="form-check-input" name="optradioProrroga" 
-                                                  />&nbsp;Si
-                                            </label>
-                                        </div>
-                                        <div class="form-check-inline">
-                                            <label class="form-check-label">
-                                            <input type="radio" [disabled]="deshabilitarSeleccionProrroga" [checked]="(prorrogaSelected == false) ? true : false"  (change)="seleccionProrroga(false, false)" class="form-check-input" name="optradioProrroga" value="No" />&nbsp;No                                            
-                                            </label>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                        <div class="row" *ngIf="tieneProrroga">                    
-                            <div class="form-group col-sm-4">
-                                <label class="form-text mb-3 is-required">Incapacidad Anterior</label>
-                                <div  class="form-group-inline">
-                                    <input type="text" formControlName="id_incapacidad_anterior" class="form-control" [value]="f_incapacidad.id_incapacidad_anterior.value"
-                                    [ngClass]="{ 'is-invalid': submittedIncapacidad && f_incapacidad.id_incapacidad_anterior.errors }" >
-                                    <div class="icon-display icon-form" id="icon-display-search-n" (click)="openModalIncapacidadesAnteriores()">
-                                        <span class="govco-icon govco-icon-search-n"></span>
-                                    </div>
-                                    <div *ngIf="submittedIncapacidad && f_incapacidad.id_incapacidad_anterior.errors" class="invalid-feedback" style="position: absolute; top: 64px;">
-                                        <div *ngIf="f_incapacidad.id_incapacidad_anterior.errors.required" >Incapacidad anterior es requerida cuando existe prórroga</div>
-                                    </div>  
-                                </div>
-                                                              
-                            </div>  
-                            <div class="form-group col-sm-8">
-                                <label class="form-text mb-3">Fecha de Inicio - Fecha Fin - Diagnosticos</label>
-                                <div  class="form-group-inline">
-                                    <input type="text" class="form-control" style="margin: 5px 0px;" [value]="f_incapacidad.descripcion_incapacidad_anterior.value">
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group" *ngIf="tieneProrroga">
-                                    <label class="form-text mb-3">Días Acumulados Prórroga</label>
-                                    <input type="text" id="dias_acumulados_prorroga" class="form-control" placeholder="0" 
-                                    name="dias_acumulados_prorroga" value="{{this.f_incapacidad.dias_acumulados_prorroga.value}}" readonly> 
-                                </div>
-        
-                            </div>
-                            <div class="col-sm-4"></div>
-        
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4"></div>        
-                            <div class="col-md-4">            
-                                <div class="form-group"  *ngIf="habilitarProrrogaNoEncontradaHistoricosServidor && habilitarProrrogaNoEncontradaHistoricosCliente">
-                                    <input type="checkbox" formControlName="prorrogaNoEncontradaHistoricos" class="form-check-input">&nbsp;Prorroga no encontrada en los históricos
-                                </div>
-                            </div>
-                            <div class="col-md-4"></div>        
-                        </div>
-                    </section>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="fecha_fin_string" class="form-text mb-3"
+                    >Fecha Fin Incapacidad</label
+                  >
+                  <input
+                    type="text"
+                    value="{{
+                      incapacidadForm.get('fecha_fin_string')?.value
+                        | date : 'dd/MM/yyyy'
+                    }}"
+                    class="form-control"
+                    name="fecha_fin_string"
+                    [readonly]="true"
+                    [ngClass]="{
+                      'is-invalid':
+                        submittedIncapacidad &&
+                        incapacidadForm.get('fecha_fin_string')?.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="
+                      submittedIncapacidad &&
+                      incapacidadForm.get('fecha_fin_string')?.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="incapacidadForm.get('fecha_fin_string')?.errors"
+                    >
+                      Fecha fin es requerida
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h2 class="modal-title">Prórroga</h2>
+            <div class="row" *ngIf="deshabilitarSeleccionProrroga">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="form-text mb-3 text-lg-left">&nbsp;</label>
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input
+                        type="radio"
+                        [disabled]="deshabilitarSeleccionProrroga"
+                        class="form-check-input"
+                        name="optradioProrroga"
+                      />&nbsp;Si
+                    </label>
+                  </div>
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input
+                        type="radio"
+                        [disabled]="deshabilitarSeleccionProrroga"
+                        [checked]="true"
+                        class="form-check-input"
+                        name="optradioProrroga"
+                        value="No"
+                      />&nbsp;No
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                   
-                <!-- <div class="modal-content">
+            <div class="row" *ngIf="!deshabilitarSeleccionProrroga">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label class="form-text mb-3 text-lg-left">&nbsp;</label>
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input
+                        type="radio"
+                        [disabled]="deshabilitarSeleccionProrroga"
+                        [checked]="prorrogaSelected == true ? true : false"
+                        (change)="seleccionProrroga(true, true)"
+                        class="form-check-input"
+                        name="optradioProrroga"
+                      />&nbsp;Si
+                    </label>
+                  </div>
+                  <div class="form-check-inline">
+                    <label class="form-check-label">
+                      <input
+                        type="radio"
+                        [disabled]="deshabilitarSeleccionProrroga"
+                        [checked]="prorrogaSelected == false ? true : false"
+                        (change)="seleccionProrroga(false, false)"
+                        class="form-check-input"
+                        name="optradioProrroga"
+                        value="No"
+                      />&nbsp;No
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="row" *ngIf="tieneProrroga">
+                <div class="form-group col-sm-4">
+                  <label class="form-text mb-3 is-required"
+                    >Incapacidad Anterior</label
+                  >
+                  <div class="form-group-inline">
+                    <input
+                      type="text"
+                      formControlName="id_incapacidad_anterior"
+                      class="form-control"
+                      [value]="
+                        incapacidadForm.get('id_incapacidad_anterior')?.value
+                      "
+                      [ngClass]="{
+                        'is-invalid':
+                          submittedIncapacidad &&
+                          incapacidadForm.get('id_incapacidad_anterior')?.errors
+                      }"
+                    />
+                    <div
+                      class="icon-display icon-form"
+                      id="icon-display-search-n"
+                      (click)="openModalIncapacidadesAnteriores()"
+                    >
+                      <span class="govco-icon govco-icon-search-n"></span>
+                    </div>
+                    <div
+                      *ngIf="
+                        submittedIncapacidad &&
+                        incapacidadForm.get('id_incapacidad_anterior')?.errors
+                      "
+                      class="invalid-feedback"
+                      style="position: absolute; top: 64px"
+                    >
+                      <div
+                        *ngIf="
+                          incapacidadForm.get('id_incapacidad_anterior')?.errors
+                        "
+                      >
+                        Incapacidad anterior es requerida cuando existe prórroga
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-sm-8">
+                  <label class="form-text mb-3"
+                    >Fecha de Inicio - Fecha Fin - Diagnosticos</label
+                  >
+                  <div class="form-group-inline">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="margin: 5px 0px"
+                      [value]="
+                        incapacidadForm.get('descripcion_incapacidad_anterior')
+                          ?.value
+                      "
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group" *ngIf="tieneProrroga">
+                  <label class="form-text mb-3">Días Acumulados Prórroga</label>
+                  <input
+                    type="text"
+                    id="dias_acumulados_prorroga"
+                    class="form-control"
+                    placeholder="0"
+                    name="dias_acumulados_prorroga"
+                    value="{{
+                      incapacidadForm.get('dias_acumulados_prorroga')?.value
+                    }}"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="col-sm-4"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <div
+                  class="form-group"
+                  *ngIf="
+                    habilitarProrrogaNoEncontradaHistoricosServidor &&
+                    habilitarProrrogaNoEncontradaHistoricosCliente
+                  "
+                >
+                  <input
+                    type="checkbox"
+                    formControlName="prorrogaNoEncontradaHistoricos"
+                    class="form-check-input"
+                  />&nbsp;Prorroga no encontrada en los históricos
+                </div>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </section>
+
+          <!-- <div class="modal-content">
                     <div class="modal-header-center">
                         <h2 class="modal-title text-center">Confirmar Datos</h2>
                     </div>
@@ -575,46 +1100,58 @@
                         </div>
                     </div>
                 </div> -->
-                <section id="boton-enviar">
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4">
-                          <button (click)="goBack()" class="btn btn-round btn-high backBttn" [disabled]="bttnBack">Regresar</button>
-                                &nbsp;
-                                <button type="submit" class="btn btn-round btn-high" >&nbsp;&nbsp;&nbsp;Enviar&nbsp;&nbsp;&nbsp;</button>
-                        </div>
-                        <div class="col-md-4"></div>
-                    </div>   
-                </section>
-
-            </form>
-
-
-          </div>
-          
-          <div id="test-l-4" class="content">
-              <br>
-            <div class="row ">
-                <div class="col text-center">
-                    <h5 style="color:green;">Registro guardado con exito!</h5>
-                </div>
-            </div>
-            <br><br> 
-            <app-informacion-incapacidad [incapacidadIn]="incapacidadForm.value" [pacienteIn]="paciente"></app-informacion-incapacidad>
-            <br>
+          <section id="boton-enviar">
             <div class="row justify-content-center align-items-center">
-                <div class="col-md-3">
-                    <button (click)="generarPDF()" class="btn btn-round btn-high">Generar certificado</button>
-                </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-round btn-high" (click)="refresh()">Nueva incapacidad</button>
-                </div>
-            </div>   
-            
-          </div>       
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <button
+                  (click)="goBack()"
+                  class="btn btn-round btn-high backBttn"
+                  [disabled]="bttnBack"
+                >
+                  Regresar
+                </button>
+                &nbsp;
+                <button type="submit" class="btn btn-round btn-high">
+                  &nbsp;&nbsp;&nbsp;Enviar&nbsp;&nbsp;&nbsp;
+                </button>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </section>
+        </form>
+      </div>
 
-              
+      <div id="test-l-4" class="content">
+        <br />
+        <div class="row">
+          <div class="col text-center">
+            <h5 style="color: green">Registro guardado con exito!</h5>
+          </div>
+        </div>
+        <br /><br />
+        <app-informacion-incapacidad
+          [incapacidadIn]="incapacidadForm.value"
+          [pacienteIn]="paciente!"
+        ></app-informacion-incapacidad>
+        <br />
+        <div class="row justify-content-center align-items-center">
+          <div class="col-md-3">
+            <button (click)="generarPDF()" class="btn btn-round btn-high">
+              Generar certificado
+            </button>
+          </div>
+          <div class="col-md-3">
+            <button
+              type="button"
+              class="btn btn-round btn-high"
+              (click)="refresh()"
+            >
+              Nueva incapacidad
+            </button>
+          </div>
+        </div>
       </div>
-        
-      </div>
+    </div>
   </div>
+</div>

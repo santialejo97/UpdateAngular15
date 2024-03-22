@@ -8,25 +8,18 @@ import { ParametrosIncapacidadesService } from 'src/app/services/parametros-inca
 @Component({
   selector: 'app-modal-alerta',
   templateUrl: './modal-alerta.component.html',
-  styleUrls: ['./modal-alerta.component.scss']
+  styleUrls: ['./modal-alerta.component.scss'],
 })
 export class ModalAlertaComponent implements OnInit {
+  @Input() public dataIn: any;
 
-  @Input() public dataIn;
-
-  constructor(
-    public activeModal: NgbActiveModal,
-  ) { 
+  constructor(public activeModal: NgbActiveModal) {
     //console.log(this.dataIn)
   }
 
-  ngOnInit() {
+  ngOnInit() {}
 
+  closeModal() {
+    this.activeModal.close({ resultado: 'data' });
   }
-
-  closeModal(){  
-    this.activeModal.close({resultado: 'data'});
-  }  
 }
-
-

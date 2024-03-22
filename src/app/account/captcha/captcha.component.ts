@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { RecaptchaErrorParameters } from "ng-recaptcha";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  FormsModule,
+} from '@angular/forms';
+import { RecaptchaErrorParameters } from 'ng-recaptcha';
 import { AutenticacionService } from 'src/app/services/autenticacion.service';
 import { IRecaptchaRequest } from 'src/app/interfaces/IRecaptchaRequest';
 import { IRetornoRecaptcha } from 'src/app/interfaces/IRetornoRecaptcha';
@@ -9,17 +15,19 @@ import { IRetornoRecaptcha } from 'src/app/interfaces/IRetornoRecaptcha';
 @Component({
   selector: 'app-captcha',
   templateUrl: './captcha.component.html',
-  styleUrls: ['./captcha.component.scss']
+  styleUrls: ['./captcha.component.scss'],
 })
 export class CaptchaComponent implements OnInit {
-
-  aFormGroup: FormGroup;
+  aFormGroup!: FormGroup;
   siteKey: string;
   secretKey: string;
-  validacionRecaptcha: any[];
+  validacionRecaptcha: any[] = [];
   retornoLogin: boolean;
 
-  constructor(private formBuilder: FormBuilder, private autenticacionService: AutenticacionService,) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private autenticacionService: AutenticacionService
+  ) {
     this.siteKey = environment.siteKey;
     this.secretKey = environment.secretKey;
     this.retornoLogin = false;
@@ -27,36 +35,37 @@ export class CaptchaComponent implements OnInit {
 
   ngOnInit(): void {
     this.aFormGroup = this.formBuilder.group({
-      recaptcha: ['', Validators.required]
+      recaptcha: ['', Validators.required],
     });
   }
 
-   resolved(captchaResponse: string) {
-     //console.log(`Resolved captcha with response: ${captchaResponse}`);
-     this.validarToken(captchaResponse);
+  resolved(captchaResponse: string) {
+    //console.log(`Resolved captcha with response: ${captchaResponse}`);
+    this.validarToken(captchaResponse);
   }
 
   onError(errorDetails: RecaptchaErrorParameters) {
     console.log(`Se encontro un error: ${errorDetails}`);
   }
 
-  validarToken(token_) {
-
-    const datos: IRecaptchaRequest = { token: token_, llaveSegura: this.secretKey }
+  validarToken(token_: string) {
+    const datos: IRecaptchaRequest = {
+      token: token_,
+      llaveSegura: this.secretKey,
+    };
 
     this.autenticacionService.ValidarRecaptcha(datos).subscribe(
-      data => {
-        const cs: IRetornoRecaptcha = this.validacionRecaptcha = JSON.parse(JSON.stringify(data));
+      (data) => {
+        const cs: IRetornoRecaptcha = (this.validacionRecaptcha = JSON.parse(
+          JSON.stringify(data)
+        ));
         this.retornoLogin = cs.success;
         //console.log(data);
       },
-      err => {
-        console.log(err)
+      (err) => {
+        console.log(err);
       },
-      () => { }
+      () => {}
     );
-
-    
   }
-
 }

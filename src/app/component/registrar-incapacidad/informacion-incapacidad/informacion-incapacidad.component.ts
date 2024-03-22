@@ -2,20 +2,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IIncapacidad } from 'src/app/models/incapacidad.model';
 import { IPacienteModel } from 'src/app/models/paciente.model';
 
-
 @Component({
   selector: 'app-informacion-incapacidad',
   templateUrl: './informacion-incapacidad.component.html',
-  styleUrls: ['./informacion-incapacidad.component.scss']
+  styleUrls: ['./informacion-incapacidad.component.scss'],
 })
 export class InformacionIncapacidadComponent implements OnInit {
+  @Input() public incapacidadIn!: IIncapacidad;
+  @Input() public pacienteIn!: IPacienteModel;
 
-  @Input() public incapacidadIn: IIncapacidad;
-  @Input() public pacienteIn: IPacienteModel;
-
-  constructor() { 
-    
-  }
+  constructor() {}
 
   ngOnInit() {
     //  console.log('info IncapacidadIn')
@@ -24,9 +20,4 @@ export class InformacionIncapacidadComponent implements OnInit {
     // console.log('info pacienteIn')
     // console.log(this.pacienteIn)
   }
-
-  
-
 }
-
-

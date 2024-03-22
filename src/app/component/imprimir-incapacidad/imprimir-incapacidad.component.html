@@ -6,7 +6,7 @@
         <button class="step-trigger">
           <span class="bs-stepper-circle">1</span>
           <span class="bs-stepper-label">Consultar</span>
-        </button> 
+        </button>
       </div>
       <div class="line"></div>
       <div class="step" data-target="#test-l-2">
@@ -17,109 +17,191 @@
       </div>
     </div>
     <div class="bs-stepper-content">
-      <form [formGroup]="formInfomeIncapacidad" (ngSubmit)="buscarIncapacidadesAnteriores()">
+      <form
+        [formGroup]="formInfomeIncapacidad"
+        (ngSubmit)="buscarIncapacidadesAnteriores()"
+      >
         <div id="test-l-1" class="content">
-          <br>
+          <br />
           <h2 class="modal-title">Consulta por Información de la Persona</h2>
-          <br>
+          <br />
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label >Tipo Documento</label>
-                <select formControlName="tipoDocumento" class="form-control"  [ngClass]="{ 'is-invalid': submittedImprimir && f_informe.tipoDocumento.errors }">
-                    <option value=""></option> 
-                    <option *ngFor="let item of listaTipoDocumento" [ngValue]="item.cod_tipo_documento" >{{ item.descripcion }}</option>                  
+                <label>Tipo Documento</label>
+                <select
+                  formControlName="tipoDocumento"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedImprimir &&
+                      formInfomeIncapacidad.get('tipoDocumento')?.errors
+                  }"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let item of listaTipoDocumento"
+                    [ngValue]="item.cod_tipo_documento"
+                  >
+                    {{ item.descripcion }}
+                  </option>
                 </select>
-                <div *ngIf="submittedImprimir && f_informe.tipoDocumento.errors" class="invalid-feedback">
-                    <div *ngIf="f_informe.tipoDocumento.errors.required">Tipo de documento es requerido</div>
+                <div
+                  *ngIf="
+                    submittedImprimir &&
+                    formInfomeIncapacidad.get('tipoDocumento')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="formInfomeIncapacidad.get('tipoDocumento')?.errors"
+                  >
+                    Tipo de documento es requerido
+                  </div>
                 </div>
-                
               </div>
             </div>
 
             <div class="col-md-6">
-                <div class="form-group">
-                    <label >Número Documento</label>
-                    <input type="text" class="form-control" formControlName="numeroDocumento" (change)="deshabilitarValidaciones()"
-                    [ngClass]="{ 'is-invalid': submittedImprimir && f_informe.numeroDocumento.errors }">                           
-                    <div *ngIf="submittedImprimir && f_informe.numeroDocumento.errors" class="invalid-feedback">
-                        <div *ngIf="f_informe.numeroDocumento.errors.required">Número de documento es requerido</div>
-                    </div>
+              <div class="form-group">
+                <label>Número Documento</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="numeroDocumento"
+                  (change)="deshabilitarValidaciones()"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedImprimir &&
+                      formInfomeIncapacidad.get('numeroDocumento')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedImprimir &&
+                    formInfomeIncapacidad.get('numeroDocumento')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="formInfomeIncapacidad.get('numeroDocumento')?.errors"
+                  >
+                    Número de documento es requerido
+                  </div>
                 </div>
+              </div>
             </div>
           </div>
-          <br> 
+          <br />
           <h2 class="modal-title">Consulta por Número de Incapacidad</h2>
-          <br>
+          <br />
           <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                    <label >Número de Incapacidad</label>
-                    <input type="text" class="form-control" formControlName="numeroIncapacidad" (change)="deshabilitarValidaciones()"
-                    [ngClass]="{ 'is-invalid': submittedImprimir && f_informe.numeroIncapacidad.errors }">           
-                    <div *ngIf="submittedImprimir && f_informe.numeroIncapacidad.errors" class="invalid-feedback">
-                        <div *ngIf="f_informe.numeroIncapacidad.errors.required">Número de incapacidad es requerido</div>
-                    </div>      
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Número de Incapacidad</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="numeroIncapacidad"
+                  (change)="deshabilitarValidaciones()"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedImprimir &&
+                      formInfomeIncapacidad.get('numeroIncapacidad')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedImprimir &&
+                    formInfomeIncapacidad.get('numeroIncapacidad')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      formInfomeIncapacidad.get('numeroIncapacidad')?.errors
+                    "
+                  >
+                    Número de incapacidad es requerido
+                  </div>
                 </div>
-              </div>       
-              <div class="col-md-6">
               </div>
-         </div>
-        
-         <div class="row">          
-              <div class="col text-center">                               
-                <!-- <button type="submit" class="btn btn-round btn-high">Siguiente  </button> -->
-                <button type="submit" class="btn btn-primary">Siguiente</button>           
             </div>
-         </div>
-         <div class="row" *ngIf="mostrarResultados">
-          <br>&nbsp;
-          <br> 
-          <table class="table">
-            <tbody>
-              <tr>
-                <td><strong>Número</strong></td>
-                <td><strong>Fecha expedición</strong></td>
-                <td><strong>Fecha inicio</strong></td>
-                <td><strong>Fecha fin</strong></td>
-                <td></td>
-              </tr>
-              <tr *ngIf="listaIncapacidadesAnteriores.length == 0">
-                <td colspan="5" align="center">No existen registros</td>
-              </tr>
-              <tr *ngFor="let incapacidad of listaIncapacidadesAnteriores; let i = index">
-                <td>{{incapacidad.id_incapacidad}}</td>
-                <td>{{incapacidad.fecha_expedicion | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{incapacidad.fecha_inicio | date: 'dd/MM/yyyy'}}</td>
-                <td>{{incapacidad.fecha_fin | date: 'dd/MM/yyyy'}}</td>
-                <td >
-                  <button class="btn btn-round btn-high" (click)="buscarInformeIncapacidad(i)">Consultar</button>
-                </td>
-              </tr>
-              
+            <div class="col-md-6"></div>
+          </div>
+
+          <div class="row">
+            <div class="col text-center">
+              <!-- <button type="submit" class="btn btn-round btn-high">Siguiente  </button> -->
+              <button type="submit" class="btn btn-primary">Siguiente</button>
+            </div>
+          </div>
+          <div class="row" *ngIf="mostrarResultados">
+            <br />&nbsp;
+            <br />
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><strong>Número</strong></td>
+                  <td><strong>Fecha expedición</strong></td>
+                  <td><strong>Fecha inicio</strong></td>
+                  <td><strong>Fecha fin</strong></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="listaIncapacidadesAnteriores.length == 0">
+                  <td colspan="5" align="center">No existen registros</td>
+                </tr>
+                <tr
+                  *ngFor="
+                    let incapacidad of listaIncapacidadesAnteriores;
+                    let i = index
+                  "
+                >
+                  <td>{{ incapacidad.id_incapacidad }}</td>
+                  <td>
+                    {{
+                      incapacidad.fecha_expedicion
+                        | date : "dd/MM/yyyy HH:mm:ss"
+                    }}
+                  </td>
+                  <td>{{ incapacidad.fecha_inicio | date : "dd/MM/yyyy" }}</td>
+                  <td>{{ incapacidad.fecha_fin | date : "dd/MM/yyyy" }}</td>
+                  <td>
+                    <button
+                      class="btn btn-round btn-high"
+                      (click)="buscarInformeIncapacidad(i)"
+                    >
+                      Consultar
+                    </button>
+                  </td>
+                </tr>
               </tbody>
-          </table>
-         </div>
+            </table>
+          </div>
         </div>
       </form>
-        <div id="test-l-2" class="content">
-
-<div class="container">
-  <app-lista-incapacidades [imprimirModelo]="incapacidadResumen"></app-lista-incapacidades>
-</div>
+      <div id="test-l-2" class="content">
+        <div class="container">
+          <app-lista-incapacidades
+            [imprimirModelo]="incapacidadResumen"
+          ></app-lista-incapacidades>
+        </div>
 
         <div class="row">
           <div class="col text-center">
-          <button (click)="BotonGeneracionPDF()" class="btn btn-round btn-high">Imprimir</button>
-          &nbsp;
-          <button (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
-         </div>  
-        </div> 
-        
-     
+            <button
+              (click)="BotonGeneracionPDF()"
+              class="btn btn-round btn-high"
+            >
+              Imprimir
+            </button>
+            &nbsp;
+            <button (click)="goBack()" class="btn btn-round btn-high">
+              Regresar
+            </button>
+          </div>
         </div>
-        
-      
+      </div>
     </div>
   </div>
 </div>

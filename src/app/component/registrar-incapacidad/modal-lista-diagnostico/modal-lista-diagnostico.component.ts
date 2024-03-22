@@ -6,56 +6,61 @@ import { ParametrosIncapacidadesService } from 'src/app/services/parametros-inca
 @Component({
   selector: 'app-modal-lista-diagnostico',
   templateUrl: './modal-lista-diagnostico.component.html',
-  styleUrls: ['./modal-lista-diagnostico.component.scss']
+  styleUrls: ['./modal-lista-diagnostico.component.scss'],
 })
 export class ModalListaDiagnosticoComponent implements OnInit {
-
-  @Input() public dataIn;
+  @Input() public dataIn: any;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
   //public usersList: any;//Array<UserModel> = [];
   public listaCie10: Array<any> = [];
-  
-  page=1; 
-  pageSize=7;
+
+  page = 1;
+  pageSize = 7;
 
   constructor(
     public activeModal: NgbActiveModal,
     //private fakeService: FakeModelsService,
     private parametrosIncapacidadesService: ParametrosIncapacidadesService
-  ) { 
-  }
+  ) {}
 
   async ngOnInit() {
     //console.log(this.dataIn);
     //this.usersList = this.fakeService.getUsers();
-    let dataResult = await this.parametrosIncapacidadesService.get('/Cie10/'+'');
+    let dataResult = await this.parametrosIncapacidadesService.get(
+      '/Cie10/' + ''
+    );
     this.listaCie10 = dataResult;
   }
 
-  clickedRow(index: number){  
-    //this.HighlightRow = index; 
-    //console.log(this.listaCie10[(this.pageSize*(this.page-1)) + index]); 
-    this.passEntry.emit(this.listaCie10[(this.pageSize*(this.page-1)) + index]);
-    this.activeModal.close(this.listaCie10[(this.pageSize*(this.page-1)) + index]);
-  }  
+  clickedRow(index: number) {
+    //this.HighlightRow = index;
+    //console.log(this.listaCie10[(this.pageSize*(this.page-1)) + index]);
+    this.passEntry.emit(
+      this.listaCie10[this.pageSize * (this.page - 1) + index]
+    );
+    this.activeModal.close(
+      this.listaCie10[this.pageSize * (this.page - 1) + index]
+    );
+  }
 
   async onKeyUp(event: any) {
-    console.log('values:'+event.target.value);
-      let dataResult = await this.parametrosIncapacidadesService.get('/Cie10/' + event.target.value);
-      this.listaCie10 = dataResult;
-  };
+    console.log('values:' + event.target.value);
+    let dataResult = await this.parametrosIncapacidadesService.get(
+      '/Cie10/' + event.target.value
+    );
+    this.listaCie10 = dataResult;
+  }
 
-  closeModal(){  
+  closeModal() {
     //activeModal.dismiss('Cross click')
-    this.activeModal.close({id:0, codigo:'', descripcion:''});
+    this.activeModal.close({ id: 0, codigo: '', descripcion: '' });
   }
   // passBack() {
   //   this.passEntry.emit(this.dataIn);
   //   this.activeModal.close(this.dataIn);
   // }
 }
-
 
 // export class UserModel {
 //   public firstName: string;

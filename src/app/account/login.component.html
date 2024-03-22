@@ -1,45 +1,86 @@
-    <div class="row align-items-start" style="text-align:right">
-      <div class="col-md-3; col align-self-center d-none d-sm-none d-md-block">
-        <img src="assets/images/IconoFinal.png">
-      </div>
-      <div class="col-md-2; col align-self-center d-none d-sm-none d-md-block" style="text-align:left">
-        <h2 class="text-primary">INCAPACIDADES</h2>
-      </div>
-      <div class="col-md-1 d-none d-sm-none d-md-block" style=" text-align:center">
-        <img src="assets/images/Separador.png">
-      </div>
-      <div class="col-md-4 ; col align-self-center" style="text-align:left">
-        <div class="card-body">
-          <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
-            <!--<form [formGroup]="form" (ngSubmit)="onSubmit()">-->
-            <div class="form-group" style="width:250px;">
-              <label for="NombreUsuario" style="font-family:Arial; font-size:small">Usuario</label>
-              <input type="text" formControlName="NombreUsuario" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.NombreUsuario.errors }" />
-              <div *ngIf="submitted && f.NombreUsuario.errors" class="invalid-feedback">
-                <div *ngIf="f.NombreUsuario.errors.required">El nombre de usuario es requerido</div>
-              </div>
+<div class="row align-items-start" style="text-align: right">
+  <div class="col-md-3; col align-self-center d-none d-sm-none d-md-block">
+    <img src="assets/images/IconoFinal.png" />
+  </div>
+  <div
+    class="col-md-2; col align-self-center d-none d-sm-none d-md-block"
+    style="text-align: left"
+  >
+    <h2 class="text-primary">INCAPACIDADES</h2>
+  </div>
+  <div class="col-md-1 d-none d-sm-none d-md-block" style="text-align: center">
+    <img src="assets/images/Separador.png" />
+  </div>
+  <div class="col-md-4 ; col align-self-center" style="text-align: left">
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+        <!--<form [formGroup]="form" (ngSubmit)="onSubmit()">-->
+        <div class="form-group" style="width: 250px">
+          <label
+            for="NombreUsuario"
+            style="font-family: Arial; font-size: small"
+            >Usuario</label
+          >
+          <input
+            type="text"
+            formControlName="NombreUsuario"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && form.get('NombreUsuario')?.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && form.get('NombreUsuario')?.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="form.get('NombreUsuario')?.errors!">
+              El nombre de usuario es requerido
             </div>
-            <div class="form-group" style="width:250px;">
-              <label for="Contrasena" style="font-family:Arial; font-size:small">Contraseña</label>
-              <input type="password" formControlName="Contrasena" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Contrasena.errors }" />
-              <div *ngIf="submitted && f.Contrasena.errors" class="invalid-feedback">
-                <div *ngIf="f.Contrasena.errors.required">La contraseña es requerida</div>
-              </div>
-            </div>
-
-            <div class="form-group" style="text-align:center">
-              <button [disabled]="loading" class="btn btn-primary">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                Ingresar
-              </button>
-              <br />
-              <h6>
-                <a class="btn btn-link" href={{rutaReaginacionClave}} target="popup" onclick="window.open(this.href, this.target, 'width=400px,height=400px'); return false;">Recordar Contraseña</a>
-              </h6>
-              <app-captcha></app-captcha>
-            </div>
-          </form>
+          </div>
         </div>
-      </div>
-        
+        <div class="form-group" style="width: 250px">
+          <label for="Contrasena" style="font-family: Arial; font-size: small"
+            >Contraseña</label
+          >
+          <input
+            type="password"
+            formControlName="Contrasena"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && form.get('Contrasena')?.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && form.get('Contrasena')?.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="form.get('Contrasena')?.errors">
+              La contraseña es requerida
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="text-align: center">
+          <button [disabled]="loading" class="btn btn-primary">
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            Ingresar
+          </button>
+          <br />
+          <h6>
+            <a
+              class="btn btn-link"
+              href="{{ rutaReaginacionClave }}"
+              target="popup"
+              onclick="window.open(this.href, this.target, 'width=400px,height=400px'); return false;"
+              >Recordar Contraseña</a
+            >
+          </h6>
+          <app-captcha></app-captcha>
+        </div>
+      </form>
     </div>
+  </div>
+</div>

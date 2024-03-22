@@ -1,16 +1,28 @@
 <div class="container">
-  <form [formGroup]="actualizacionForm" (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()" [formGroup]="actualizacionForm">
     <div class="form">
       <div>
         <h3>Datos Persona Contacto Procesos SIPE</h3>
-        <br>
+        <br />
       </div>
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label for="firstName">Primer Nombre</label>
-            <input type="text" id="firstName" class="form-control" formControlName="firstName" required>
-            <div class="error" *ngIf="actualizacionForm.controls['firstName'].invalid && actualizacionForm.controls['firstName'].touched">
+            <input
+              type="text"
+              id="firstName"
+              class="form-control"
+              formControlName="firstName"
+              required
+            />
+            <div
+              class="error"
+              *ngIf="
+                actualizacionForm.controls['firstName'].invalid &&
+                actualizacionForm.controls['firstName'].touched
+              "
+            >
               Primer Nombre es requerido.
             </div>
           </div>
@@ -18,7 +30,13 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="secondName">Segundo Nombre</label>
-            <input type="text" id="secondName" class="form-control" formControlName="secondName" required>
+            <input
+              type="text"
+              id="secondName"
+              class="form-control"
+              formControlName="secondName"
+              required
+            />
           </div>
         </div>
       </div>
@@ -26,8 +44,20 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="firstlastName">Primer Apellido</label>
-            <input type="text" id="firstlastName" class="form-control" formControlName="firstlastName" required>
-            <div class="error" *ngIf="actualizacionForm.controls['firstlastName'].invalid && actualizacionForm.controls['firstlastName'].touched">
+            <input
+              type="text"
+              id="firstlastName"
+              class="form-control"
+              formControlName="firstlastName"
+              required
+            />
+            <div
+              class="error"
+              *ngIf="
+                actualizacionForm.controls['firstlastName'].invalid &&
+                actualizacionForm.controls['firstlastName'].touched
+              "
+            >
               Primer Apellido es requerido.
             </div>
           </div>
@@ -35,8 +65,20 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="secondlastName">Segundo Apellido</label>
-            <input type="text" id="secondlastName" class="form-control" formControlName="secondlastName" required>
-            <div class="error" *ngIf="actualizacionForm.controls['secondlastName'].invalid && actualizacionForm.controls['secondlastName'].touched">
+            <input
+              type="text"
+              id="secondlastName"
+              class="form-control"
+              formControlName="secondlastName"
+              required
+            />
+            <div
+              class="error"
+              *ngIf="
+                actualizacionForm.controls['secondlastName'].invalid &&
+                actualizacionForm.controls['secondlastName'].touched
+              "
+            >
               Segundo Apellido es requerido.
             </div>
           </div>
@@ -46,8 +88,20 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="email">Correo Electrónico</label>
-            <input type="email" id="email" class="form-control" formControlName="email" required>
-            <div class="error" *ngIf="actualizacionForm.controls['email'].invalid && actualizacionForm.controls['email'].touched">
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              formControlName="email"
+              required
+            />
+            <div
+              class="error"
+              *ngIf="
+                actualizacionForm.controls['email'].invalid &&
+                actualizacionForm.controls['email'].touched
+              "
+            >
               Email invalido.
             </div>
           </div>
@@ -55,14 +109,29 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="confirmEmail">Confirmar correo electrónico</label>
-            <input type="email" id="confirmEmail" class="form-control" formControlName="confirmEmail" required>
-            <div class="error" *ngIf="actualizacionForm.errors?.['emailMismatch']">
+            <input
+              type="email"
+              id="confirmEmail"
+              class="form-control"
+              formControlName="confirmEmail"
+              required
+            />
+            <div
+              class="error"
+              *ngIf="actualizacionForm.errors?.['emailMismatch']"
+            >
               Corrige el correo electrónico.
             </div>
           </div>
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-round btn-high" [disabled]="actualizacionForm.invalid">Guardar</button>
+    <button
+      type="submit"
+      class="btn btn-round btn-high"
+      [disabled]="actualizacionForm.invalid"
+    >
+      Guardar
+    </button>
   </form>
 </div>

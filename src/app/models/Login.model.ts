@@ -1,9 +1,7 @@
-export class LoginModel
-{
-
-  id: string;
-  username: string;
-  password: string;
-  firstName: string;
-  lastName: string;
+export class LoginModel {
+  id!: string;
+  username!: string;
+  password!: string;
+  firstName!: string;
+  lastName!: string;
 }

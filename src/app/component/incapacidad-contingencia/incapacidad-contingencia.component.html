@@ -1,134 +1,226 @@
-<br>
-<br>
+<br />
+<br />
 <div class="container">
+  <div id="stepper1" class="bs-stepper">
+    <div class="bs-stepper-header">
+      <div class="step" data-target="#test-l-1">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">1</span>
+          <span class="bs-stepper-label">Fecha Expedicón</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-2">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">2</span>
+          <span class="bs-stepper-label">Datos Profesional</span>
+        </button>
+      </div>
+      <div class="line"></div>
+      <div class="step" data-target="#test-l-3">
+        <button class="step-trigger">
+          <span class="bs-stepper-circle">3</span>
+          <span class="bs-stepper-label">Resumen</span>
+        </button>
+      </div>
+    </div>
+    <div class="bs-stepper-content">
+      <h1 class="color-warning" *ngIf="consultaPlanContingenciaActual != null">
+        Plan de Contingencia Activo
+      </h1>
+      <div id="test-l-1" class="content">
+        <br />
+        <h2 class="modal-title">Registrar Incapacidad Contingencia</h2>
+        <br />
+        <form
+          [formGroup]="fechaExpedicionForm"
+          (ngSubmit)="onSubmitFechaForm()"
+          (keydown.enter)="$event.preventDefault()"
+        >
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="fechaExpedicion">Fecha de Expedición</label>
+                <input
+                  type="datetime-local"
+                  id="fechaExpedicion"
+                  formControlName="fechaExpedicion"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      this.fechaExpedicionForm.get('fechaExpedicion')
+                        ?.invalid && submittedFechaForm
+                  }"
+                  max="{{ fechaHoy | date : 'yyyy-MM-ddTHH:mm' }}"
+                />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="
+                    this.fechaExpedicionForm.get('fechaExpedicion')?.invalid &&
+                    submittedFechaForm
+                  "
+                >
+                  La fecha y hora de expedición es requerida.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              <button type="submit" class="btn btn-round btn-high">
+                Siguiente
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
 
-    <div id="stepper1" class="bs-stepper">
-        <div class="bs-stepper-header">
-          <div class="step" data-target="#test-l-1">
-            <button class="step-trigger">
-              <span class="bs-stepper-circle">1</span>
-              <span class="bs-stepper-label">Fecha Expedicón</span>
-            </button> 
+      <div id="test-l-2" class="content">
+        <br />
+        <h2 class="modal-title">Consulta por Información del Profesional</h2>
+        <br />
+
+        <form
+          [formGroup]="profesionalForm"
+          (ngSubmit)="onSubmitProfesionalForm()"
+          (keydown.enter)="$event.preventDefault()"
+        >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Tipo Documento</label>
+                <select
+                  formControlName="tipoDocumento"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedProfesionalForm &&
+                      profesionalForm.get('tipoDocumento')?.errors
+                  }"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let item of listaTipoDocumento"
+                    [ngValue]="item.cod_tipo_documento"
+                  >
+                    {{ item.descripcion }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    submittedProfesionalForm &&
+                    profesionalForm.get('tipoDocumento')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="profesionalForm.get('tipoDocumento')?.errors">
+                    Tipo de documento es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Número Documento</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="numeroDocumento"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedProfesionalForm &&
+                      profesionalForm.get('numeroDocumento')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedProfesionalForm &&
+                    profesionalForm.get('numeroDocumento')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="profesionalForm.get('numeroDocumento')?.errors">
+                    Número de documento es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="line"></div>
-          <div class="step" data-target="#test-l-2">
-            <button class="step-trigger">
-              <span class="bs-stepper-circle">2</span>
-              <span class="bs-stepper-label">Datos Profesional</span>
-            </button> 
+          <div class="row">
+            <div class="col text-center">
+              <button (click)="goBack()" class="btn btn-round btn-high">
+                Regresar
+              </button>
+              &nbsp;
+              <button type="submit" class="btn btn-round btn-high">
+                Consultar Profesional de la Salud
+              </button>
+            </div>
           </div>
-          <div class="line"></div>
-          <div class="step" data-target="#test-l-3">
-            <button class="step-trigger">
-              <span class="bs-stepper-circle">3</span>
-              <span class="bs-stepper-label">Resumen</span>
+        </form>
+      </div>
+
+      <div id="test-l-3" class="content">
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="table-responsive col-8">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <td class="col text-center" colspan="2">
+                    <strong>INFORMACIÓN INCAPACIDAD POR CONTINGENCIA</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Fecha de expedición incapacidad</strong></td>
+                  <td>
+                    {{
+                      this.fechaExpedicionForm.get("fechaExpedicion")?.value
+                        | date : "dd/MM/yyyy HH:mm:ss"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Fecha de inicio incapacidad</strong></td>
+                  <td>
+                    {{
+                      this.fechaExpedicionForm.get("fechaExpedicion")?.value
+                        | date : "dd/MM/yyyy 00:00:00"
+                    }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Tipo y número de documento profesional</strong>
+                  </td>
+                  <td>
+                    {{ profesionalForm.get("tipoDocumento")?.value }} &nbsp;{{
+                      profesionalForm.get("numeroDocumento")?.errors
+                    }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-2"></div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <button (click)="goBack()" class="btn btn-round btn-high">
+              Regresar
+            </button>
+            &nbsp;
+            <button
+              (click)="expedirIncapacidadContingencia()"
+              class="btn btn-round btn-high"
+            >
+              Enviar
             </button>
           </div>
         </div>
-        <div class="bs-stepper-content">
-            <h1 class="color-warning" *ngIf="consultaPlanContingenciaActual != null">Plan de Contingencia Activo</h1>
-            <div id="test-l-1" class="content">
-                <br>
-                <h2 class="modal-title">Registrar Incapacidad Contingencia</h2>
-                <br> 
-                <form [formGroup]="fechaExpedicionForm" (ngSubmit)="onSubmitFechaForm()" (keydown.enter)="$event.preventDefault()">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="fechaExpedicion">Fecha de Expedición</label>
-                                <input type="datetime-local" id="fechaExpedicion" formControlName="fechaExpedicion" class="form-control" 
-                                    [ngClass]="{ 'is-invalid': f_fechaExpedicion.fechaExpedicion.invalid && submittedFechaForm }" max="{{fechaHoy | date: 'yyyy-MM-ddTHH:mm'}}">
-                                <div class="invalid-feedback" *ngIf="f_fechaExpedicion.fechaExpedicion.invalid && submittedFechaForm">
-                                    La fecha y hora de expedición es requerida.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6"></div>
-                    </div>
-                    <div class="row">          
-                        <div class="col text-center">                               
-                            <button type="submit" class="btn btn-round btn-high">Siguiente</button>           
-                        </div>
-                    </div>
-                </form>
-            </div>  
-
-            <div id="test-l-2" class="content">
-              <br>
-              <h2 class="modal-title">Consulta por Información del Profesional</h2>
-              <br> 
-
-              <form [formGroup]="profesionalForm" (ngSubmit)="onSubmitProfesionalForm()" (keydown.enter)="$event.preventDefault()">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label >Tipo Documento</label>  
-                      <select formControlName="tipoDocumento" class="form-control"  [ngClass]="{ 'is-invalid': submittedProfesionalForm && f_profesional.tipoDocumento.errors }">
-                          <option value=""></option> 
-                          <option *ngFor="let item of listaTipoDocumento" [ngValue]="item.cod_tipo_documento" >{{ item.descripcion }}</option>                  
-                      </select>
-                      <div *ngIf="submittedProfesionalForm && f_profesional.tipoDocumento.errors" class="invalid-feedback">
-                          <div *ngIf="f_profesional.tipoDocumento.errors.required">Tipo de documento es requerido</div>
-                      </div>
-                      
-                    </div>
-                  </div>
-      
-                  <div class="col-md-6">
-                      <div class="form-group">
-                          <label >Número Documento</label>
-                          <input type="text" class="form-control" formControlName="numeroDocumento" [ngClass]="{ 'is-invalid': submittedProfesionalForm && f_profesional.numeroDocumento.errors }">                           
-                          <div *ngIf="submittedProfesionalForm && f_profesional.numeroDocumento.errors" class="invalid-feedback">
-                              <div *ngIf="f_profesional.numeroDocumento.errors.required">Número de documento es requerido</div>
-                          </div>
-                      </div>
-                  </div>
-                </div>
-                <div class="row">          
-                    <div class="col text-center">                               
-                        <button (click)="goBack()" class="btn btn-round btn-high">Regresar</button>    
-                        &nbsp;
-                        <button type="submit" class="btn btn-round btn-high">Consultar Profesional de la Salud</button>         
-                    </div>
-                </div>
-              </form>  
-           
-            </div>
-
-            <div id="test-l-3" class="content">
-
-                <div class="row">
-                  <div class="col-2"></div>
-                  <div class="table-responsive col-8">          
-                    <table class="table table-bordered">
-                      <tbody>
-                        <tr>
-                          <td class="col text-center" colspan="2"><strong>INFORMACIÓN INCAPACIDAD POR CONTINGENCIA</strong></td>
-                        </tr> 
-                        <tr>
-                          <td><strong>Fecha de expedición incapacidad</strong></td>
-                          <td>{{f_fechaExpedicion.fechaExpedicion.value | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
-                        </tr>
-                        <tr>
-                          <td><strong>Fecha de inicio incapacidad</strong></td>
-                          <td>{{f_fechaExpedicion.fechaExpedicion.value | date: 'dd/MM/yyyy 00:00:00' }}</td>
-                        </tr>
-                        <tr>
-                          <td><strong>Tipo y número de documento profesional</strong></td>
-                          <td>{{f_profesional.tipoDocumento.value}} &nbsp;{{f_profesional.numeroDocumento.value}}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="col-2"></div>
-                </div>
-                <div class="row">
-                    <div class="col text-center">
-                      <button (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
-                        &nbsp;
-                      <button (click)="expedirIncapacidadContingencia()" class="btn btn-round btn-high">Enviar</button>
-                   </div>  
-                </div> 
-            </div>
-
+      </div>
+    </div>
   </div>
+</div>

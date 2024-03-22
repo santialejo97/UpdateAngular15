@@ -1,4 +1,3 @@
-
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -9,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FooterComponent } from './layout/footer/footer.component';
 
@@ -30,7 +29,11 @@ import { ToastrModule } from 'ngx-toastr';
 import { ParametrosIncapacidadesService } from './services/parametros-incapacidades.service';
 import { NotificationesService } from './services/notificaciones.service';
 
-import { ErrorInterceptor, fakeBackendProvider, JwtInterceptor } from './helpers';
+import {
+  ErrorInterceptor,
+  fakeBackendProvider,
+  JwtInterceptor,
+} from './helpers';
 import { InformacionIncapacidadComponent } from './component/registrar-incapacidad/informacion-incapacidad/informacion-incapacidad.component';
 import { EditarPacienteComponent } from './component/editar-paciente/editar-paciente.component';
 import { ModalAlertaComponent } from './component/utilidades/modal-alerta/modal-alerta.component';
@@ -50,15 +53,15 @@ import { ListaIncapacidadesComponent } from './component/imprimir-incapacidad/li
 import { HomeLayoutComponent } from './layout/skeleton/home-layout.component';
 import { LoginLayoutComponent } from './layout/skeleton/login-layout.component';
 
-import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-  
+
 import { IConfig, provideEnvironmentNgxMask } from 'ngx-mask';
 import { ConsultarIncapacidadComponent } from './component/consultar-incapacidad/consultar-incapacidad.component';
 import { ModalConfirmarComponent } from './component/consultar-incapacidad/modal-confirmar/modal-confirmar.component';
 import { IncapacidadInformacionComponent } from './component/consultar-incapacidad/incapacidad-informacion/incapacidad-informacion.component';
-import { RegistrarPrestacionComponent } from './component/consultar-incapacidad/registrar-prestacion/registrar-prestacion.component'
+import { RegistrarPrestacionComponent } from './component/consultar-incapacidad/registrar-prestacion/registrar-prestacion.component';
 import { pagoIncapacidadComponent } from './component/pago-incapacidad/pago-incapacidad.component';
 import { listaPagoIncapacidadesComponent } from './component/pago-incapacidad/lista-incapacidades/lista-pago-incapacidades.component';
 import { InformacionPagoComponent } from './component/pago-incapacidad/informacion-pago/informacion-pago.component';
@@ -67,6 +70,8 @@ import { PerdidaCapacidadLaboralComponent } from './component/perdida-capacidad-
 
 import { ModalConfirmacionPCLComponent } from './component/perdida-capacidad-laboral/modal-confirmacion-pcl/modal-confirmacion-pcl.component';
 import { InformacionIncapacidadPCLComponent } from './component/perdida-capacidad-laboral/informacion-incapacidad-pcl/informacion-incapacidad-pcl.component';
+import { PlanContingenciaComponent } from './component/plan-contingencia/plan-contingencia.component';
+import { IncapacidadContingenciaComponent } from './component/incapacidad-contingencia/incapacidad-contingencia.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -111,28 +116,38 @@ const maskConfig: Partial<IConfig> = {
     ActualizacionDatosComponent,
     PerdidaCapacidadLaboralComponent,
     ModalConfirmacionPCLComponent,
-    InformacionIncapacidadPCLComponent
-    
+    InformacionIncapacidadPCLComponent,
+    PlanContingenciaComponent,
+    IncapacidadContingenciaComponent,
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule, 
-    //AngularFormsInputMasksModule, 
-    RouterModule, AppRoutingModule, BrowserAnimationsModule , NgbModule, ReactiveFormsModule,
-    AutocompleteLibModule, ToastrModule.forRoot(), NgxSpinnerModule,
-    MatDatepickerModule, MatNativeDateModule,
-    MatInputModule, 
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    //AngularFormsInputMasksModule,
+    RouterModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    NgbModule,
+    ReactiveFormsModule,
+    AutocompleteLibModule,
+    ToastrModule.forRoot(),
+    NgxSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
     //NgxMaskModule.forRoot(maskConfig)
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
-    provideEnvironmentNgxMask(maskConfig),//NgxMaskModule.forRoot(maskConfig)
-   
+    provideEnvironmentNgxMask(maskConfig), //NgxMaskModule.forRoot(maskConfig)
+
     ParametrosIncapacidadesService,
     NotificationesService,
     ServiciosIntegracionService,
     {
       provide: LocationStrategy,
-      useClass: PathLocationStrategy
+      useClass: PathLocationStrategy,
     },
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -140,9 +155,8 @@ const maskConfig: Partial<IConfig> = {
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     //{ provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
     // provider used to create fake backend
-    fakeBackendProvider
-    
+    fakeBackendProvider,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -14,62 +14,80 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-actualizacion-datos-contacto',
   templateUrl: './actualizacion-datos-contacto.component.html',
-  styleUrls: ['./actualizacion-datos-contacto.component.scss']
+  styleUrls: ['./actualizacion-datos-contacto.component.scss'],
 })
 export class ActualizacionDatosComponent implements OnInit {
-
   actualizacionForm!: FormGroup;
-  perfil2: IPerfilComple = JSON.parse(localStorage.getItem('complementario2')!) || '';
+  perfil2: IPerfilComple =
+    JSON.parse(localStorage.getItem('complementario2')!) || '';
   edit: boolean = false;
 
-  constructor(private formBuilder: FormBuilder,
-              private administradoraservice: AdministradoraService,
-              private notificacionService: NotificationesService,
-              private ngbModal: NgbModal,
-              private router: Router,
-              private Alertas: AlertasService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private administradoraservice: AdministradoraService,
+    private notificacionService: NotificationesService,
+    private ngbModal: NgbModal,
+    private router: Router,
+    private Alertas: AlertasService
+  ) {
     this.actualizacionForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       confirmEmail: ['', [Validators.required, Validators.email]],
       tipodoc: [''],
-      razon: ['']
+      razon: [''],
     });
   }
 
   ngOnInit() {
-    let datos: IPerfil = JSON.parse(localStorage.getItem('complementario')) || [];
+    let datos: IPerfil[] =
+      JSON.parse(localStorage.getItem('complementario') || '') || [];
     this.actualizacionForm.controls['tipodoc'].setValue(datos[0].nit);
     this.actualizacionForm.controls['razon'].setValue(datos[0].nombreEntidad);
-    this.confirm("“¿Desea cambiar los datos de contacto?”", "Actualizar").subscribe(valid=>{
+    this.confirm(
+      '“¿Desea cambiar los datos de contacto?”',
+      'Actualizar'
+    ).subscribe((valid) => {
       this.edit = valid;
-      if(!this.edit)
-        this.actualizacionForm.disable();
-      else
-        this.actualizacionForm.enable();
+      if (!this.edit) this.actualizacionForm.disable();
+      else this.actualizacionForm.enable();
 
       this.actualizacionForm.controls['tipodoc'].disable();
       this.actualizacionForm.controls['razon'].disable();
     });
-    
   }
 
   async onSubmit() {
-    if(this.checkEmailsMatch(this.actualizacionForm) != undefined){
-      await this.Alertas.alertaInformativa('Advertencia','Corrige el correo electrónico.','Cerrar');
+    if (this.checkEmailsMatch(this.actualizacionForm) != undefined) {
+      await this.Alertas.alertaInformativa(
+        'Advertencia',
+        'Corrige el correo electrónico.',
+        'Cerrar'
+      );
       return;
     }
 
-    if (this.actualizacionForm.valid && this.checkEmailsMatch(this.actualizacionForm) == undefined) {
+    if (
+      this.actualizacionForm.valid &&
+      this.checkEmailsMatch(this.actualizacionForm) == undefined
+    ) {
       let administradora = {
         cod_administradora: this.perfil2.idEntidad?.toString(),
-        correo_electronico: this.actualizacionForm.controls['email'].value
+        correo_electronico: this.actualizacionForm.controls['email'].value,
       };
-      
+
       const respuesta = await this.administradoraservice.put(administradora);
-      if(respuesta!.resultado == '0'){
-        await this.Alertas.alertaInformativa('Advertencia','No se pudo actualizar la información','Cerrar');
-      }else{
-        await this.Alertas.alertaInformativa('Advertencia','Datos de contacto actualizados exitosamente','Cerrar');
+      if (respuesta!.resultado == '0') {
+        await this.Alertas.alertaInformativa(
+          'Advertencia',
+          'No se pudo actualizar la información',
+          'Cerrar'
+        );
+      } else {
+        await this.Alertas.alertaInformativa(
+          'Advertencia',
+          'Datos de contacto actualizados exitosamente',
+          'Cerrar'
+        );
         this.back();
       }
     }
@@ -78,26 +96,27 @@ export class ActualizacionDatosComponent implements OnInit {
   checkEmailsMatch(group: FormGroup) {
     const email = group.get('email')!.value;
     const confirmEmail = group.get('confirmEmail')!.value;
-  
+
     return email === confirmEmail ? undefined : { emailMismatch: true };
   }
 
   confirm(prompt = 'Really?', title = 'Confirm'): Observable<boolean> {
-    const modal = this.ngbModal.open(
-      ConfirmDialogComponent, { backdrop: 'static' });
+    const modal = this.ngbModal.open(ConfirmDialogComponent, {
+      backdrop: 'static',
+    });
 
     modal.componentInstance.prompt = prompt;
     modal.componentInstance.title = title;
 
     return from(modal.result).pipe(
-      catchError(error => {
+      catchError((error) => {
         console.warn(error);
-        return of(undefined);
+        return of(false);
       })
     );
   }
 
-  back(){
+  back() {
     this.router.navigate(['/menu-principal']);
   }
 }

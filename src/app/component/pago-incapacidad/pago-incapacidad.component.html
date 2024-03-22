@@ -6,13 +6,13 @@
         <button class="step-trigger">
           <span class="bs-stepper-circle">1</span>
           <span class="bs-stepper-label">Consultar</span>
-        </button> 
+        </button>
       </div>
       <div class="step" data-target="#test-l-2">
         <button class="step-trigger">
           <span class="bs-stepper-circle">2</span>
           <span class="bs-stepper-label">Aportante</span>
-        </button> 
+        </button>
       </div>
       <div class="line"></div>
       <div class="step" data-target="#test-l-3">
@@ -37,376 +37,799 @@
       </div>
     </div>
     <div class="bs-stepper-content">
-      
-        <div id="test-l-1" class="content">
-          
-          <ngx-spinner name="spinnerCargaInicial" bdColor="rgba(0,0,0,0.05)" size="medium" color="#004884" type="ball-triangle-path" [fullScreen]="false">
-            <br><br><br><br><p style="color: #004884"> Cargando información inicial </p>
-          </ngx-spinner>
-          
-          <ngx-spinner name="spinnerConsultaIncapacidad" bdColor="rgba(0,0,0,0.05)" size="medium" color="#004884" type="ball-triangle-path" [fullScreen]="false">
-            <br><br><br><br><p style="color: #004884"> Cargando información... </p>
-          </ngx-spinner>
-          
-          <form [formGroup]="formPersonaIncapacidad" (ngSubmit)="buscarIncapacidadesAnteriores()" (keydown.enter)="$event.preventDefault()">
-          <br>
+      <div id="test-l-1" class="content">
+        <ngx-spinner
+          name="spinnerCargaInicial"
+          bdColor="rgba(0,0,0,0.05)"
+          size="medium"
+          color="#004884"
+          type="ball-triangle-path"
+          [fullScreen]="false"
+        >
+          <br /><br /><br /><br />
+          <p style="color: #004884">Cargando información inicial</p>
+        </ngx-spinner>
+
+        <ngx-spinner
+          name="spinnerConsultaIncapacidad"
+          bdColor="rgba(0,0,0,0.05)"
+          size="medium"
+          color="#004884"
+          type="ball-triangle-path"
+          [fullScreen]="false"
+        >
+          <br /><br /><br /><br />
+          <p style="color: #004884">Cargando información...</p>
+        </ngx-spinner>
+
+        <form
+          [formGroup]="formPersonaIncapacidad"
+          (ngSubmit)="buscarIncapacidadesAnteriores()"
+          (keydown.enter)="$event.preventDefault()"
+        >
+          <br />
           <h2 class="modal-title">Consulta por Información de la Persona</h2>
-          <br> 
+          <br />
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label >Tipo Documento</label>  
-                <select formControlName="tipoDocumento" class="form-control"  [ngClass]="{ 'is-invalid': submittedPago && f_personaIncapacidad.tipoDocumento.errors }">
-                    <option value=""></option> 
-                    <option *ngFor="let item of listaTipoDocumento" [ngValue]="item.cod_tipo_documento" >{{ item.descripcion }}</option>                  
+                <label>Tipo Documento</label>
+                <select
+                  formControlName="tipoDocumento"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formPersonaIncapacidad.get('tipoDocumento')?.errors
+                  }"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let item of listaTipoDocumento"
+                    [ngValue]="item.cod_tipo_documento"
+                  >
+                    {{ item.descripcion }}
+                  </option>
                 </select>
-                <div *ngIf="submittedPago && f_personaIncapacidad.tipoDocumento.errors" class="invalid-feedback">
-                    <div *ngIf="f_personaIncapacidad.tipoDocumento.errors.required">Tipo de documento es requerido</div>
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formPersonaIncapacidad.get('tipoDocumento')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="formPersonaIncapacidad.get('tipoDocumento')?.errors"
+                  >
+                    Tipo de documento es requerido
+                  </div>
                 </div>
-                
               </div>
             </div>
 
             <div class="col-md-6">
-                <div class="form-group">
-                    <label >Número Documento</label>
-                    <input type="text" class="form-control" formControlName="numeroDocumento" (change)="deshabilitarValidaciones()"
-                    [ngClass]="{ 'is-invalid': submittedPago && f_personaIncapacidad.numeroDocumento.errors }">                           
-                    <div *ngIf="submittedPago && f_personaIncapacidad.numeroDocumento.errors" class="invalid-feedback">
-                        <div *ngIf="f_personaIncapacidad.numeroDocumento.errors.required">Número de documento es requerido</div>
-                    </div>
+              <div class="form-group">
+                <label>Número Documento</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="numeroDocumento"
+                  (change)="deshabilitarValidaciones()"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formPersonaIncapacidad.get('numeroDocumento')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formPersonaIncapacidad.get('numeroDocumento')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      formPersonaIncapacidad.get('numeroDocumento')?.errors
+                    "
+                  >
+                    Número de documento es requerido
+                  </div>
                 </div>
-            </div>
-          </div>
-          <br> 
-          <h2 class="modal-title">Consulta por Número de Incapacidad</h2>
-          <br>
-          <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                    <label >Número de Incapacidad</label>
-                    <input type="text" class="form-control" formControlName="numeroIncapacidad" (change)="deshabilitarValidaciones()"
-                    [ngClass]="{ 'is-invalid': submittedPago && f_personaIncapacidad.numeroIncapacidad.errors }">           
-                    <div *ngIf="submittedPago && f_personaIncapacidad.numeroIncapacidad.errors" class="invalid-feedback">
-                        <div *ngIf="f_personaIncapacidad.numeroIncapacidad.errors.required">Número de incapacidad es requerido</div>
-                    </div>      
-                </div>
-              </div>       
-              <div class="col-md-6">
               </div>
-         </div>
-      
-         <div class="row">          
-              <div class="col text-center">                               
-                <!-- <button type="submit" class="btn btn-round btn-high">Siguiente  </button> -->
-                <button type="submit" class="btn btn-round btn-high">Siguiente</button>           
             </div>
-         </div>
-         <div class="row" *ngIf="mostrarResultados">
-          <br>&nbsp;
-          <br> 
-          <table class="table">
-            <tbody>
-              <tr>
-                <td><strong>Número</strong></td>
-                <td><strong>Fecha expedición</strong></td>
-                <td><strong>Fecha inicio</strong></td>
-                <td><strong>Fecha fin</strong></td>
-                <td></td>
-              </tr>
-              <tr *ngIf="listaIncapacidadesAnteriores.length == 0">
-                <td colspan="5" align="center">No existen registros</td>
-              </tr>
-              <tr *ngFor="let incapacidad of listaIncapacidadesAnteriores; let i = index">
-                <td>{{incapacidad.id_incapacidad}}</td>
-                <td>{{incapacidad.fecha_expedicion | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                <td>{{incapacidad.fecha_inicio | date: 'dd/MM/yyyy'}}</td>
-                <td>{{incapacidad.fecha_fin | date: 'dd/MM/yyyy'}}</td>
-                <td >
-                  <button class="btn btn-round btn-high" (click)="buscarInformeIncapacidad(i)">Consultar</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
           </div>
-          </form>
-        </div>
-
-        <div id="test-l-2" class="content">
-          <br>       
-          <form [formGroup]="formAportante" (ngSubmit)="validarDatosAportante()" (keydown.enter)="$event.preventDefault()">
-            <h2 class="modal-title">Aportante</h2>
-            <div class="row">
-              <br>
-                <div class="col-md-12">
-                  <div class="form-group-inline">
-                    <label></label>
-                    <div  class="form-group-inline">
-                      <label>Seleccionar un aportante</label>
-                      <div class="icon-display icon-form" id="icon-display-search-n" (click)="openModalAportantes()">
-                          <span class="govco-icon govco-icon-search-n"></span>
-                      </div>
-                    </div>                    
-                  </div>  
-                </div> 
-            </div> 
-            <div class="row"> 
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label >Tipo documento</label> 
-                      <input type="text" formControlName="tipoDocumentoAportante" class="form-control" [value]="f_aportante.tipoDocumentoAportante.value"
-                      [ngClass]="{ 'is-invalid': submittedPago && f_aportante.tipoDocumentoAportante.errors }" readonly/>
-                      <div *ngIf="submittedPago && f_aportante.tipoDocumentoAportante.errors" class="invalid-feedback">
-                        <div *ngIf="f_aportante.tipoDocumentoAportante.errors.required">El tipo documento de aportante es requerido</div> 
-                      </div>     
-                    </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Número documento</label>
-                    <div  class="form-group">
-                        <input type="text" formControlName="numeroDocumentoAportante" class="form-control" [value]="f_aportante.numeroDocumentoAportante.value"
-                              [ngClass]="{ 'is-invalid': submittedPago && f_aportante.numeroDocumentoAportante.errors }" readonly />
-                              <div *ngIf="submittedPago && f_aportante.numeroDocumentoAportante.errors" class="invalid-feedback">
-                                <div *ngIf="f_aportante.numeroDocumentoAportante.errors.required">El número documento de aportante es requerido</div> 
-                              </div> 
-                    </div>
+          <br />
+          <h2 class="modal-title">Consulta por Número de Incapacidad</h2>
+          <br />
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Número de Incapacidad</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="numeroIncapacidad"
+                  (change)="deshabilitarValidaciones()"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formPersonaIncapacidad.get('numeroIncapacidad')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formPersonaIncapacidad.get('numeroIncapacidad')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      formPersonaIncapacidad.get('numeroIncapacidad')?.errors
+                    "
+                  >
+                    Número de incapacidad es requerido
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Razón social</label>
-                    <div  class="form-group">
-                        <input type="text" formControlName="razonSocialAportante" class="form-control" [value]="f_aportante.razonSocialAportante.value" readonly />                             
-                    </div>
-                  </div>
-                </div>
+              </div>
             </div>
-            <div class="row">
-              <div class="col text-center">
-                <button (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
-              &nbsp;
-                <button type="submit" class="btn btn-round btn-high">Confirmar</button>
-             </div>  
-            </div> 
-          </form>
-        </div>     
-        
-      
-      <div id="test-l-3" class="content">
+            <div class="col-md-6"></div>
+          </div>
 
+          <div class="row">
+            <div class="col text-center">
+              <!-- <button type="submit" class="btn btn-round btn-high">Siguiente  </button> -->
+              <button type="submit" class="btn btn-round btn-high">
+                Siguiente
+              </button>
+            </div>
+          </div>
+          <div class="row" *ngIf="mostrarResultados">
+            <br />&nbsp;
+            <br />
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><strong>Número</strong></td>
+                  <td><strong>Fecha expedición</strong></td>
+                  <td><strong>Fecha inicio</strong></td>
+                  <td><strong>Fecha fin</strong></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="listaIncapacidadesAnteriores.length == 0">
+                  <td colspan="5" align="center">No existen registros</td>
+                </tr>
+                <tr
+                  *ngFor="
+                    let incapacidad of listaIncapacidadesAnteriores;
+                    let i = index
+                  "
+                >
+                  <td>{{ incapacidad.id_incapacidad }}</td>
+                  <td>
+                    {{
+                      incapacidad.fecha_expedicion
+                        | date : "dd/MM/yyyy HH:mm:ss"
+                    }}
+                  </td>
+                  <td>{{ incapacidad.fecha_inicio | date : "dd/MM/yyyy" }}</td>
+                  <td>{{ incapacidad.fecha_fin | date : "dd/MM/yyyy" }}</td>
+                  <td>
+                    <button
+                      class="btn btn-round btn-high"
+                      (click)="buscarInformeIncapacidad(i)"
+                    >
+                      Consultar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+
+      <div id="test-l-2" class="content">
+        <br />
+        <form
+          [formGroup]="formAportante"
+          (ngSubmit)="validarDatosAportante()"
+          (keydown.enter)="$event.preventDefault()"
+        >
+          <h2 class="modal-title">Aportante</h2>
+          <div class="row">
+            <br />
+            <div class="col-md-12">
+              <div class="form-group-inline">
+                <label></label>
+                <div class="form-group-inline">
+                  <label>Seleccionar un aportante</label>
+                  <div
+                    class="icon-display icon-form"
+                    id="icon-display-search-n"
+                    (click)="openModalAportantes()"
+                  >
+                    <span class="govco-icon govco-icon-search-n"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Tipo documento</label>
+                <input
+                  type="text"
+                  formControlName="tipoDocumentoAportante"
+                  class="form-control"
+                  [value]="formAportante.get('tipoDocumentoAportante')?.value"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formAportante.get('tipoDocumentoAportante')?.errors
+                  }"
+                  readonly
+                />
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formAportante.get('tipoDocumentoAportante')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="formAportante.get('tipoDocumentoAportante')?.errors"
+                  >
+                    El tipo documento de aportante es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Número documento</label>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    formControlName="numeroDocumentoAportante"
+                    class="form-control"
+                    [value]="
+                      formAportante.get('numeroDocumentoAportante')?.value
+                    "
+                    [ngClass]="{
+                      'is-invalid':
+                        submittedPago &&
+                        formAportante.get('numeroDocumentoAportante')?.errors
+                    }"
+                    readonly
+                  />
+                  <div
+                    *ngIf="
+                      submittedPago &&
+                      formAportante.get('numeroDocumentoAportante')?.errors
+                    "
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        formAportante.get('numeroDocumentoAportante')?.errors
+                      "
+                    >
+                      El número documento de aportante es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Razón social</label>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    formControlName="razonSocialAportante"
+                    class="form-control"
+                    [value]="formAportante.get('razonSocialAportante')?.value"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              <button (click)="goBack()" class="btn btn-round btn-high">
+                Regresar
+              </button>
+              &nbsp;
+              <button type="submit" class="btn btn-round btn-high">
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div id="test-l-3" class="content">
         <div class="container">
-          <app-lista-pago-incapacidades [pagoModelo]="incapacidadResumen"></app-lista-pago-incapacidades>
+          <app-lista-pago-incapacidades
+            [pagoModelo]="incapacidadResumen"
+          ></app-lista-pago-incapacidades>
         </div>
 
         <div class="row">
           <div class="col text-center">
-            <button (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
-          &nbsp;
-            <button (click)="next()" class="btn btn-round btn-high">Confirmar</button>
-         </div>  
-        </div> 
-        
-     
+            <button (click)="goBack()" class="btn btn-round btn-high">
+              Regresar
+            </button>
+            &nbsp;
+            <button (click)="next()" class="btn btn-round btn-high">
+              Confirmar
+            </button>
+          </div>
+        </div>
       </div>
-        
+
       <div id="test-l-4" class="content">
-          <br>
-          <h2 class="modal-title">Registrar Pago</h2>
-          <br>
-            <!-- <p>Form value: {{ formInformePagoIncapacidad.value | json }}</p> 
+        <br />
+        <h2 class="modal-title">Registrar Pago</h2>
+        <br />
+        <!-- <p>Form value: {{ formInformePagoIncapacidad.value | json }}</p> 
             <p>Form status: {{ formInformePagoIncapacidad.status | json }}</p>  -->
-          <form [formGroup]="formInformePagoIncapacidad" (ngSubmit)="validarDatosPago()" (keydown.enter)="$event.preventDefault()">
-              
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label >Fecha Radicación Incapacidad</label>
-                  <input type="text" formControlName="fechaRadicacionInc" class="form-control" readonly/>
-                </div> 
+        <form
+          [formGroup]="formInformePagoIncapacidad"
+          (ngSubmit)="validarDatosPago()"
+          (keydown.enter)="$event.preventDefault()"
+        >
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Fecha Radicación Incapacidad</label>
+                <input
+                  type="text"
+                  formControlName="fechaRadicacionInc"
+                  class="form-control"
+                  readonly
+                />
               </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label >Estado Incapacidad</label>
-                  <select formControlName="estadoPago" class="form-control" (change)="changeEstadoPago()" 
-                           [ngClass]="{ 'is-invalid': submittedPago && f_pago.estadoPago.errors }">
-                    <option value=""></option> 
-                    <option *ngFor="let item of listaEstadoPago" [ngValue]="item.id_estado_pago" >{{ item.descripcion }}</option>                  
-                  </select>
-                    <div *ngIf="submittedPago && f_pago.estadoPago.errors" class="invalid-feedback">
-                      <div *ngIf="f_pago.estadoPago.errors.required">Estado pago es requerido</div>
-                    </div>
-                </div> 
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label >Causal Glosa</label>
-                <select formControlName="causalGlosa" class="form-control"
-                                      [ngClass]="{ 'is-invalid': submittedPago && f_pago.causalGlosa.errors }">
-                  <option value=""></option> 
-                  <option *ngFor="let item of listaCausalGlosa" [ngValue]="item.id_causal_glosa" >{{ item.descripcion }}</option>                  
+                <label>Estado Incapacidad</label>
+                <select
+                  formControlName="estadoPago"
+                  class="form-control"
+                  (change)="changeEstadoPago()"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formInformePagoIncapacidad.get('estadoPago')?.errors
+                  }"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let item of listaEstadoPago"
+                    [ngValue]="item.id_estado_pago"
+                  >
+                    {{ item.descripcion }}
+                  </option>
                 </select>
-                <div *ngIf="submittedPago && f_pago.causalGlosa.errors" class="invalid-feedback">
-                    <div *ngIf="f_pago.causalGlosa.errors.required">Causal glosa es requerido</div>
-                </div>   
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formInformePagoIncapacidad.get('estadoPago')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="formInformePagoIncapacidad.get('estadoPago')?.errors"
+                  >
+                    Estado pago es requerido
+                  </div>
+                </div>
               </div>
             </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4">
-            <div class="form-group">
-              <label >Número Autorización</label>
-              <input type="text" formControlName="numeroAutorizacion" class="form-control"
-              [ngClass]="{ 'is-invalid': submittedPago && f_pago.numeroAutorizacion.errors }"/>  
-              <div *ngIf="submittedPago && f_pago.numeroAutorizacion.errors" class="invalid-feedback">
-                <div *ngIf="f_pago.numeroAutorizacion.errors.required">Número autorización es requerido</div>              
-            
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label >Tipos de Pago</label>
-              <select formControlName="tipoPago" class="form-control" 
-                      [ngClass]="{ 'is-invalid': submittedPago && f_pago.tipoPago.errors }">
-                <option value=""></option>    
-                <option *ngFor="let item of listaTipoPago" [ngValue]="item.id_tipo_pago" >{{ item.descripcion }}</option>            
-              </select>             
-              <div *ngIf="submittedPago && f_pago.tipoPago.errors" class="invalid-feedback">
-                <div *ngIf="f_pago.tipoPago.errors.required">Tipo pago es requerido</div>   
-              </div> 
-            </div>
-          </div>
-        <div class="col-md-4">
-            <div  class="form-group">
-              <label >Valor Pago Incapacidad</label>
-              <input type="text" formControlName="valorPago" class="form-control" [angularFormsMask]="['$DDD', '$D.DDD', '$DD.DDD', '$DDD.DDD', '$D.DDD.DDD', '$DD.DDD.DDD', '$DDD.DDD.DDD', '$D.DDD.DDD.DDD', '$DD.DDD.DDD.DDD', '$DDD.DDD.DDD.DDD']"
-                      [ngClass]="{ 'is-invalid': submittedPago && f_pago.valorPago.errors }"/>     
-              <div *ngIf="submittedPago && f_pago.valorPago.errors" class="invalid-feedback">
-                <div *ngIf="f_pago.valorPago.errors.required">Valor pago es requerido</div>      
-              </div>     
-            </div>
-        </div>    
-      </div>
-
-      <div class="row">                
-                  
-        <div class="col-md-4">
-          <div class="form-group">
-            <label >Fecha de Pago</label>
-            <input type="date" formControlName="fechaPago" class="form-control"
-                  [ngClass]="{ 'is-invalid': submittedPago && f_pago.fechaPago.errors }"/> 
-            <div *ngIf="submittedPago && f_pago.fechaPago.errors" class="invalid-feedback">
-              <div *ngIf="f_pago.fechaPago.errors.required">Fecha pago es requerida</div>               
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label >Días Pagados</label>
-            <input type="number" formControlName="diasPago" (keyup)="changeDiasPago()" (click)="changeDiasPago()" class="form-control"
-                    [ngClass]="{ 'is-invalid': submittedPago && f_pago.diasPago.errors }"/>
-                    <div *ngIf="submittedPago && f_pago.diasPago.errors" class="invalid-feedback">
-                      <div *ngIf="f_pago.diasPago.errors.required">Días pago es requerido</div>
-                    </div>                
-          </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group" *ngIf="tieneMenosdiasPago">
-              <label >Causal de Días</label>
-              <select formControlName="causalDiasPago" class="form-control" 
-                      [ngClass]="{ 'is-invalid': submittedPago && f_pago.causalDiasPago.errors }">
-                <option value=""></option>    
-                <option *ngFor="let item of listaCausalDias" [ngValue]="item.id_causal_dias" >{{ item.descripcion }}</option>    
-              </select>
-              <div *ngIf="submittedPago && f_pago.causalDiasPago.errors" class="invalid-feedback">
-                <div *ngIf="f_pago.causalDiasPago.errors.required">Estado Pago es requerido</div> 
-              </div>                
-            </div>
-          </div>
-        </div>
-
-        <div class="row">                
-          <div class="col-md-4">
+            <div class="col-md-4">
               <div class="form-group">
-                <label >Ingreso Base Cotización</label>
-                <input type="text" formControlName="ingresoBaseCotizacion"class="form-control" [angularFormsMask]="['$DDD', '$D.DDD', '$DD.DDD', '$DDD.DDD', '$D.DDD.DDD', '$DD.DDD.DDD', '$DDD.DDD.DDD', '$D.DDD.DDD.DDD', '$DD.DDD.DDD.DDD', '$DDD.DDD.DDD.DDD']"
-                      [ngClass]="{ 'is-invalid': submittedPago && f_pago.ingresoBaseCotizacion.errors }"/>                
-                      <div *ngIf="submittedPago && f_pago.ingresoBaseCotizacion.errors" class="invalid-feedback">
-                        <div *ngIf="f_pago.ingresoBaseCotizacion.errors.required">Ingreso base cotización es requerido</div>
-                      </div>  
+                <label>Causal Glosa</label>
+                <select
+                  formControlName="causalGlosa"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formInformePagoIncapacidad.get('causalGlosa')?.errors
+                  }"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let item of listaCausalGlosa"
+                    [ngValue]="item.id_causal_glosa"
+                  >
+                    {{ item.descripcion }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formInformePagoIncapacidad.get('causalGlosa')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      formInformePagoIncapacidad.get('causalGlosa')?.errors
+                    "
+                  >
+                    Causal glosa es requerido
+                  </div>
+                </div>
               </div>
-          </div>
-        </div>
-
-        <br>
-        <h2 class="modal-title">Aportante</h2>
-        <br>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group" >
-              <label >Tipo documento</label>
-              <select formControlName="tipoDocumentoAportante" class="form-control" 
-                      [ngClass]="{ 'is-invalid': submittedPago && f_pago.tipoDocumentoAportante.errors }">
-                <option value=""></option>    
-                <option *ngFor="let item of listaTipoDocumento" [ngValue]="item.cod_tipo_documento" >{{ item.descripcion }}</option>  
-              </select>
-              <div *ngIf="submittedPago && f_pago.tipoDocumentoAportante.errors" class="invalid-feedback">
-                <div *ngIf="f_pago.tipoDocumentoAportante.errors.required">Tipo documento es requerido</div> 
-              </div>                
             </div>
           </div>
-  
-          <div class="col-md-6">
-            <div class="form-group">
-              <label >Número documento</label>
-              <input type="text" formControlName="numeroDocumentoAportante"class="form-control" 
-                    [ngClass]="{ 'is-invalid': submittedPago && f_pago.numeroDocumentoAportante.errors }"/>                
-                    <div *ngIf="submittedPago && f_pago.numeroDocumentoAportante.errors" class="invalid-feedback">
-                      <div *ngIf="f_pago.numeroDocumentoAportante.errors.required">Número documento es requerido</div>
-                    </div>  
-            </div>
-        </div>
-      </div>
-      
-      <div class="row">
-        <div class="col text-center">
-          <button (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
-          &nbsp;
-          <button class="btn btn-round btn-high">Enviar</button>
-        </div>  
-      </div> 
-             
 
-          </form>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Número Autorización</label>
+                <input
+                  type="text"
+                  formControlName="numeroAutorizacion"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formInformePagoIncapacidad.get('numeroAutorizacion')
+                        ?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formInformePagoIncapacidad.get('numeroAutorizacion')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      formInformePagoIncapacidad.get('numeroAutorizacion')
+                        ?.errors
+                    "
+                  >
+                    Número autorización es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Tipos de Pago</label>
+                <select
+                  formControlName="tipoPago"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formInformePagoIncapacidad.get('tipoPago')?.errors
+                  }"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let item of listaTipoPago"
+                    [ngValue]="item.id_tipo_pago"
+                  >
+                    {{ item.descripcion }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formInformePagoIncapacidad.get('tipoPago')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="formInformePagoIncapacidad.get('tipoPago')?.errors"
+                  >
+                    Tipo pago es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Valor Pago Incapacidad</label>
+                <input
+                  type="text"
+                  formControlName="valorPago"
+                  class="form-control"
+                  mask="separator.2"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formInformePagoIncapacidad.get('valorPago')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formInformePagoIncapacidad.get('valorPago')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="formInformePagoIncapacidad.get('valorPago')?.errors"
+                  >
+                    Valor pago es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Fecha de Pago</label>
+                <input
+                  type="date"
+                  formControlName="fechaPago"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formInformePagoIncapacidad.get('fechaPago')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formInformePagoIncapacidad.get('fechaPago')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="formInformePagoIncapacidad.get('fechaPago')?.errors"
+                  >
+                    Fecha pago es requerida
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Días Pagados</label>
+                <input
+                  type="number"
+                  formControlName="diasPago"
+                  (keyup)="changeDiasPago()"
+                  (click)="changeDiasPago()"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formInformePagoIncapacidad.get('diasPago')?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formInformePagoIncapacidad.get('diasPago')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="formInformePagoIncapacidad.get('diasPago')?.errors"
+                  >
+                    Días pago es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group" *ngIf="tieneMenosdiasPago">
+                <label>Causal de Días</label>
+                <select
+                  formControlName="causalDiasPago"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formInformePagoIncapacidad.get('causalDiasPago')?.errors
+                  }"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let item of listaCausalDias"
+                    [ngValue]="item.id_causal_dias"
+                  >
+                    {{ item.descripcion }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formInformePagoIncapacidad.get('causalDiasPago')?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      formInformePagoIncapacidad.get('causalDiasPago')?.errors
+                    "
+                  >
+                    Estado Pago es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Ingreso Base Cotización</label>
+                <input
+                  type="text"
+                  formControlName="ingresoBaseCotizacion"
+                  class="form-control"
+                  mask="separator.2"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formInformePagoIncapacidad.get('ingresoBaseCotizacion')
+                        ?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formInformePagoIncapacidad.get('ingresoBaseCotizacion')
+                      ?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      formInformePagoIncapacidad.get('ingresoBaseCotizacion')
+                        ?.errors
+                    "
+                  >
+                    Ingreso base cotización es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br />
+          <h2 class="modal-title">Aportante</h2>
+          <br />
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Tipo documento</label>
+                <select
+                  formControlName="tipoDocumentoAportante"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formInformePagoIncapacidad.get('tipoDocumentoAportante')
+                        ?.errors
+                  }"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let item of listaTipoDocumento"
+                    [ngValue]="item.cod_tipo_documento"
+                  >
+                    {{ item.descripcion }}
+                  </option>
+                </select>
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formInformePagoIncapacidad.get('tipoDocumentoAportante')
+                      ?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      formInformePagoIncapacidad.get('tipoDocumentoAportante')
+                        ?.errors
+                    "
+                  >
+                    Tipo documento es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Número documento</label>
+                <input
+                  type="text"
+                  formControlName="numeroDocumentoAportante"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      submittedPago &&
+                      formInformePagoIncapacidad.get('numeroDocumentoAportante')
+                        ?.errors
+                  }"
+                />
+                <div
+                  *ngIf="
+                    submittedPago &&
+                    formInformePagoIncapacidad.get('numeroDocumentoAportante')
+                      ?.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      formInformePagoIncapacidad.get('numeroDocumentoAportante')
+                        ?.errors
+                    "
+                  >
+                    Número documento es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col text-center">
+              <button (click)="goBack()" class="btn btn-round btn-high">
+                Regresar
+              </button>
+              &nbsp;
+              <button class="btn btn-round btn-high">Enviar</button>
+            </div>
+          </div>
+        </form>
       </div>
-      
+
       <div id="test-l-5" class="content">
-      
         <div class="container">
-
           <div class="row" *ngIf="registroExitoso">
             <div class="col text-center">
-                <h5 style="color:green;">Registro de pago de incapacidad guardado con éxito!</h5>
+              <h5 style="color: green">
+                Registro de pago de incapacidad guardado con éxito!
+              </h5>
             </div>
           </div>
-          <br>
-          <app-informacion-pago [pagoIn]="pagoModel"></app-informacion-pago> 
+          <br />
+          <app-informacion-pago [pagoIn]="pagoModel"></app-informacion-pago>
         </div>
 
         <div class="row">
           <div class="col text-center" *ngIf="!registroExitoso">
-            <button (click)="goBack()" class="btn btn-round btn-high">Regresar</button>
+            <button (click)="goBack()" class="btn btn-round btn-high">
+              Regresar
+            </button>
             &nbsp;
-            <button (click)="guardarPago()" class="btn btn-round btn-high" >Confirmar</button>
-         </div>  
-         <div class="col text-center" *ngIf="registroExitoso">
-          <button type="button" class="btn btn-round btn-high" (click)="refresh()">Nueva registro</button>
-       </div>  
-        </div> 
+            <button (click)="guardarPago()" class="btn btn-round btn-high">
+              Confirmar
+            </button>
+          </div>
+          <div class="col text-center" *ngIf="registroExitoso">
+            <button
+              type="button"
+              class="btn btn-round btn-high"
+              (click)="refresh()"
+            >
+              Nueva registro
+            </button>
+          </div>
+        </div>
       </div>
-
     </div>
   </div>
 </div>

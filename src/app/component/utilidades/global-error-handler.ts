@@ -11,54 +11,52 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
-
   baseUrlSIIN = environment.baseSiteSIIN;
-  
-  constructor(private injector: Injector, private router: Router) { }
-  
+
+  constructor(private injector: Injector, private router: Router) {}
+
   handleError(error: Error | HttpErrorResponse) {
     const errorService = this.injector.get(ErrorService);
     const logger = this.injector.get(LoggingService);
     const notifier = this.injector.get(NotificationesService);
 
-    
-
     let message;
-    let stackTrace;
+    let stackTrace: string = '';
     if (error instanceof HttpErrorResponse) {
       // Server error
       message = errorService.getServerErrorMessage(error);
       //stackTrace = errorService.getServerErrorStackTrace(error);
-      notifier.showError('','Error en el servidor');
-
+      notifier.showError('', 'Error en el servidor');
     } else {
       // Client Error
 
-      //if(error.message.includes('401 Unauthorized')){ 
-      if(error.message.includes('"code_error_1":"481"')){ 
-        
-          message = errorService.getClientErrorMessage(error);
-          notifier.showErrorAuthorization('No Autorizado','El tiempo de la sesión ha terminado, Debe ingresar nuevamente <a href="/'+ this.baseUrlSIIN + '/account/login" class="breadcrumb-text">Login</a>');
-          
-          localStorage.removeItem('usuario');
-          localStorage.removeItem('perfil');
-          localStorage.removeItem('complementario');
-          localStorage.removeItem('complementario2');
-          localStorage.removeItem('rutas');
-          //this.router.navigate(['/account/login']);
-          
-      }else{
+      //if(error.message.includes('401 Unauthorized')){
+      if (error.message.includes('"code_error_1":"481"')) {
+        message = errorService.getClientErrorMessage(error);
+        notifier.showErrorAuthorization(
+          'No Autorizado',
+          'El tiempo de la sesión ha terminado, Debe ingresar nuevamente <a href="/' +
+            this.baseUrlSIIN +
+            '/account/login" class="breadcrumb-text">Login</a>'
+        );
 
-      //  error.
-      //   if (error1.status === 405) {
-      //     alert('e 405')
-      //   }
+        localStorage.removeItem('usuario');
+        localStorage.removeItem('perfil');
+        localStorage.removeItem('complementario');
+        localStorage.removeItem('complementario2');
+        localStorage.removeItem('rutas');
+        //this.router.navigate(['/account/login']);
+      } else {
+        //  error.
+        //   if (error1.status === 405) {
+        //     alert('e 405')
+        //   }
         console.log('error');
         console.log(error);
         message = errorService.getClientErrorMessage(error);
-        console.log(message)
-        if(!error.message.includes('Unauthorized'))
-        notifier.showError('','Error en la aplicación');
+        console.log(message);
+        if (!error.message.includes('Unauthorized'))
+          notifier.showError('', 'Error en la aplicación');
       }
     }
     // Always log errors

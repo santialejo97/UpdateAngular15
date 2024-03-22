@@ -5,19 +5,13 @@ import { IPacienteModel } from 'src/app/models/paciente.model';
 @Component({
   selector: 'app-informacion-paciente',
   templateUrl: './informacion-paciente.component.html',
-  styleUrls: ['./informacion-paciente.component.scss']
+  styleUrls: ['./informacion-paciente.component.scss'],
 })
 export class InformacionPacienteComponent implements OnInit {
+  @Input() public incapacidad!: IIncapacidad;
+  @Input() public pacienteIn!: IPacienteModel;
 
-  @Input() public incapacidad: IIncapacidad;
-  @Input() public pacienteIn: IPacienteModel;
-
-
-  
-  constructor() { 
-
-  }
-
+  constructor() {}
 
   ngOnInit() {
     // console.log('info Incapacidad')
@@ -25,6 +19,4 @@ export class InformacionPacienteComponent implements OnInit {
     // console.log('info paciente')
     // console.log(this.pacienteIn)
   }
-
-
 }

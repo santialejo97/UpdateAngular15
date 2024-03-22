@@ -4,23 +4,15 @@ import { IPerdidaCapacidadLaboral } from 'src/app/models/PerdidaCapacidadLaboral
 @Component({
   selector: 'app-informacion-incapacidad-pcl',
   templateUrl: './informacion-incapacidad-pcl.component.html',
-  styleUrls: ['./informacion-incapacidad-pcl.component.scss']
+  styleUrls: ['./informacion-incapacidad-pcl.component.scss'],
 })
 export class InformacionIncapacidadPCLComponent implements OnInit {
+  @Input() public pcl_data!: IPerdidaCapacidadLaboral;
 
-  @Input() public pcl_data: IPerdidaCapacidadLaboral;
-
-  constructor() { 
-    
-  }
+  constructor() {}
 
   ngOnInit() {
-     console.log('info pcl')
-      console.log(this.pcl_data)
+    console.log('info pcl');
+    console.log(this.pcl_data);
   }
-
-  
-
 }
-
-

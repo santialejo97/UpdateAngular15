@@ -1,9 +1,21 @@
-import { Component, Input, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import Stepper from 'bs-stepper';
 // import * as incapacidadModel from 'src/app/Models/incapacidad.model';
 import { ParametrosIncapacidadesService } from 'src/app/services/parametros-incapacidades.service';
-import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms'; //listaDocumento
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  Validators,
+} from '@angular/forms'; //listaDocumento
 import { Observable } from 'rxjs'; //listaDocumento
 import { AlertasService } from 'src/app/services/alertas.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,10 +29,9 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-modal-detalle-incapacidad',
   templateUrl: './concepto-rehabilitacion.component.html',
-  styleUrls: ['./concepto-rehabilitacion.component.scss']
+  styleUrls: ['./concepto-rehabilitacion.component.scss'],
 })
 export class ConceptoRehabilitacionComponent implements OnInit {
-
   listaTipoDocumento: any;
   listaConceptoRehabilitacion: any;
 
@@ -34,7 +45,7 @@ export class ConceptoRehabilitacionComponent implements OnInit {
   perfil1: any;
   usuarioLogin: any;
   conceptoExistente: any;
-  numeroConcepto: '';
+  numeroConcepto: string = '';
   pacienteGet: any;
 
   paciente: any;
@@ -47,10 +58,10 @@ export class ConceptoRehabilitacionComponent implements OnInit {
   submittedConcepto = false;
 
   submittedIncapacidad = false;
-  variasIncapacidades: boolean;
+  variasIncapacidades!: boolean;
 
   incapacidadBase: any;
-  listIncapacidades: any[] = []
+  listIncapacidades: any[] = [];
 
   incapacidadSeleccionada: any;
 
@@ -65,7 +76,7 @@ export class ConceptoRehabilitacionComponent implements OnInit {
   formConsultaIncapacidad: FormGroup;
   formConceptoRehabilitacion: FormGroup;
   formIncapacidadConcepto: FormGroup;
-/*  incapacidadForm: FormGroup;*/
+  /*  incapacidadForm: FormGroup;*/
 
   diagnosticos: any;
   origen: any;
@@ -77,17 +88,17 @@ export class ConceptoRehabilitacionComponent implements OnInit {
   optionModalidadIntramural: any;
   optionRetroActivaSi: any;
   /*  mensajeAnulacion: string;*/
-  
 
   optionsModal: NgbModalOptions = {
     size: 'lg',
     backdrop: 'static',
-    backdropClass: "light-blue-backdrop",
+    backdropClass: 'light-blue-backdrop',
     windowClass: 'dark-modal',
-    centered: true
+    centered: true,
   };
 
-  constructor(private cd: ChangeDetectorRef,
+  constructor(
+    private cd: ChangeDetectorRef,
     private fb: FormBuilder,
     private parametrosIncapacidadesServiceIn: ParametrosIncapacidadesService,
     private modal: NgbModal,
@@ -95,16 +106,14 @@ export class ConceptoRehabilitacionComponent implements OnInit {
     private spinnerService: NgxSpinnerService,
     private modalService: NgbModal,
     private Alertas: AlertasService
-
   ) {
-
     this.parametrosIncapacidadesService = parametrosIncapacidadesServiceIn;
 
     this.formConsultaIncapacidad = this.fb.group({
-/*      numeroIncapacidad: ['', Validators.required],*/
+      /*      numeroIncapacidad: ['', Validators.required],*/
       tipoDocumentoId: ['', Validators.required],
-      numeroDocumento: ['', Validators.required]
-    })
+      numeroDocumento: ['', Validators.required],
+    });
 
     this.formConceptoRehabilitacion = this.fb.group({
       conceptoRehabilitacion: ['', Validators.required],
@@ -113,13 +122,13 @@ export class ConceptoRehabilitacionComponent implements OnInit {
       /*campos: [''],*/
       fecha_emision_concepto: [''],
       tipoDocumentoId: ['', Validators.required],
-      numeroDocumento: ['', Validators.required]
-    })
+      numeroDocumento: ['', Validators.required],
+    });
 
     this.formIncapacidadConcepto = this.fb.group({
       /*incapacidadConcepto: ['', Validators.required]*/
-      incapacidadConcepto: ['']
-    })
+      incapacidadConcepto: [''],
+    });
 
     this.paciente = {
       primerNombre: '',
@@ -128,8 +137,8 @@ export class ConceptoRehabilitacionComponent implements OnInit {
       SegundoApellido: '',
       numeroIncapacidad: '',
       tipoDocumento: '',
-      numeroDocumento: ''
-    }
+      numeroDocumento: '',
+    };
 
     this.conceptoRegistro = {
       id_incapacidad: '',
@@ -146,11 +155,11 @@ export class ConceptoRehabilitacionComponent implements OnInit {
       nombre_entidad_registra: '',
       id_doc_medico_registra: '',
       numero_doc_medico_registra: '',
-      nombres_medico_registra: ''
-    }
+      nombres_medico_registra: '',
+    };
   }
 
-  private stepper: Stepper;
+  private stepper!: Stepper;
 
   ngAfterViewInit() {
     this.cd.detectChanges();
@@ -162,10 +171,10 @@ export class ConceptoRehabilitacionComponent implements OnInit {
 
   ngOnInit() {
     this.spinnerService.show('spinnerCargaInicial');
-    this.stepper = new Stepper(document.querySelector('#stepper1'), {
+    this.stepper = new Stepper(document.querySelector('#stepper1')!, {
       linear: false,
-      animation: true
-    })
+      animation: true,
+    });
 
     this.variasIncapacidades = false;
 
@@ -175,7 +184,7 @@ export class ConceptoRehabilitacionComponent implements OnInit {
   next() {
     this.stepper.next();
   }
-  
+
   //calcularFechaFinal() {
 
   //}
@@ -184,12 +193,18 @@ export class ConceptoRehabilitacionComponent implements OnInit {
     this.ngOnInit();
   }
 
-  get f_persona() { return this.formConsultaIncapacidad.controls; }
-  get f_conceptoRehabilitacion() { return this.formConceptoRehabilitacion.controls; }
+  get f_persona() {
+    return this.formConsultaIncapacidad.controls;
+  }
+  get f_conceptoRehabilitacion() {
+    return this.formConceptoRehabilitacion.controls;
+  }
 
-  get f_incapacidad() { return this.formIncapacidadConcepto.controls; }
+  get f_incapacidad() {
+    return this.formIncapacidadConcepto.controls;
+  }
 
-  async buscarIncapacidad(contenidoIncapacidad) {
+  async buscarIncapacidad(contenidoIncapacidad: any) {
     try {
       this.variasIncapacidades = false;
       this.spinnerService.show('spinnerCargaAnulacion');
@@ -201,32 +216,40 @@ export class ConceptoRehabilitacionComponent implements OnInit {
       }
 
       this.pacienteGet = {
-        tipo_documento: this.formConsultaIncapacidad.get('tipoDocumentoId')?.value,
-        numero_documento: this.formConsultaIncapacidad.get('numeroDocumento')?.value
-      }
+        tipo_documento:
+          this.formConsultaIncapacidad.get('tipoDocumentoId')?.value,
+        numero_documento:
+          this.formConsultaIncapacidad.get('numeroDocumento')?.value,
+      };
 
-
-      this.conceptoExistente = await this.parametrosIncapacidadesService.postDataIncapacidad('/ConceptoRehabilitacion/ConsultarCRPorPaciente', this.pacienteGet);
+      this.conceptoExistente =
+        await this.parametrosIncapacidadesService.postDataIncapacidad(
+          '/ConceptoRehabilitacion/ConsultarCRPorPaciente',
+          this.pacienteGet
+        );
       console.log(this.conceptoExistente);
 
-      this.incapacidadesResult = await this.parametrosIncapacidadesService.postDataIncapacidad('/ConceptoRehabilitacion/ConsultaIncapacidadCR', this.pacienteGet);
-      console.log(this.incapacidadesResult)
-      console.log(this.listIncapacidades)
+      this.incapacidadesResult =
+        await this.parametrosIncapacidadesService.postDataIncapacidad(
+          '/ConceptoRehabilitacion/ConsultaIncapacidadCR',
+          this.pacienteGet
+        );
+      console.log(this.incapacidadesResult);
+      console.log(this.listIncapacidades);
 
       if (this.incapacidadesResult.length > 1) {
         this.variasIncapacidades = true;
 
         this.formIncapacidadConcepto = this.fb.group({
-          incapacidadConcepto: ['', Validators.required]
-        })
+          incapacidadConcepto: ['', Validators.required],
+        });
       }
       //if (this.incapacidadVerificada == true) {
       //  this.next();
       //}
       this.validarIncapacidad(contenidoIncapacidad);
       this.spinnerService.hide('spinnerCargaAnulacion');
-    }
-    catch {
+    } catch {
       this.spinnerService.hide('spinnerCargaAnulacion');
     }
   }
@@ -241,82 +264,96 @@ export class ConceptoRehabilitacionComponent implements OnInit {
         return;
       }
       this.spinnerService.hide('spinnerCargaAnulacion');
-      let idIncapacidadSeleccionada = this.formIncapacidadConcepto.get('incapacidadConcepto')?.value
+      let idIncapacidadSeleccionada = this.formIncapacidadConcepto.get(
+        'incapacidadConcepto'
+      )?.value;
       this.incapacidadSeleccionada = this.listIncapacidades.filter(
-        o => (o.id_incapacidad == idIncapacidadSeleccionada));
+        (o) => o.id_incapacidad == idIncapacidadSeleccionada
+      );
       //console.log(this.incapacidadSeleccionada);
-
-    }
-    else {
+    } else {
       this.incapacidadSeleccionada = this.listIncapacidades;
     }
-    this.fechaMin = this.incapacidadSeleccionada[0].fecha_inicio
+    this.fechaMin = this.incapacidadSeleccionada[0].fecha_inicio;
 
-    console.log(this.fechaMin)
+    console.log(this.fechaMin);
 
     this.next();
   }
 
   async abrirModalDetalleIncapacidad(modeloIncapacidad: IIncapacidad) {
-    console.log(modeloIncapacidad)
-    const modalRef = this.modalService.open(ModalDetalleIncapacidadCRComponent, this.optionsModal);
-    modalRef.componentInstance.incapacidadIn = { name: '', id: 0, 'incapacidad_data': modeloIncapacidad/*, 'paciente_data': this.pacienteIn */};
+    console.log(modeloIncapacidad);
+    const modalRef = this.modalService.open(
+      ModalDetalleIncapacidadCRComponent,
+      this.optionsModal
+    );
+    modalRef.componentInstance.incapacidadIn = {
+      name: '',
+      id: 0,
+      incapacidad_data:
+        modeloIncapacidad /*, 'paciente_data': this.pacienteIn */,
+    };
     modalRef.result.then(async (result) => {
-      console.log(result)
-
-    }
-      );
-    
+      console.log(result);
+    });
   }
 
   async validarFechaEmision() {
-    let fechaConcepto = new Date(this.formConceptoRehabilitacion.get('fecha_emision_concepto')?.value)
-    let diff = (fechaConcepto.getTime() + 1) - new Date(this.fechaMin).getTime()
+    let fechaConcepto = new Date(
+      this.formConceptoRehabilitacion.get('fecha_emision_concepto')?.value
+    );
+    let diff = fechaConcepto.getTime() + 1 - new Date(this.fechaMin).getTime();
     //se obtiene diferencia en días
     diff = Math.round(diff / (1000 * 60 * 60 * 24));
-    console.log(diff)
+    console.log(diff);
 
     if (diff > 120) {
-      await this.Alertas.alertaInformativa('Advertencia', 'La diferencia entre la fecha de inicio de la incapacidad y la fecha de emisión es mayor a 120 días (' + diff + ')', 'Cerrar');
+      await this.Alertas.alertaInformativa(
+        'Advertencia',
+        'La diferencia entre la fecha de inicio de la incapacidad y la fecha de emisión es mayor a 120 días (' +
+          diff +
+          ')',
+        'Cerrar'
+      );
     }
-
   }
 
-
-  async validarIncapacidad(contenidoIncapacidad) {
+  async validarIncapacidad(contenidoIncapacidad: any) {
     try {
       this.spinnerService.show('spinnerCargaAnulacion');
-    if (this.incapacidadesResult.length == 0) {
-     /* this.mensajeModalCuerpo = 'El paciente ingresado No tiene incapacidades a las que se les pueda generar un Concepto de Rehabilitación'*/
-      this.incapacidadVerificada = false;
-      await this.Alertas.alertaInformativa('Advertencia', 'El paciente ingresado No tiene incapacidades a las que se les pueda generar un Concepto de Rehabilitación', 'Cerrar');
-      /*this.listaMensajeModal = [];*/
-      /*this.openModalMensaje(contenidoIncapacidad)*/
-    }
-    else {
-      if (this.conceptoExistente?.numero_concepto != null) {
-        this.mensajeModalCuerpo = 'Este paciente ya tiene un Concepto de Rehabilitación:'
-        this.conceptoExistente.fecha_emision = this.conceptoExistente.fecha_emision.substring(0, 10);
-        this.conceptoExistente.fecha_registro = this.conceptoExistente.fecha_registro.substring(0, 10);
-/*        event.preventDefault();*/
-        this.modal.open(contenidoIncapacidad);
-      }
-      else {
-        this.formConsultaIncapacidad.reset();
-        this.next()
-      }
-      this.poblarIncapacidades();
-
+      if (this.incapacidadesResult.length == 0) {
+        /* this.mensajeModalCuerpo = 'El paciente ingresado No tiene incapacidades a las que se les pueda generar un Concepto de Rehabilitación'*/
+        this.incapacidadVerificada = false;
+        await this.Alertas.alertaInformativa(
+          'Advertencia',
+          'El paciente ingresado No tiene incapacidades a las que se les pueda generar un Concepto de Rehabilitación',
+          'Cerrar'
+        );
+        /*this.listaMensajeModal = [];*/
+        /*this.openModalMensaje(contenidoIncapacidad)*/
+      } else {
+        if (this.conceptoExistente?.numero_concepto != null) {
+          this.mensajeModalCuerpo =
+            'Este paciente ya tiene un Concepto de Rehabilitación:';
+          this.conceptoExistente.fecha_emision =
+            this.conceptoExistente.fecha_emision.substring(0, 10);
+          this.conceptoExistente.fecha_registro =
+            this.conceptoExistente.fecha_registro.substring(0, 10);
+          /*        event.preventDefault();*/
+          this.modal.open(contenidoIncapacidad);
+        } else {
+          this.formConsultaIncapacidad.reset();
+          this.next();
+        }
+        this.poblarIncapacidades();
       }
       this.spinnerService.hide('spinnerCargaAnulacion');
-    }
-    catch {
+    } catch {
       this.spinnerService.hide('spinnerCargaAnulacion');
     }
   }
 
   async poblarIncapacidades() {
-
     this.paciente = {
       primerNombre: this.incapacidadesResult[0][0]?.primer_nombre_pac,
       segundoNombre: this.incapacidadesResult[0][0]?.segundo_nombre_pac,
@@ -324,9 +361,16 @@ export class ConceptoRehabilitacionComponent implements OnInit {
       segundoApellido: this.incapacidadesResult[0][0]?.segundo_apellido_pac,
       numeroIncapacidad: this.incapacidadesResult[0][0]?.id_incapacidad,
       tipoDocumento: this.incapacidadesResult[0][0]?.tipo_documento_pac,
-      numeroDocumento: this.incapacidadesResult[0][0]?.numero_documento_pac
-    }
-    this.diagnosticos = this.incapacidadesResult[0][0]?.diagnostico?.cod_diagnostico + "-" + this.incapacidadesResult[0][0]?.diagnosticoRelacionUno?.cod_diag_relacion_uno + "-" + this.incapacidadesResult[0][0]?.diagnosticoRelacionDos?.cod_diag_relacion_dos
+      numeroDocumento: this.incapacidadesResult[0][0]?.numero_documento_pac,
+    };
+    this.diagnosticos =
+      this.incapacidadesResult[0][0]?.diagnostico?.cod_diagnostico +
+      '-' +
+      this.incapacidadesResult[0][0]?.diagnosticoRelacionUno
+        ?.cod_diag_relacion_uno +
+      '-' +
+      this.incapacidadesResult[0][0]?.diagnosticoRelacionDos
+        ?.cod_diag_relacion_dos;
     this.origen = this.incapacidadesResult[0][0]?.origen;
 
     this.incapacidadBase = {
@@ -345,7 +389,7 @@ export class ConceptoRehabilitacionComponent implements OnInit {
       },
       fecha_inicio: '',
       fecha_fin: '',
-    }
+    };
     //se limpia el array de listIncapacidades
     this.listIncapacidades.length = 0;
 
@@ -357,17 +401,23 @@ export class ConceptoRehabilitacionComponent implements OnInit {
           descripcion: this.incapacidadesResult[i][0]?.diagnostico.descripcion,
         },
         diagnostico_relacion_uno: {
-          codigo: this.incapacidadesResult[i][0]?.diagnosticoRelacionUno?.cod_diag_relacion_uno,
-          descripcion: this.incapacidadesResult[i][0]?.diagnosticoRelacionUno?.descripcion,
+          codigo:
+            this.incapacidadesResult[i][0]?.diagnosticoRelacionUno
+              ?.cod_diag_relacion_uno,
+          descripcion:
+            this.incapacidadesResult[i][0]?.diagnosticoRelacionUno?.descripcion,
         },
         diagnostico_relacion_dos: {
-          codigo: this.incapacidadesResult[i][0]?.diagnosticoRelacionDos?.cod_diag_relacion_dos,
-          descripcion: this.incapacidadesResult[i][0]?.diagnosticoRelacionDos?.descripcion,
+          codigo:
+            this.incapacidadesResult[i][0]?.diagnosticoRelacionDos
+              ?.cod_diag_relacion_dos,
+          descripcion:
+            this.incapacidadesResult[i][0]?.diagnosticoRelacionDos?.descripcion,
         },
         fecha_inicio: this.incapacidadesResult[i][0]?.fecha_inicio,
         fecha_fin: this.incapacidadesResult[i][0]?.fecha_fin,
-      }
-      this.listIncapacidades.push(this.incapacidadBase)
+      };
+      this.listIncapacidades.push(this.incapacidadBase);
     }
   }
 
@@ -384,12 +434,11 @@ export class ConceptoRehabilitacionComponent implements OnInit {
     //  numeroDocumento: this.conceptoExistente?.numero_doc_medico_emite
 
     //})
-
   }
 
   //openModalMensaje(contenidoIncapacidad) {
   //  console.log("x3")
-    
+
   //  console.log("x4")
   //}
 
@@ -400,60 +449,83 @@ export class ConceptoRehabilitacionComponent implements OnInit {
         id_incapacidad: this.incapacidadSeleccionada[0].id_incapacidad,
         tipo_documento_pac: this.paciente.tipoDocumento,
         numero_documento_pac: this.paciente.numeroDocumento,
-        concepto_rehabilitacion: this.resumenConceptoRehabilitacion.concepto_rehabilitacion,
+        concepto_rehabilitacion:
+          this.resumenConceptoRehabilitacion.concepto_rehabilitacion,
         numero_concepto: this.resumenConceptoRehabilitacion.numero_concepto,
         observaciones: this.resumenConceptoRehabilitacion.observaciones,
         fecha_emision: this.resumenConceptoRehabilitacion.fecha_emision,
-        id_doc_medico_emite: this.resumenConceptoRehabilitacion.id_doc_medico_emite,
-        numero_doc_medico_emite: this.resumenConceptoRehabilitacion.numero_doc_medico_emite,
+        id_doc_medico_emite:
+          this.resumenConceptoRehabilitacion.id_doc_medico_emite,
+        numero_doc_medico_emite:
+          this.resumenConceptoRehabilitacion.numero_doc_medico_emite,
         id_entidad_registra: 'nit',
         numero_doc_entidad_registra: this.perfilEntidad[0].nit,
         nombre_entidad_registra: this.perfilEntidad[0].nombreEntidad,
         id_doc_medico_registra: this.usuarioLogin.tipoDocumento,
         numero_doc_medico_registra: this.usuarioLogin.numeroDocumento,
-        nombres_medico_registra: this.usuarioLogin.primerNombre + " " +this.usuarioLogin.primerApellido
-      }
+        nombres_medico_registra:
+          this.usuarioLogin.primerNombre +
+          ' ' +
+          this.usuarioLogin.primerApellido,
+      };
 
-      this.ConceptoResult = await this.parametrosIncapacidadesService.postDataIncapacidad('/ConceptoRehabilitacion/GuardarConceptoRehabilitacion', this.conceptoRegistro);
+      this.ConceptoResult =
+        await this.parametrosIncapacidadesService.postDataIncapacidad(
+          '/ConceptoRehabilitacion/GuardarConceptoRehabilitacion',
+          this.conceptoRegistro
+        );
 
- /*     console.log("df");*/
+      /*     console.log("df");*/
       if (this.ConceptoResult.id_registro_concepto) {
-        this.conceptoRegistrado = true
+        this.conceptoRegistrado = true;
         /*await this.Alertas.alertaInformativa('Advertencia', result.mensaje, 'Cerrar');*/
         /*return;*/
       }
       this.next();
       console.log(this.ConceptoResult);
 
-      this.modal.dismissAll()
+      this.modal.dismissAll();
       this.spinnerService.hide('spinnerCargaAnulacion');
-    }
-    catch {
-        this.spinnerService.hide('spinnerCargaAnulacion');
+    } catch {
+      this.spinnerService.hide('spinnerCargaAnulacion');
     }
   }
 
-  
-   
-  async openModalCR(contenido) {
+  async openModalCR(contenido: any) {
     this.submittedConcepto = true;
 
     this.medico = {
-      tipo_documento: this.formConceptoRehabilitacion.get('tipoDocumentoId').value,
-      numero_documento: this.formConceptoRehabilitacion.get('numeroDocumento').value,
-    }
-    if (this.medico.tipo_documento != '' && this.medico.numero_documento != '') {
-      this.medicoResult = await this.parametrosIncapacidadesService.postDataIncapacidad('/ConsultaMedico/ConsultaMedicoRethus', this.medico);
+      tipo_documento:
+        this.formConceptoRehabilitacion.get('tipoDocumentoId')?.value,
+      numero_documento:
+        this.formConceptoRehabilitacion.get('numeroDocumento')?.value,
+    };
+    if (
+      this.medico.tipo_documento != '' &&
+      this.medico.numero_documento != ''
+    ) {
+      this.medicoResult =
+        await this.parametrosIncapacidadesService.postDataIncapacidad(
+          '/ConsultaMedico/ConsultaMedicoRethus',
+          this.medico
+        );
 
       if (this.medicoResult?.medico_encontrado != true) {
-        await this.Alertas.alertaInformativa('Error', 'Profesional de la Salud NO está registrado en Rethus', 'Cerrar');
-        this.f_conceptoRehabilitacion.tipoDocumentoId.setValue('');
-        this.f_conceptoRehabilitacion.numeroDocumento.setValue('');
+        await this.Alertas.alertaInformativa(
+          'Error',
+          'Profesional de la Salud NO está registrado en Rethus',
+          'Cerrar'
+        );
+        this.formConceptoRehabilitacion.get('tipoDocumentoId')?.setValue('');
+        this.formConceptoRehabilitacion.get('numeroDocumento')?.setValue('');
         this.medicoValidado = false;
-      }
-      else {
+      } else {
         this.medicoValidado = true;
-        await this.Alertas.alertaInformativa('Succes', 'Profesional de la Salud está registrado en Rethus', 'Cerrar');
+        await this.Alertas.alertaInformativa(
+          'Succes',
+          'Profesional de la Salud está registrado en Rethus',
+          'Cerrar'
+        );
       }
     }
     console.log(this.medicoResult);
@@ -462,28 +534,41 @@ export class ConceptoRehabilitacionComponent implements OnInit {
     }
 
     // stop here if form is invalid
-    if (this.formConceptoRehabilitacion.invalid || this.medicoValidado != true) {
-      console.log("invva")
+    if (
+      this.formConceptoRehabilitacion.invalid ||
+      this.medicoValidado != true
+    ) {
+      console.log('invva');
       return;
     }
 
-
-    let valueConceptoRehabilitacion = this.formConceptoRehabilitacion.get('conceptoRehabilitacion')?.value;
+    let valueConceptoRehabilitacion = this.formConceptoRehabilitacion.get(
+      'conceptoRehabilitacion'
+    )?.value;
     console.log(valueConceptoRehabilitacion);
-    let concepto = this.listaConceptoRehabilitacion.find(i => i.id_concepto_rehabilitacion == valueConceptoRehabilitacion);
+    let concepto = this.listaConceptoRehabilitacion.find(
+      (i: any) => i.id_concepto_rehabilitacion == valueConceptoRehabilitacion
+    );
     console.log(concepto);
 
-    this.resumenConceptoRehabilitacion =  {
+    this.resumenConceptoRehabilitacion = {
       /*numeroIncapacidad: this.formConsultaIncapacidad.get('numeroIncapacidad')?.value,*/
-      fecha_emision: this.formConceptoRehabilitacion.get('fecha_emision_concepto')?.value,
-      concepto_rehabilitacion: /*this.formConceptoRehabilitacion.get('conceptoRehabilitacion')?.value*/concepto,
-      numero_concepto: this.formConceptoRehabilitacion.get('numeroConcepto')?.value,
-      observaciones: this.formConceptoRehabilitacion.get('observaciones')?.value,
-      id_doc_medico_emite: this.formConceptoRehabilitacion.get('tipoDocumentoId')?.value,
-      numero_doc_medico_emite: this.formConceptoRehabilitacion.get('numeroDocumento')?.value
+      fecha_emision: this.formConceptoRehabilitacion.get(
+        'fecha_emision_concepto'
+      )?.value,
+      concepto_rehabilitacion:
+        /*this.formConceptoRehabilitacion.get('conceptoRehabilitacion')?.value*/ concepto,
+      numero_concepto:
+        this.formConceptoRehabilitacion.get('numeroConcepto')?.value,
+      observaciones:
+        this.formConceptoRehabilitacion.get('observaciones')?.value,
+      id_doc_medico_emite:
+        this.formConceptoRehabilitacion.get('tipoDocumentoId')?.value,
+      numero_doc_medico_emite:
+        this.formConceptoRehabilitacion.get('numeroDocumento')?.value,
       /*numero_documento_pac: this.formConsultaIncapacidad.get('numeroDocumento')?.value*/
-    }
-     this.modal.open(contenido, { size: 'xl' });
+    };
+    this.modal.open(contenido, { size: 'xl' });
   }
 
   goBack() {
@@ -494,28 +579,37 @@ export class ConceptoRehabilitacionComponent implements OnInit {
     location.href = 'incapacidades/concepto-rehabilitacion';
   }
 
-
   reExpedir() {
-    location.href = 'incapacidades/registrar-incapacidad/' + this.numeroIncapacidad;
-}
+    location.href =
+      'incapacidades/registrar-incapacidad/' + this.numeroIncapacidad;
+  }
 
   async cargarListas() {
-    this.listaTipoDocumento = await this.parametrosIncapacidadesService.get('/tipodocumento');
-    this.listaConceptoRehabilitacion = await this.parametrosIncapacidadesService.getIncapacidad('/ConceptoRehabilitacionList');
+    this.listaTipoDocumento = await this.parametrosIncapacidadesService.get(
+      '/tipodocumento'
+    );
+    this.listaConceptoRehabilitacion =
+      await this.parametrosIncapacidadesService.getIncapacidad(
+        '/ConceptoRehabilitacionList'
+      );
     //this.listaCausaAnulacion = await this.parametrosIncapacidadesService.get('/CausaAnulacion');
 
-    let item1 = this.listaConceptoRehabilitacion.find(i => i.id_concepto_rehabilitacion === 1);
+    let item1 = this.listaConceptoRehabilitacion.find(
+      (i: any) => i.id_concepto_rehabilitacion === 1
+    );
     console.log(item1.descripcion);
 
-    const perfil2: IPerfilComple = JSON.parse(localStorage.getItem('complementario2')) || '';
+    const perfil2: IPerfilComple =
+      JSON.parse(localStorage.getItem('complementario2')!) || '';
     this.perfilUbicacion = perfil2;
     console.log(this.perfilUbicacion);
 
-    const perfil1: IPerfil = JSON.parse(localStorage.getItem('complementario')) || '';
+    const perfil1: IPerfil =
+      JSON.parse(localStorage.getItem('complementario')!) || '';
     this.perfilEntidad = perfil1;
     console.log(this.perfilEntidad);
-    
-    const user = JSON.parse(localStorage.getItem('usuario'));
+
+    const user = JSON.parse(localStorage.getItem('usuario')!);
     this.usuarioLogin = user;
     console.log(this.usuarioLogin);
 
@@ -523,5 +617,4 @@ export class ConceptoRehabilitacionComponent implements OnInit {
 
     this.spinnerService.hide('spinnerCargaInicial');
   }
-
 }
